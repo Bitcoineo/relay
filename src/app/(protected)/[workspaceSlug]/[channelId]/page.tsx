@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { getChannelById } from "@/lib/channels";
+import { getChannelById, getWorkspaceChannels } from "@/lib/channels";
 import { getWorkspaceBySlug } from "@/lib/workspaces";
 import { getWorkspaceMembers } from "@/lib/members";
+import { hasPermission } from "@/lib/permissions";
 import ChannelChat from "./channel-chat";
 
 export default async function ChannelPage({
@@ -17,7 +18,15 @@ export default async function ChannelPage({
   if (!channel) redirect(`/${params.workspaceSlug}`);
 
   const { data: workspace } = await getWorkspaceBySlug(params.workspaceSlug);
-  const { data: members } = await getWorkspaceMembers(workspace!.id);
+  if (!workspace) redirect("/workspaces");
+
+  const [{ data: members }, adminPerm, ownerPerm, { data: allChannels }] =
+    await Promise.all([
+      getWorkspaceMembers(workspace.id),
+      hasPermission(session.user.id, workspace.id, "admin"),
+      hasPermission(session.user.id, workspace.id, "owner"),
+      getWorkspaceChannels(workspace.id, session.user.id, true),
+    ]);
 
   return (
     <ChannelChat
@@ -33,6 +42,13 @@ export default async function ChannelPage({
         avatarColor: m.user.avatarColor,
         status: m.user.status,
       }))}
+      isArchived={channel.archived === 1}
+      isAdmin={!!adminPerm}
+      isOwner={!!ownerPerm}
+      isDefault={channel.isDefault === 1}
+      channels={(allChannels ?? [])
+        .filter((c) => c.archived === 0)
+        .map((c) => ({ id: c.id, name: c.name }))}
     />
   );
 }

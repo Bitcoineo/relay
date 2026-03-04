@@ -5,6 +5,7 @@ import {
   primaryKey,
   uniqueIndex,
   index,
+  type AnySQLiteColumn,
 } from "drizzle-orm/sqlite-core";
 import { relations } from "drizzle-orm";
 import { nanoid } from "nanoid";
@@ -25,6 +26,11 @@ export const users = sqliteTable("user", {
   status: text("status", { enum: ["online", "offline", "idle"] })
     .notNull()
     .default("offline"),
+  bio: text("bio"),
+  profileImage: text("profileImage"),
+  websiteUrl: text("websiteUrl"),
+  githubUrl: text("githubUrl"),
+  twitterUrl: text("twitterUrl"),
 });
 
 export const accounts = sqliteTable(
@@ -122,6 +128,7 @@ export const channels = sqliteTable("channel", {
   name: text("name").notNull(),
   description: text("description"),
   isDefault: integer("isDefault").notNull().default(0),
+  archived: integer("archived").notNull().default(0),
   createdBy: text("createdBy")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
@@ -161,6 +168,18 @@ export const messages = sqliteTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     content: text("content").notNull(),
+    replyToId: text("replyToId").references(
+      (): AnySQLiteColumn => messages.id,
+      { onDelete: "set null" }
+    ),
+    forwardedFromChannelId: text("forwardedFromChannelId").references(
+      () => channels.id,
+      { onDelete: "set null" }
+    ),
+    forwardedFromUserId: text("forwardedFromUserId").references(
+      () => users.id,
+      { onDelete: "set null" }
+    ),
     createdAt: text("createdAt")
       .notNull()
       .$defaultFn(() => new Date().toISOString()),
@@ -185,6 +204,32 @@ export const mentions = sqliteTable("mention", {
     .references(() => users.id, { onDelete: "cascade" }),
   notified: integer("notified").notNull().default(0),
 });
+
+export const reactions = sqliteTable(
+  "reaction",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => nanoid()),
+    messageId: text("messageId")
+      .notNull()
+      .references(() => messages.id, { onDelete: "cascade" }),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    emoji: text("emoji").notNull(),
+    createdAt: text("createdAt")
+      .notNull()
+      .$defaultFn(() => new Date().toISOString()),
+  },
+  (r) => ({
+    uniqueReaction: uniqueIndex("reaction_unique").on(
+      r.messageId,
+      r.userId,
+      r.emoji
+    ),
+  })
+);
 
 export const workspaceInvites = sqliteTable("workspace_invite", {
   id: text("id")
@@ -237,6 +282,8 @@ export const usersRelations = relations(users, ({ many }) => ({
   channelMemberships: many(channelMembers),
   messages: many(messages),
   mentions: many(mentions),
+  reactions: many(reactions),
+  forwardedMessages: many(messages, { relationName: "forwardedByUser" }),
 }));
 
 export const workspacesRelations = relations(workspaces, ({ one, many }) => ({
@@ -274,6 +321,7 @@ export const channelsRelations = relations(channels, ({ one, many }) => ({
   }),
   members: many(channelMembers),
   messages: many(messages),
+  forwardedMessages: many(messages, { relationName: "forwardedMessages" }),
 }));
 
 export const channelMembersRelations = relations(channelMembers, ({ one }) => ({
@@ -297,6 +345,23 @@ export const messagesRelations = relations(messages, ({ one, many }) => ({
     references: [users.id],
   }),
   mentions: many(mentions),
+  reactions: many(reactions),
+  replyTo: one(messages, {
+    fields: [messages.replyToId],
+    references: [messages.id],
+    relationName: "messageReplies",
+  }),
+  replies: many(messages, { relationName: "messageReplies" }),
+  forwardedFromChannel: one(channels, {
+    fields: [messages.forwardedFromChannelId],
+    references: [channels.id],
+    relationName: "forwardedMessages",
+  }),
+  forwardedFromUser: one(users, {
+    fields: [messages.forwardedFromUserId],
+    references: [users.id],
+    relationName: "forwardedByUser",
+  }),
 }));
 
 export const mentionsRelations = relations(mentions, ({ one }) => ({
@@ -306,6 +371,17 @@ export const mentionsRelations = relations(mentions, ({ one }) => ({
   }),
   user: one(users, {
     fields: [mentions.userId],
+    references: [users.id],
+  }),
+}));
+
+export const reactionsRelations = relations(reactions, ({ one }) => ({
+  message: one(messages, {
+    fields: [reactions.messageId],
+    references: [messages.id],
+  }),
+  user: one(users, {
+    fields: [reactions.userId],
     references: [users.id],
   }),
 }));

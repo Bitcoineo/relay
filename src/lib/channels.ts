@@ -1,4 +1,4 @@
-import { eq, and } from "drizzle-orm";
+import { eq, and, ne } from "drizzle-orm";
 import { db } from "@/db";
 import { channels, channelMembers } from "@/db/schema";
 
@@ -47,7 +47,8 @@ export async function createChannel(
 
 export async function getWorkspaceChannels(
   workspaceId: string,
-  userId: string
+  userId: string,
+  includeArchived: boolean = false
 ): Promise<Result<Array<typeof channels.$inferSelect>>> {
   const memberships = await db.query.channelMembers.findMany({
     where: eq(channelMembers.userId, userId),
@@ -56,7 +57,8 @@ export async function getWorkspaceChannels(
 
   const result = memberships
     .map((m) => m.channel)
-    .filter((c) => c.workspaceId === workspaceId);
+    .filter((c) => c.workspaceId === workspaceId)
+    .filter((c) => includeArchived || c.archived === 0);
 
   return { data: result, error: null };
 }
@@ -134,4 +136,102 @@ export async function deleteChannel(
   await db.delete(channels).where(eq(channels.id, channelId));
 
   return { data: { deleted: true }, error: null };
+}
+
+export async function updateChannel(
+  channelId: string,
+  data: { name?: string; description?: string | null }
+): Promise<Result<typeof channels.$inferSelect>> {
+  const channel = await db.query.channels.findFirst({
+    where: eq(channels.id, channelId),
+  });
+  if (!channel) {
+    return { data: null, error: "Channel not found" };
+  }
+
+  const updates: Partial<typeof channels.$inferInsert> = {};
+
+  if (data.name !== undefined) {
+    const trimmed = data.name.trim().toLowerCase().replace(/\s+/g, "-");
+    if (!trimmed || trimmed.length < 2) {
+      return { data: null, error: "Channel name must be at least 2 characters" };
+    }
+    // Check for duplicate name in workspace
+    const existing = await db.query.channels.findFirst({
+      where: and(
+        eq(channels.workspaceId, channel.workspaceId),
+        eq(channels.name, trimmed),
+        ne(channels.id, channelId)
+      ),
+    });
+    if (existing) {
+      return { data: null, error: "A channel with this name already exists" };
+    }
+    updates.name = trimmed;
+  }
+
+  if (data.description !== undefined) {
+    updates.description = data.description || null;
+  }
+
+  const [updated] = await db
+    .update(channels)
+    .set(updates)
+    .where(eq(channels.id, channelId))
+    .returning();
+
+  return { data: updated, error: null };
+}
+
+export async function setChannelDefault(
+  channelId: string,
+  workspaceId: string
+): Promise<Result<{ updated: boolean }>> {
+  // Unset old default
+  await db
+    .update(channels)
+    .set({ isDefault: 0 })
+    .where(
+      and(eq(channels.workspaceId, workspaceId), eq(channels.isDefault, 1))
+    );
+
+  // Set new default
+  await db
+    .update(channels)
+    .set({ isDefault: 1 })
+    .where(eq(channels.id, channelId));
+
+  return { data: { updated: true }, error: null };
+}
+
+export async function archiveChannel(
+  channelId: string
+): Promise<Result<{ archived: boolean }>> {
+  const channel = await db.query.channels.findFirst({
+    where: eq(channels.id, channelId),
+  });
+  if (!channel) {
+    return { data: null, error: "Channel not found" };
+  }
+  if (channel.isDefault === 1) {
+    return { data: null, error: "Cannot archive the default channel" };
+  }
+
+  await db
+    .update(channels)
+    .set({ archived: 1 })
+    .where(eq(channels.id, channelId));
+
+  return { data: { archived: true }, error: null };
+}
+
+export async function unarchiveChannel(
+  channelId: string
+): Promise<Result<{ archived: boolean }>> {
+  await db
+    .update(channels)
+    .set({ archived: 0 })
+    .where(eq(channels.id, channelId));
+
+  return { data: { archived: false }, error: null };
 }

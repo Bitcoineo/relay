@@ -25,7 +25,8 @@ export default async function WorkspaceLayout({
 
   const { data: channels } = await getWorkspaceChannels(
     workspace.id,
-    session.user.id
+    session.user.id,
+    true
   );
 
   const isAdmin = !!(await hasPermission(
@@ -58,6 +59,7 @@ export default async function WorkspaceLayout({
             id: c.id,
             name: c.name,
             isDefault: c.isDefault === 1,
+            archived: c.archived === 1,
           }))}
           isAdmin={isAdmin}
           userName={session.user.name || session.user.email || "User"}

@@ -67,7 +67,9 @@ nextApp.prepare().then(async () => {
   const { users, channelMembers, workspaceMembers } = await import(
     "./src/db/schema"
   );
-  const { createMessage } = await import("./src/lib/messages");
+  const { createMessage, forwardMessage } = await import("./src/lib/messages");
+  const { toggleReaction } = await import("./src/lib/reactions");
+  const { replaceShortcodes } = await import("./src/lib/emoji");
   const { mentions } = await import("./src/db/schema");
   const { channels: channelsTable } = await import("./src/db/schema");
   const { sendMentionNotification } = await import("./src/lib/email");
@@ -167,16 +169,23 @@ nextApp.prepare().then(async () => {
 
     socket.on(
       "send_message",
-      async (data: { channelId: string; content: string }) => {
+      async (data: {
+        channelId: string;
+        content: string;
+        replyToId?: string;
+      }) => {
         if (!(await isChannelMember(userId, data.channelId))) {
           socket.emit("error", { message: "Not a member of this channel" });
           return;
         }
 
+        const processedContent = replaceShortcodes(data.content);
+
         const result = await createMessage(
           data.channelId,
           userId,
-          data.content
+          processedContent,
+          data.replyToId
         );
 
         if (result.error) {
@@ -244,6 +253,79 @@ nextApp.prepare().then(async () => {
             }
           }
         }
+      }
+    );
+
+    // ─── send_reaction ──────────────────────────────────────────
+
+    socket.on(
+      "send_reaction",
+      async (data: { channelId: string; messageId: string; emoji: string }) => {
+        if (!(await isChannelMember(userId, data.channelId))) {
+          socket.emit("error", { message: "Not a member of this channel" });
+          return;
+        }
+
+        const result = await toggleReaction(
+          data.messageId,
+          userId,
+          data.emoji
+        );
+
+        if (result.error) {
+          socket.emit("error", { message: result.error });
+          return;
+        }
+
+        const user = await db.query.users.findFirst({
+          where: eq(users.id, userId),
+          columns: { name: true },
+        });
+
+        io.to(data.channelId).emit("reaction_update", {
+          messageId: data.messageId,
+          emoji: data.emoji,
+          userId,
+          userName: user?.name || "Someone",
+          action: result.data!.action,
+        });
+      }
+    );
+
+    // ─── forward_message ──────────────────────────────────────────
+
+    socket.on(
+      "forward_message",
+      async (data: {
+        messageId: string;
+        fromChannelId: string;
+        toChannelId: string;
+      }) => {
+        if (!(await isChannelMember(userId, data.fromChannelId))) {
+          socket.emit("error", {
+            message: "Not a member of the source channel",
+          });
+          return;
+        }
+        if (!(await isChannelMember(userId, data.toChannelId))) {
+          socket.emit("error", {
+            message: "Not a member of the target channel",
+          });
+          return;
+        }
+
+        const result = await forwardMessage(
+          data.messageId,
+          data.toChannelId,
+          userId
+        );
+
+        if (result.error) {
+          socket.emit("error", { message: result.error });
+          return;
+        }
+
+        io.to(data.toChannelId).emit("new_message", result.data);
       }
     );
 
