@@ -80,7 +80,7 @@ export default function WorkspaceList({
         </p>
         <button
           onClick={() => setShowForm(true)}
-          className="mt-6 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
+          className="mt-6 rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
         >
           Create workspace
         </button>
@@ -95,7 +95,7 @@ export default function WorkspaceList({
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
+            className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
           >
             Create workspace
           </button>
@@ -129,7 +129,7 @@ export default function WorkspaceList({
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
+            className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97] disabled:opacity-50"
           >
             {loading ? "Creating..." : "Create"}
           </button>
@@ -140,7 +140,7 @@ export default function WorkspaceList({
               setError("");
               setName("");
             }}
-            className="rounded-md border border-[var(--border)] px-4 py-2.5 text-sm text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
+            className="rounded-full border border-[var(--border)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-secondary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
           >
             Cancel
           </button>

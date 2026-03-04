@@ -104,7 +104,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="rounded-md border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
+              className="rounded-full border border-[var(--border)] px-4 py-1.5 text-sm font-medium text-[var(--text-primary)] transition-all duration-150 hover:bg-[var(--bg-secondary)]"
             >
               Upload
             </button>
@@ -207,7 +207,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           type="button"
           onClick={handleSave}
           disabled={saving}
-          className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
+          className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97] disabled:opacity-50"
         >
           {saving ? "Saving..." : "Save changes"}
         </button>

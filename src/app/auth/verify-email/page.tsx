@@ -126,7 +126,7 @@ function VerifyEmailContent() {
       <button
         onClick={handleResend}
         disabled={resendDisabled}
-        className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-3 text-base font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+        className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:scale-[1.02] hover:shadow-lg active:scale-[0.97] text-[var(--text-inverse)] rounded-full px-4 py-2.5 text-[15px] font-medium transition-all duration-150 disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
       >
         {cooldown > 0
           ? `Wait ${cooldown}s`

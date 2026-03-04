@@ -84,7 +84,7 @@ export default function InviteAction({
           <p className="mt-1 text-sm text-[var(--text-secondary)]">{error || "This invite has expired or doesn't exist."}</p>
           <Link
             href={isLoggedIn ? "/workspaces" : "/auth/signin"}
-            className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
+            className="mt-6 inline-block rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
           >
             {isLoggedIn ? "Go to workspaces" : "Sign in"}
           </Link>
@@ -103,7 +103,7 @@ export default function InviteAction({
           </h1>
           <Link
             href={isLoggedIn ? "/workspaces" : "/auth/signin"}
-            className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
+            className="mt-6 inline-block rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
           >
             {isLoggedIn ? "Go to workspaces" : "Sign in"}
           </Link>
@@ -121,7 +121,7 @@ export default function InviteAction({
           <p className="mt-1 text-sm text-[var(--text-secondary)]">You declined the invite to {invite.workspace.name}.</p>
           <Link
             href="/workspaces"
-            className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
+            className="mt-6 inline-block rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
           >
             Go to workspaces
           </Link>
@@ -143,7 +143,7 @@ export default function InviteAction({
             </p>
             <Link
               href={`/auth/signin?callbackUrl=/invite/${token}`}
-              className="mt-6 inline-block w-full rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
+              className="mt-6 inline-block w-full rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
             >
               Sign in to accept this invite
             </Link>
@@ -172,7 +172,7 @@ export default function InviteAction({
             </p>
             <Link
               href={`/auth/signin?callbackUrl=/invite/${token}`}
-              className="mt-4 inline-block rounded-md border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-secondary)]"
+              className="mt-4 inline-block rounded-full border border-[var(--border)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-primary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
             >
               Switch account
             </Link>
@@ -200,14 +200,14 @@ export default function InviteAction({
             <button
               onClick={handleDecline}
               disabled={loading}
-              className="flex-1 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-secondary)] disabled:opacity-50"
+              className="flex-1 rounded-full border border-[var(--border)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-secondary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] disabled:opacity-50"
             >
               Decline
             </button>
             <button
               onClick={handleAccept}
               disabled={loading}
-              className="flex-1 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)] disabled:opacity-50"
+              className="flex-1 rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97] disabled:opacity-50"
             >
               {loading ? "..." : "Join workspace"}
             </button>

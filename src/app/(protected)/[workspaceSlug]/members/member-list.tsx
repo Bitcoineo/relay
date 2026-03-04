@@ -142,7 +142,7 @@ export default function MemberList({
           {!showInvite ? (
             <button
               onClick={() => setShowInvite(true)}
-              className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
+              className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
             >
               Invite
             </button>
@@ -176,7 +176,7 @@ export default function MemberList({
                 <button
                   type="submit"
                   disabled={inviteLoading}
-                  className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
+                  className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97] disabled:opacity-50"
                 >
                   {inviteLoading ? "Sending..." : "Send invite"}
 
@@ -188,7 +188,7 @@ export default function MemberList({
                     setInviteError("");
                     setInviteLink("");
                   }}
-                  className="rounded-md border border-[var(--border)] px-4 py-2.5 text-sm text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
+                  className="rounded-full border border-[var(--border)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-secondary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
                 >
                   Cancel
                 </button>
@@ -207,7 +207,7 @@ export default function MemberList({
                     </code>
                     <button
                       onClick={() => copyToClipboard(inviteLink)}
-                      className="rounded bg-[var(--accent)] px-3 py-1 text-xs font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)]"
+                      className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)]"
                     >
                       Copy link
                     </button>
@@ -249,7 +249,7 @@ export default function MemberList({
                 </div>
                 <button
                   onClick={() => handleCancelInvite(invite.id)}
-                  className="rounded px-3 py-1.5 text-sm text-[var(--danger)] transition-all duration-150 hover:bg-[var(--danger-light)] active:scale-[0.97]"
+                  className="rounded-full px-3 py-1.5 text-sm text-[var(--danger)] transition-all duration-150 hover:bg-[var(--danger-light)] active:scale-[0.97]"
                 >
                   Cancel
                 </button>
@@ -333,13 +333,13 @@ export default function MemberList({
                           <button
                             onClick={() => handleRemoveMember(m.id)}
                             disabled={removingId === m.id}
-                            className="rounded bg-[var(--danger)] px-2 py-1 text-xs font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--danger-hover)] active:scale-[0.97] disabled:opacity-50"
+                            className="rounded-full bg-[var(--danger)] px-4 py-1.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--danger-hover)] active:scale-[0.97] disabled:opacity-50"
                           >
                             {removingId === m.id ? "..." : "Confirm"}
                           </button>
                           <button
                             onClick={() => setConfirmRemoveId(null)}
-                            className="rounded px-2 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]"
+                            className="rounded-full px-3 py-1.5 text-sm text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--bg-tertiary)]"
                           >
                             Cancel
                           </button>

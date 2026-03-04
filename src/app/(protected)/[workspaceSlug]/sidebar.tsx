@@ -117,7 +117,7 @@ export default function Sidebar({
       {/* Mobile hamburger button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="fixed left-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--bg-primary)] shadow-sm md:hidden"
+        className="fixed left-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--bg-primary)] shadow-sm transition-all duration-150 hover:bg-[var(--bg-tertiary)] md:hidden"
       >
         <svg
           className="h-4 w-4 text-[var(--text-primary)]"
@@ -260,7 +260,7 @@ export default function Sidebar({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="rounded bg-[var(--accent)] px-2 py-1 text-xs font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
+                  className="rounded-full bg-[var(--accent)] px-3 py-1 text-xs font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] disabled:opacity-50"
                 >
                   {loading ? "..." : "Create"}
                 </button>
@@ -271,7 +271,7 @@ export default function Sidebar({
                     setChannelName("");
                     setError("");
                   }}
-                  className="rounded px-2 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--border)]"
+                  className="rounded-full px-3 py-1 text-xs text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--border)]"
                 >
                   Cancel
                 </button>

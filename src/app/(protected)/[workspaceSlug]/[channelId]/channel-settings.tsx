@@ -135,7 +135,7 @@ export default function ChannelSettings({
                 type="button"
                 onClick={handleSave}
                 disabled={saving}
-                className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
+                className="rounded-full bg-[var(--accent)] px-4 py-1.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] disabled:opacity-50"
               >
                 {saving ? "Saving..." : "Save changes"}
               </button>
@@ -199,14 +199,14 @@ export default function ChannelSettings({
                     <button
                       type="button"
                       onClick={handleDelete}
-                      className="rounded-md bg-[var(--danger)] px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--danger-hover)]"
+                      className="rounded-full bg-[var(--danger)] px-4 py-1.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--danger-hover)]"
                     >
                       Delete forever
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowDelete(false)}
-                      className="rounded-md px-3 py-1.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]"
+                      className="rounded-full px-4 py-1.5 text-sm text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--bg-secondary)]"
                     >
                       Cancel
                     </button>

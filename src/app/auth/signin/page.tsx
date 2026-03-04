@@ -68,7 +68,7 @@ function SignInForm() {
 
       <button
         onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-md px-4 py-3 text-base font-medium text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] transition-all"
+        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-full px-4 py-2.5 text-[15px] font-medium text-[var(--text-primary)] hover:scale-[1.02] hover:bg-[var(--bg-secondary)] hover:shadow-md active:scale-[0.97] transition-all duration-150"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
@@ -117,7 +117,7 @@ function SignInForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-3 text-base font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:scale-[1.02] hover:shadow-lg active:scale-[0.97] text-[var(--text-inverse)] rounded-full px-4 py-2.5 text-[15px] font-medium transition-all duration-150 disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
         >
           {loading ? "One moment..." : "Continue"}
         </button>

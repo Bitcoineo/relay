@@ -61,13 +61,13 @@ export default async function Home() {
             <div className="mt-8 flex items-center justify-center gap-3 md:justify-start">
               <Link
                 href="/auth/signup"
-                className="rounded-md bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
+                className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
               >
                 Start for free
               </Link>
               <Link
                 href="/auth/signin"
-                className="rounded-md border border-[var(--border)] px-6 py-3 text-sm font-medium text-[var(--text-secondary)] transition-all hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
+                className="rounded-full border border-[var(--border)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-secondary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
               >
                 Sign in
               </Link>
@@ -229,18 +229,10 @@ export default async function Home() {
           <div className="mt-6 flex flex-col items-center gap-2">
             <Link
               href="/auth/signup"
-              className="inline-block rounded-md bg-white px-6 py-3 text-sm font-medium text-[#134E4A] transition-all hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
+              className="inline-block rounded-full bg-white px-6 py-2.5 text-[15px] font-medium text-[#134E4A] transition-all duration-150 hover:scale-[1.02] hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
             >
               Create a workspace
             </Link>
-            <a
-              href="https://github.com/Bitcoineo/relay"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block text-sm font-medium text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
-            >
-              View on GitHub &rarr;
-            </a>
           </div>
         </ScrollReveal>
       </section>
