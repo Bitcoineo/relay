@@ -56,7 +56,7 @@ export default async function WorkspaceLayout({
 
   return (
     <SocketProvider>
-      <div className="relative flex h-screen">
+      <div className="relative flex h-screen overflow-hidden">
         <Sidebar
           workspaceName={workspace.name}
           workspaceSlug={params.workspaceSlug}
@@ -74,7 +74,7 @@ export default async function WorkspaceLayout({
           onlineMembers={onlineMembers}
         />
 
-        <div className="flex flex-1 flex-col overflow-hidden">{children}</div>
+        <div className="flex min-w-0 flex-1 flex-col overflow-hidden">{children}</div>
       </div>
     </SocketProvider>
   );

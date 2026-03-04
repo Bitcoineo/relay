@@ -356,7 +356,7 @@ export default function ChannelChat({
   // ─── Render ─────────────────────────────────────────────────────
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+    <div className="flex h-full flex-col overflow-hidden">
       {/* Channel header */}
       <header className="flex flex-shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
         <div className="flex items-center">
