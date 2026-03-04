@@ -14,9 +14,9 @@ interface Workspace {
 }
 
 const ROLE_STYLES: Record<string, string> = {
-  owner: "bg-[#2D2D2D] text-white",
-  admin: "bg-[#F8F8F7] text-[#2D2D2D] border border-[#EEEEED]",
-  member: "bg-[#F8F8F7] text-[#6B6B6B]",
+  owner: "bg-[var(--bg-inverse)] text-[var(--text-inverse)]",
+  admin: "bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-[var(--border)]",
+  member: "bg-[var(--bg-secondary)] text-[var(--text-secondary)]",
 };
 
 export default function WorkspaceList({
@@ -57,9 +57,9 @@ export default function WorkspaceList({
   if (initialWorkspaces.length === 0 && !showForm) {
     return (
       <div className="mt-16 animate-fadeInUp text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--bg-primary)]">
           <svg
-            className="h-8 w-8 text-[#6B6B6B]"
+            className="h-8 w-8 text-[var(--text-secondary)]"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -72,15 +72,15 @@ export default function WorkspaceList({
             />
           </svg>
         </div>
-        <h2 className="mt-4 text-lg font-semibold text-[#2D2D2D]">
+        <h2 className="mt-4 text-lg font-semibold text-[var(--text-primary)]">
           No workspaces yet
         </h2>
-        <p className="mt-1 text-sm text-[#6B6B6B]">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           A workspace is where your team lives. Start one.
         </p>
         <button
           onClick={() => setShowForm(true)}
-          className="mt-6 rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97]"
+          className="mt-6 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
         >
           Create workspace
         </button>
@@ -91,11 +91,11 @@ export default function WorkspaceList({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-[#2D2D2D]">Workspaces</h2>
+        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Workspaces</h2>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97]"
+            className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
           >
             New workspace
           </button>
@@ -105,12 +105,12 @@ export default function WorkspaceList({
       {showForm && (
         <form
           onSubmit={handleCreate}
-          className="mt-4 flex items-end gap-3 rounded-md border border-[#EEEEED] bg-white p-4"
+          className="mt-4 flex items-end gap-3 rounded-md border border-[var(--border)] bg-[var(--bg-primary)] p-4"
         >
           <div className="flex-1">
             <label
               htmlFor="workspace-name"
-              className="block text-sm font-medium text-[#2D2D2D]"
+              className="block text-sm font-medium text-[var(--text-primary)]"
             >
               Name
             </label>
@@ -120,16 +120,16 @@ export default function WorkspaceList({
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-[#EEEEED] px-3 py-2.5 text-sm text-[#2D2D2D] transition-all duration-150 focus:border-[#4F46E5] focus:outline-none focus:ring-2 focus:ring-[#4F46E5]"
+              className="mt-1 block w-full rounded-md border border-[var(--border)] px-3 py-2.5 text-sm text-[var(--text-primary)] transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
               placeholder="e.g. Marketing, Engineering"
               autoFocus
             />
-            {error && <p className="mt-1 text-sm text-[#EB5757]">{error}</p>}
+            {error && <p className="mt-1 text-sm text-[var(--danger)]">{error}</p>}
           </div>
           <button
             type="submit"
             disabled={loading}
-            className="rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
+            className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
           >
             {loading ? "Creating..." : "Create"}
           </button>
@@ -140,7 +140,7 @@ export default function WorkspaceList({
               setError("");
               setName("");
             }}
-            className="rounded-md border border-[#EEEEED] px-4 py-2.5 text-sm text-[#6B6B6B] transition-all duration-150 hover:bg-[#F8F8F7] hover:shadow-sm active:scale-[0.97]"
+            className="rounded-md border border-[var(--border)] px-4 py-2.5 text-sm text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
           >
             Cancel
           </button>
@@ -152,11 +152,11 @@ export default function WorkspaceList({
           <Link
             key={ws.id}
             href={`/${ws.slug}`}
-            className="animate-fadeInUp group rounded-md border border-[#EEEEED] bg-white p-6 shadow-sm transition-all duration-150 hover:bg-[#F8F8F7] hover:shadow-md hover:-translate-y-0.5 hover:border-[#D3D1CB]"
+            className="animate-fadeInUp group rounded-md border border-[var(--border)] bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-150 hover:bg-[var(--bg-secondary)] hover:shadow-md hover:-translate-y-0.5 hover:border-[var(--border-strong)]"
             style={{ animationDelay: `${i * 50}ms` }}
           >
             <div className="flex items-start justify-between">
-              <h3 className="text-lg font-medium text-[#2D2D2D]">
+              <h3 className="text-lg font-medium text-[var(--text-primary)]">
                 {ws.name}
               </h3>
               <span
@@ -165,7 +165,7 @@ export default function WorkspaceList({
                 {ws.role}
               </span>
             </div>
-            <p className="mt-2 text-[13px] text-[#A3A3A3]">/{ws.slug}</p>
+            <p className="mt-2 text-[13px] text-[var(--text-muted)]">/{ws.slug}</p>
           </Link>
         ))}
       </div>

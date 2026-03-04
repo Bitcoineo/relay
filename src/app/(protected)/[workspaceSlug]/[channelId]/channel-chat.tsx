@@ -308,22 +308,22 @@ export default function ChannelChat({
   return (
     <div className="flex flex-1 flex-col">
       {/* Channel header */}
-      <header className="flex items-center justify-between border-b border-[#EEEEED] bg-white pl-14 pr-6 py-3 md:pl-6">
+      <header className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
         <div className="flex items-center">
-          <span className="mr-1.5 text-[#A3A3A3]">#</span>
-          <h1 className="text-sm font-semibold text-[#2D2D2D]">
+          <span className="mr-1.5 text-[var(--text-muted)]">#</span>
+          <h1 className="text-sm font-semibold text-[var(--text-primary)]">
             {channelName}
           </h1>
           {isArchived && (
-            <span className="ml-2 rounded bg-[#F59E0B]/10 px-1.5 py-0.5 text-[10px] font-medium text-[#F59E0B]">
+            <span className="ml-2 rounded bg-[var(--warning)]/10 px-1.5 py-0.5 text-[10px] font-medium text-[var(--warning)]">
               Archived
             </span>
           )}
-          <span className="ml-2 text-sm text-[#A3A3A3]">
+          <span className="ml-2 text-sm text-[var(--text-muted)]">
             · {onlineInChannel} online
           </span>
           {channelDescription && (
-            <span className="ml-3 hidden text-sm text-[#A3A3A3] sm:inline">
+            <span className="ml-3 hidden text-sm text-[var(--text-muted)] sm:inline">
               {channelDescription}
             </span>
           )}
@@ -332,7 +332,7 @@ export default function ChannelChat({
           <button
             type="button"
             onClick={() => setShowSettings(true)}
-            className="rounded p-1.5 text-[#A3A3A3] transition-colors hover:bg-[#F8F8F7] hover:text-[#2D2D2D]"
+            className="rounded p-1.5 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
             title="Channel settings"
           >
             <svg
@@ -361,25 +361,25 @@ export default function ChannelChat({
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex flex-1 flex-col overflow-y-auto bg-white px-4 py-4 sm:px-6"
+        className="flex flex-1 flex-col overflow-y-auto bg-[var(--bg-primary)] px-4 py-4 sm:px-6"
       >
         {loadingOlder && (
           <div className="flex justify-center py-3">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#EEEEED] border-t-[#4F46E5]" />
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
           </div>
         )}
 
         {initialLoad && (
           <div className="flex flex-1 items-center justify-center">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-[#EEEEED] border-t-[#4F46E5]" />
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
           </div>
         )}
 
         {!initialLoad && messages.length === 0 && (
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#F8F8F7]">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--bg-secondary)]">
               <svg
-                className="h-7 w-7 text-[#A3A3A3]"
+                className="h-7 w-7 text-[var(--text-muted)]"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -392,10 +392,10 @@ export default function ChannelChat({
                 />
               </svg>
             </div>
-            <p className="mt-3 text-sm font-medium text-[#2D2D2D]">
+            <p className="mt-3 text-sm font-medium text-[var(--text-primary)]">
               No messages yet
             </p>
-            <p className="mt-1 text-sm text-[#A3A3A3]">
+            <p className="mt-1 text-sm text-[var(--text-muted)]">
               Start the conversation in #{channelName}.
             </p>
           </div>
@@ -403,9 +403,9 @@ export default function ChannelChat({
 
         {!initialLoad && messages.length > 0 && !nextCursor && (
           <div className="mb-6 pb-4">
-            <p className="text-sm text-[#A3A3A3]">
+            <p className="text-sm text-[var(--text-muted)]">
               This is the beginning of{" "}
-              <span className="font-medium text-[#2D2D2D]">
+              <span className="font-medium text-[var(--text-primary)]">
                 #{channelName}
               </span>
             </p>
@@ -445,7 +445,7 @@ export default function ChannelChat({
               messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
               setHasNewBelow(false);
             }}
-            className="animate-slideUp rounded-full bg-[#4F46E5] px-3 py-1.5 text-xs font-medium text-white shadow-md transition-colors hover:bg-[#4338CA]"
+            className="animate-slideUp rounded-full bg-[var(--accent)] px-3 py-1.5 text-xs font-medium text-[var(--text-inverse)] shadow-md transition-colors hover:bg-[var(--accent-hover)]"
           >
             New messages ↓
           </button>
@@ -456,8 +456,8 @@ export default function ChannelChat({
 
       {/* Archived banner OR message input */}
       {isArchived ? (
-        <div className="border-t border-[#EEEEED] bg-[#F8F8F7] px-4 py-4 text-center">
-          <p className="text-sm text-[#A3A3A3]">
+        <div className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-4 text-center">
+          <p className="text-sm text-[var(--text-muted)]">
             This channel is archived. No new messages can be sent.
           </p>
         </div>

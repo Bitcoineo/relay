@@ -33,7 +33,7 @@ export default async function WorkspacePage({
   // No channels at all — shouldn't happen (workspace creation makes #general)
   return (
     <div className="flex flex-1 items-center justify-center">
-      <p className="text-sm text-[#6B6B6B]">No channels available.</p>
+      <p className="text-sm text-[var(--text-secondary)]">No channels available.</p>
     </div>
   );
 }

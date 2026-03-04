@@ -40,15 +40,15 @@ export default function ForwardModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-      <div className="w-full max-w-sm rounded-lg bg-white p-5 shadow-xl">
-        <h3 className="text-sm font-semibold text-[#2D2D2D]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay)]">
+      <div className="w-full max-w-sm rounded-lg bg-[var(--bg-primary)] p-5 shadow-xl">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Forward message
         </h3>
 
         {/* Message preview */}
-        <div className="mt-3 rounded-md border border-[#EEEEED] bg-[#F8F8F7] p-3">
-          <p className="text-sm text-[#6B6B6B] line-clamp-3">
+        <div className="mt-3 rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-3">
+          <p className="text-sm text-[var(--text-secondary)] line-clamp-3">
             {message.content}
           </p>
         </div>
@@ -59,13 +59,13 @@ export default function ForwardModal({
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Search channels..."
-          className="mt-3 w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+          className="mt-3 w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
           autoFocus
           disabled={forwarded}
         />
 
         {/* Channel list */}
-        <div className="mt-2 max-h-40 overflow-y-auto rounded-md border border-[#EEEEED]">
+        <div className="mt-2 max-h-40 overflow-y-auto rounded-md border border-[var(--border)]">
           {filtered.map((c) => (
             <button
               key={c.id}
@@ -74,13 +74,13 @@ export default function ForwardModal({
               disabled={forwarded}
               className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors ${
                 selectedId === c.id
-                  ? "bg-[#4F46E5] text-white"
-                  : "text-[#2D2D2D] hover:bg-[#F8F8F7]"
+                  ? "bg-[var(--accent)] text-[var(--text-inverse)]"
+                  : "text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
               }`}
             >
               <span
                 className={
-                  selectedId === c.id ? "text-white/70" : "text-[#A3A3A3]"
+                  selectedId === c.id ? "text-[var(--text-inverse)]/70" : "text-[var(--text-muted)]"
                 }
               >
                 #
@@ -89,7 +89,7 @@ export default function ForwardModal({
             </button>
           ))}
           {filtered.length === 0 && (
-            <p className="px-3 py-2 text-sm text-[#A3A3A3]">
+            <p className="px-3 py-2 text-sm text-[var(--text-muted)]">
               No channels found
             </p>
           )}
@@ -100,7 +100,7 @@ export default function ForwardModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md px-3 py-1.5 text-sm text-[#6B6B6B] hover:bg-[#F8F8F7]"
+            className="rounded-md px-3 py-1.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]"
           >
             Cancel
           </button>
@@ -108,10 +108,10 @@ export default function ForwardModal({
             type="button"
             onClick={handleForward}
             disabled={!selectedId || forwarding || forwarded}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium text-white ${
+            className={`rounded-md px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] ${
               forwarded
-                ? "bg-[#22C55E]"
-                : "bg-[#4F46E5] hover:bg-[#4338CA] disabled:opacity-50"
+                ? "bg-[var(--success)]"
+                : "bg-[var(--accent)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
             }`}
           >
             {forwarded

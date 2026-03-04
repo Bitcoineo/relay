@@ -85,17 +85,17 @@ export default function ChannelSettings({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/20">
-      <div className="w-full max-w-sm bg-white shadow-xl">
+    <div className="fixed inset-0 z-50 flex justify-end bg-[var(--overlay)]">
+      <div className="w-full max-w-sm bg-[var(--bg-primary)] shadow-xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#EEEEED] px-5 py-4">
-          <h2 className="text-sm font-semibold text-[#2D2D2D]">
+        <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
+          <h2 className="text-sm font-semibold text-[var(--text-primary)]">
             Channel Settings
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-[#A3A3A3] hover:bg-[#F8F8F7] hover:text-[#2D2D2D]"
+            className="rounded p-1 text-[var(--text-muted)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -108,33 +108,33 @@ export default function ChannelSettings({
           {isAdmin && (
             <div className="space-y-3">
               <div>
-                <label className="mb-1 block text-xs font-medium text-[#6B6B6B]">
+                <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
                   Channel name
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+                  className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium text-[#6B6B6B]">
+                <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
                   Description
                 </label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
-                  className="w-full resize-none rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+                  className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
-              {error && <p className="text-xs text-[#EB5757]">{error}</p>}
+              {error && <p className="text-xs text-[var(--danger)]">{error}</p>}
               <button
                 type="button"
                 onClick={handleSave}
                 disabled={saving}
-                className="rounded-md bg-[#4F46E5] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#4338CA] disabled:opacity-50"
+                className="rounded-md bg-[var(--accent)] px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
               >
                 {saving ? "Saving..." : "Save changes"}
               </button>
@@ -143,15 +143,15 @@ export default function ChannelSettings({
 
           {/* Set default (owner only) */}
           {isOwner && !channel.isDefault && (
-            <div className="border-t border-[#EEEEED] pt-4">
+            <div className="border-t border-[var(--border)] pt-4">
               <button
                 type="button"
                 onClick={handleSetDefault}
-                className="text-sm text-[#4F46E5] hover:underline"
+                className="text-sm text-[var(--accent-text)] hover:underline"
               >
                 Set as default channel
               </button>
-              <p className="mt-1 text-xs text-[#A3A3A3]">
+              <p className="mt-1 text-xs text-[var(--text-muted)]">
                 New members will automatically join this channel.
               </p>
             </div>
@@ -159,15 +159,15 @@ export default function ChannelSettings({
 
           {/* Archive/unarchive (admin+, not default) */}
           {isAdmin && !channel.isDefault && (
-            <div className="border-t border-[#EEEEED] pt-4">
+            <div className="border-t border-[var(--border)] pt-4">
               <button
                 type="button"
                 onClick={handleToggleArchive}
-                className="text-sm text-[#D97706] hover:underline"
+                className="text-sm text-[var(--warning)] hover:underline"
               >
                 {channel.archived ? "Unarchive channel" : "Archive channel"}
               </button>
-              <p className="mt-1 text-xs text-[#A3A3A3]">
+              <p className="mt-1 text-xs text-[var(--text-muted)]">
                 {channel.archived
                   ? "Restore this channel to active status."
                   : "Archived channels are read-only."}
@@ -177,35 +177,35 @@ export default function ChannelSettings({
 
           {/* Delete (admin+, not default) */}
           {isAdmin && !channel.isDefault && (
-            <div className="border-t border-[#EEEEED] pt-4">
+            <div className="border-t border-[var(--border)] pt-4">
               {!showDelete ? (
                 <button
                   type="button"
                   onClick={() => setShowDelete(true)}
-                  className="text-sm text-[#EB5757] hover:underline"
+                  className="text-sm text-[var(--danger)] hover:underline"
                 >
                   Delete channel
                 </button>
               ) : (
-                <div className="rounded-md border border-[#EB5757]/20 bg-[#EB5757]/5 p-3">
-                  <p className="text-sm font-medium text-[#EB5757]">
+                <div className="rounded-md border border-[var(--danger)]/20 bg-[var(--danger)]/5 p-3">
+                  <p className="text-sm font-medium text-[var(--danger)]">
                     Delete #{channel.name}?
                   </p>
-                  <p className="mt-1 text-xs text-[#6B6B6B]">
+                  <p className="mt-1 text-xs text-[var(--text-secondary)]">
                     All messages will be permanently lost.
                   </p>
                   <div className="mt-3 flex gap-2">
                     <button
                       type="button"
                       onClick={handleDelete}
-                      className="rounded-md bg-[#EB5757] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#D94444]"
+                      className="rounded-md bg-[var(--danger)] px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--danger-hover)]"
                     >
                       Delete
                     </button>
                     <button
                       type="button"
                       onClick={() => setShowDelete(false)}
-                      className="rounded-md px-3 py-1.5 text-sm text-[#6B6B6B] hover:bg-[#F8F8F7]"
+                      className="rounded-md px-3 py-1.5 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]"
                     >
                       Cancel
                     </button>

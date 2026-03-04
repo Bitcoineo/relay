@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useSocket } from "./socket-provider";
+import { useTheme } from "@/lib/theme";
 
 interface OnlineMember {
   id: string;
@@ -48,6 +49,7 @@ export default function Sidebar({
   const [error, setError] = useState("");
   const [onlineCount, setOnlineCount] = useState(initialOnlineCount);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, cycleTheme } = useTheme();
 
   const [showArchived, setShowArchived] = useState(false);
   const membersActive = pathname === `/${workspaceSlug}/members`;
@@ -112,10 +114,10 @@ export default function Sidebar({
       {/* Mobile hamburger button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="fixed left-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border border-[#EEEEED] bg-white shadow-sm md:hidden"
+        className="fixed left-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-md border border-[var(--border)] bg-[var(--bg-primary)] shadow-sm md:hidden"
       >
         <svg
-          className="h-4 w-4 text-[#2D2D2D]"
+          className="h-4 w-4 text-[var(--text-primary)]"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={2}
@@ -141,10 +143,10 @@ export default function Sidebar({
       <aside
         className={`${
           mobileOpen ? "fixed inset-y-0 left-0 z-40 flex" : "hidden"
-        } w-64 flex-col border-r border-[#EEEEED] bg-[#F8F8F7] md:relative md:flex`}
+        } w-64 flex-col border-r border-[var(--border)] bg-[var(--bg-secondary)] md:relative md:flex`}
       >
         {/* Logo */}
-        <div className="border-b border-[#EEEEED] px-4 py-3">
+        <div className="border-b border-[var(--border)] px-4 py-3">
           <Link href="/workspaces" className="flex items-center gap-2">
             <svg
               width="16"
@@ -153,11 +155,11 @@ export default function Sidebar({
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <rect x="2" y="6" width="6" height="16" rx="2" fill="#4F46E5" />
-              <rect x="11" y="3" width="6" height="22" rx="2" fill="#4F46E5" />
-              <rect x="20" y="9" width="6" height="13" rx="2" fill="#4F46E5" />
+              <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
+              <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
+              <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
             </svg>
-            <span className="text-sm font-bold text-[#2D2D2D]">Relay</span>
+            <span className="text-sm font-bold text-[var(--text-primary)]">Relay</span>
           </Link>
         </div>
 
@@ -165,7 +167,7 @@ export default function Sidebar({
         <div className="p-4">
           <Link
             href="/workspaces"
-            className="flex items-center gap-1 text-xs text-[#A3A3A3] transition-colors hover:text-[#2D2D2D]"
+            className="flex items-center gap-1 text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <svg
               className="h-3 w-3"
@@ -182,10 +184,10 @@ export default function Sidebar({
             </svg>
             All Workspaces
           </Link>
-          <h2 className="mt-3 flex items-center gap-1 truncate text-sm font-bold text-[#2D2D2D]">
+          <h2 className="mt-3 flex items-center gap-1 truncate text-sm font-bold text-[var(--text-primary)]">
             {workspaceName}
             <svg
-              className="h-3 w-3 flex-shrink-0 text-[#A3A3A3]"
+              className="h-3 w-3 flex-shrink-0 text-[var(--text-muted)]"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
@@ -198,7 +200,7 @@ export default function Sidebar({
               />
             </svg>
           </h2>
-          <p className="mt-0.5 text-[11px] text-[#A3A3A3]">
+          <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">
             {onlineCount} online
           </p>
         </div>
@@ -206,13 +208,13 @@ export default function Sidebar({
         {/* Channels */}
         <nav className="flex-1 overflow-y-auto px-3">
           <div className="flex items-center justify-between px-2">
-            <p className="text-[11px] font-medium uppercase tracking-wider text-[#A3A3A3]">
+            <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">
               Channels
             </p>
             {isAdmin && (
               <button
                 onClick={() => setShowForm(true)}
-                className="text-[#A3A3A3] transition-colors hover:text-[#2D2D2D]"
+                className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
                 title="Create channel"
               >
                 <svg
@@ -238,7 +240,7 @@ export default function Sidebar({
                 type="text"
                 value={channelName}
                 onChange={(e) => setChannelName(e.target.value)}
-                className="w-full rounded-md border border-[#EEEEED] bg-white px-2 py-1.5 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+                className="w-full rounded-md border border-[var(--border)] bg-[var(--bg-primary)] px-2 py-1.5 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 placeholder="channel-name"
                 autoFocus
                 onKeyDown={(e) => {
@@ -250,13 +252,13 @@ export default function Sidebar({
                 }}
               />
               {error && (
-                <p className="mt-1 text-xs text-[#EB5757]">{error}</p>
+                <p className="mt-1 text-xs text-[var(--danger)]">{error}</p>
               )}
               <div className="mt-1.5 flex gap-1.5">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="rounded bg-[#4F46E5] px-2 py-1 text-xs font-medium text-white hover:bg-[#4338CA] disabled:opacity-50"
+                  className="rounded bg-[var(--accent)] px-2 py-1 text-xs font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
                 >
                   {loading ? "..." : "Create"}
                 </button>
@@ -267,7 +269,7 @@ export default function Sidebar({
                     setChannelName("");
                     setError("");
                   }}
-                  className="rounded px-2 py-1 text-xs text-[#6B6B6B] hover:bg-[#EEEEED]"
+                  className="rounded px-2 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--border)]"
                 >
                   Cancel
                 </button>
@@ -285,12 +287,12 @@ export default function Sidebar({
                     href={channelPath}
                     className={`flex items-center gap-2 rounded-md py-2 text-sm transition-all duration-120 ${
                       isActive
-                        ? "translate-x-0.5 border-l-[3px] border-[#4F46E5] bg-white pl-[calc(0.5rem-3px)] pr-2 font-medium text-[#4F46E5]"
-                        : "px-2 text-[#6B6B6B] hover:translate-x-0.5 hover:bg-[#F0F0EF] hover:text-[#2D2D2D]"
+                        ? "translate-x-0.5 border-l-[3px] border-[var(--accent)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--accent-text)]"
+                        : "px-2 text-[var(--text-secondary)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                     }`}
                   >
                     <span
-                      className={`text-sm ${isActive ? "text-[#4F46E5]" : "text-[#A3A3A3]"}`}
+                      className={`text-sm ${isActive ? "text-[var(--accent-text)]" : "text-[var(--text-muted)]"}`}
                     >
                       #
                     </span>
@@ -302,7 +304,7 @@ export default function Sidebar({
           </ul>
 
           {activeChannels.length === 0 && (
-            <p className="mt-2 px-2 text-sm text-[#A3A3A3]">
+            <p className="mt-2 px-2 text-sm text-[var(--text-muted)]">
               No channels yet
             </p>
           )}
@@ -313,7 +315,7 @@ export default function Sidebar({
               <button
                 type="button"
                 onClick={() => setShowArchived(!showArchived)}
-                className="flex w-full items-center gap-1 px-2 text-[11px] font-medium uppercase tracking-wider text-[#A3A3A3] hover:text-[#6B6B6B]"
+                className="flex w-full items-center gap-1 px-2 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
               >
                 <svg
                   className={`h-3 w-3 transition-transform ${showArchived ? "rotate-90" : ""}`}
@@ -337,11 +339,11 @@ export default function Sidebar({
                           href={channelPath}
                           className={`flex items-center gap-2 rounded-md py-2 text-sm transition-all duration-120 ${
                             isActive
-                              ? "translate-x-0.5 border-l-[3px] border-[#A3A3A3] bg-white pl-[calc(0.5rem-3px)] pr-2 font-medium text-[#A3A3A3]"
-                              : "px-2 text-[#A3A3A3] hover:translate-x-0.5 hover:bg-[#F0F0EF]"
+                              ? "translate-x-0.5 border-l-[3px] border-[var(--text-muted)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--text-muted)]"
+                              : "px-2 text-[var(--text-muted)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)]"
                           }`}
                         >
-                          <span className="text-sm text-[#D1D5DB]">#</span>
+                          <span className="text-sm text-[var(--border-strong)]">#</span>
                           <span className="truncate opacity-60">{channel.name}</span>
                         </Link>
                       </li>
@@ -353,17 +355,17 @@ export default function Sidebar({
           )}
 
           {/* Members section */}
-          <div className="mt-4 border-t border-[#EEEEED] pt-4">
+          <div className="mt-4 border-t border-[var(--border)] pt-4">
             <Link
               href={`/${workspaceSlug}/members`}
               className={`flex items-center gap-2 rounded-md py-2 text-sm transition-all duration-120 ${
                 membersActive
-                  ? "translate-x-0.5 border-l-[3px] border-[#4F46E5] bg-white pl-[calc(0.5rem-3px)] pr-2 font-medium text-[#4F46E5]"
-                  : "px-2 text-[#6B6B6B] hover:translate-x-0.5 hover:bg-[#F0F0EF] hover:text-[#2D2D2D]"
+                  ? "translate-x-0.5 border-l-[3px] border-[var(--accent)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--accent-text)]"
+                  : "px-2 text-[var(--text-secondary)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
               }`}
             >
               <svg
-                className={`h-4 w-4 flex-shrink-0 ${membersActive ? "text-[#4F46E5]" : "text-[#A3A3A3]"}`}
+                className={`h-4 w-4 flex-shrink-0 ${membersActive ? "text-[var(--accent-text)]" : "text-[var(--text-muted)]"}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -382,7 +384,7 @@ export default function Sidebar({
           {/* Online members */}
           {onlineMembers.length > 0 && (
             <div className="mt-3 px-2">
-              <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-[#A3A3A3]">
+              <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">
                 Online
               </p>
               <ul className="space-y-1">
@@ -400,9 +402,9 @@ export default function Sidebar({
                       >
                         {(m.name || m.email)[0].toUpperCase()}
                       </div>
-                      <span className="absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[#F8F8F7] bg-[#22C55E]" />
+                      <span className="absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] bg-[var(--success)]" />
                     </div>
-                    <span className="truncate text-xs text-[#6B6B6B]">
+                    <span className="truncate text-xs text-[var(--text-secondary)]">
                       {m.name || m.email.split("@")[0]}
                     </span>
                   </li>
@@ -410,7 +412,7 @@ export default function Sidebar({
               </ul>
               <Link
                 href={`/${workspaceSlug}/members`}
-                className="mt-1 block px-1 text-[11px] text-[#A3A3A3] transition-colors hover:text-[#4F46E5]"
+                className="mt-1 block px-1 text-[11px] text-[var(--text-muted)] transition-colors hover:text-[var(--accent-text)]"
               >
                 View all →
               </Link>
@@ -419,7 +421,7 @@ export default function Sidebar({
         </nav>
 
         {/* User footer */}
-        <div className="border-t border-[#EEEEED] px-4 py-3">
+        <div className="border-t border-[var(--border)] px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="relative">
@@ -429,16 +431,35 @@ export default function Sidebar({
                 >
                   {userName[0].toUpperCase()}
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#F8F8F7] bg-[#22C55E]" />
+                <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[var(--status-dot-border)] bg-[var(--success)]" />
               </div>
-              <span className="truncate text-sm text-[#2D2D2D]">
+              <span className="truncate text-sm text-[var(--text-primary)]">
                 {userName}
               </span>
             </div>
             <div className="flex items-center gap-2">
+              <button
+                onClick={cycleTheme}
+                className="text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--accent-text)]"
+                title={`Theme: ${theme}`}
+              >
+                {theme === "light" ? (
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                  </svg>
+                ) : theme === "dim" ? (
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                  </svg>
+                ) : (
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                  </svg>
+                )}
+              </button>
               <Link
                 href="/settings/profile"
-                className="text-xs text-[#A3A3A3] transition-colors hover:text-[#4F46E5]"
+                className="text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--accent-text)]"
                 title="Profile settings"
               >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -448,7 +469,7 @@ export default function Sidebar({
               </Link>
               <button
                 onClick={handleSignOut}
-                className="text-xs text-[#A3A3A3] transition-colors hover:text-[#2D2D2D]"
+                className="text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
               >
                 Sign out
               </button>

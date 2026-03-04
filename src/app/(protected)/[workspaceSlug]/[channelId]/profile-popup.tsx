@@ -54,15 +54,15 @@ export default function ProfilePopup({
 
   const statusColor =
     status === "online"
-      ? "bg-[#22C55E]"
+      ? "bg-[var(--success)]"
       : status === "idle"
-        ? "bg-[#F59E0B]"
-        : "bg-[#D1D5DB]";
+        ? "bg-[var(--warning)]"
+        : "bg-[var(--border-strong)]";
 
   return (
     <div
       ref={ref}
-      className="fixed z-50 w-64 rounded-lg border border-[#EEEEED] bg-white p-4 shadow-xl"
+      className="fixed z-50 w-64 rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] p-4 shadow-xl"
       style={{ top: position.top, left: position.left }}
     >
       {/* Avatar */}
@@ -84,29 +84,29 @@ export default function ProfilePopup({
             </div>
           )}
           <span
-            className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white ${statusColor}`}
+            className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[var(--status-dot-border)] ${statusColor}`}
           />
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#2D2D2D]">{userName}</p>
-          <p className="text-xs capitalize text-[#A3A3A3]">{status}</p>
+          <p className="text-sm font-semibold text-[var(--text-primary)]">{userName}</p>
+          <p className="text-xs capitalize text-[var(--text-muted)]">{status}</p>
         </div>
       </div>
 
       {/* Bio */}
       {profile?.bio && (
-        <p className="mt-3 text-xs text-[#6B6B6B]">{profile.bio}</p>
+        <p className="mt-3 text-xs text-[var(--text-secondary)]">{profile.bio}</p>
       )}
 
       {/* Links */}
       {profile && (profile.websiteUrl || profile.githubUrl || profile.twitterUrl) && (
-        <div className="mt-3 flex gap-2 border-t border-[#EEEEED] pt-3">
+        <div className="mt-3 flex gap-2 border-t border-[var(--border)] pt-3">
           {profile.websiteUrl && (
             <a
               href={profile.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#A3A3A3] hover:text-[#4F46E5]"
+              className="text-[var(--text-muted)] hover:text-[var(--accent-text)]"
               title="Website"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -119,7 +119,7 @@ export default function ProfilePopup({
               href={profile.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#A3A3A3] hover:text-[#2D2D2D]"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               title="GitHub"
             >
               <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export default function ProfilePopup({
               href={profile.twitterUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#A3A3A3] hover:text-[#1DA1F2]"
+              className="text-[var(--text-muted)] hover:text-[#1DA1F2]"
               title="Twitter"
             >
               <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -144,7 +144,7 @@ export default function ProfilePopup({
       )}
 
       {profile?.email && (
-        <p className="mt-2 text-[11px] text-[#A3A3A3]">{profile.email}</p>
+        <p className="mt-2 text-[11px] text-[var(--text-muted)]">{profile.email}</p>
       )}
     </div>
   );

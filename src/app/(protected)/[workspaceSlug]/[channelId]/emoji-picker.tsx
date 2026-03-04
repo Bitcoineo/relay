@@ -32,10 +32,10 @@ export default function EmojiPicker({ onSelect, onClose }: EmojiPickerProps) {
   return (
     <div
       ref={ref}
-      className="absolute bottom-full right-0 mb-2 w-72 rounded-lg border border-[#EEEEED] bg-white shadow-lg"
+      className="absolute bottom-full right-0 mb-2 w-72 rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] shadow-lg"
     >
       {/* Category tabs */}
-      <div className="flex border-b border-[#EEEEED] px-1 pt-1">
+      <div className="flex border-b border-[var(--border)] px-1 pt-1">
         {EMOJI_CATEGORIES.map((cat, i) => (
           <button
             key={cat.name}
@@ -43,8 +43,8 @@ export default function EmojiPicker({ onSelect, onClose }: EmojiPickerProps) {
             onClick={() => setActiveCategory(i)}
             className={`flex-1 rounded-t px-1 py-1.5 text-[10px] font-medium transition-colors ${
               i === activeCategory
-                ? "bg-[#F8F8F7] text-[#4F46E5]"
-                : "text-[#A3A3A3] hover:text-[#2D2D2D]"
+                ? "bg-[var(--bg-secondary)] text-[var(--accent-text)]"
+                : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
             }`}
           >
             {cat.name}
@@ -63,7 +63,7 @@ export default function EmojiPicker({ onSelect, onClose }: EmojiPickerProps) {
                 onSelect(emoji);
                 onClose();
               }}
-              className="flex h-8 w-8 items-center justify-center rounded text-lg transition-colors hover:bg-[#F8F8F7]"
+              className="flex h-8 w-8 items-center justify-center rounded text-lg transition-colors hover:bg-[var(--bg-secondary)]"
             >
               {emoji}
             </button>

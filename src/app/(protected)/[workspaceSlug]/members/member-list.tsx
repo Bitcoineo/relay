@@ -28,15 +28,15 @@ interface Invite {
 }
 
 const ROLE_BADGE: Record<string, string> = {
-  owner: "bg-[#2D2D2D] text-white",
-  admin: "bg-[#F8F8F7] text-[#2D2D2D] border border-[#EEEEED]",
-  member: "bg-[#F8F8F7] text-[#6B6B6B]",
+  owner: "bg-[var(--bg-inverse)] text-[var(--text-inverse)]",
+  admin: "bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-[var(--border)]",
+  member: "bg-[var(--bg-secondary)] text-[var(--text-secondary)]",
 };
 
 const STATUS_DOT: Record<string, string> = {
-  online: "bg-[#22C55E]",
-  idle: "bg-[#F59E0B]",
-  offline: "bg-[#D1D5DB]",
+  online: "bg-[var(--success)]",
+  idle: "bg-[var(--warning)]",
+  offline: "bg-[var(--border-strong)]",
 };
 
 export default function MemberList({
@@ -132,7 +132,7 @@ export default function MemberList({
   return (
     <div className="space-y-8">
       {/* Online count */}
-      <p className="text-sm text-[#6B6B6B]">
+      <p className="text-sm text-[var(--text-secondary)]">
         {onlineCount} of {members.length} members online
       </p>
 
@@ -142,13 +142,13 @@ export default function MemberList({
           {!showInvite ? (
             <button
               onClick={() => setShowInvite(true)}
-              className="rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97]"
+              className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
             >
               Invite member
             </button>
           ) : (
-            <div className="rounded-md border border-[#EEEEED] bg-white p-4">
-              <h3 className="text-sm font-semibold text-[#2D2D2D]">Invite</h3>
+            <div className="rounded-md border border-[var(--border)] bg-[var(--bg-primary)] p-4">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">Invite</h3>
               <form onSubmit={handleInvite} className="mt-3 flex items-end gap-3">
                 <div className="flex-1">
                   <input
@@ -156,7 +156,7 @@ export default function MemberList({
                     required
                     value={inviteEmail}
                     onChange={(e) => setInviteEmail(e.target.value)}
-                    className="block w-full rounded-md border border-[#EEEEED] px-3 py-2.5 text-sm transition-all duration-150 focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+                    className="block w-full rounded-md border border-[var(--border)] px-3 py-2.5 text-sm transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                     placeholder="Email address"
                     autoFocus
                   />
@@ -167,7 +167,7 @@ export default function MemberList({
                     onChange={(e) =>
                       setInviteRole(e.target.value as "member" | "admin")
                     }
-                    className="block rounded-md border border-[#EEEEED] px-3 py-2.5 text-sm focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+                    className="block rounded-md border border-[var(--border)] px-3 py-2.5 text-sm focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                   >
                     <option value="member">Member</option>
                     <option value="admin">Admin</option>
@@ -176,7 +176,7 @@ export default function MemberList({
                 <button
                   type="submit"
                   disabled={inviteLoading}
-                  className="rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
+                  className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
                 >
                   {inviteLoading ? "Sending..." : "Send invite"}
                 </button>
@@ -187,26 +187,26 @@ export default function MemberList({
                     setInviteError("");
                     setInviteLink("");
                   }}
-                  className="rounded-md border border-[#EEEEED] px-4 py-2.5 text-sm text-[#6B6B6B] transition-all duration-150 hover:bg-[#F8F8F7] hover:shadow-sm active:scale-[0.97]"
+                  className="rounded-md border border-[var(--border)] px-4 py-2.5 text-sm text-[var(--text-secondary)] transition-all duration-150 hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
                 >
                   Cancel
                 </button>
               </form>
               {inviteError && (
-                <p className="mt-2 text-sm text-[#EB5757]">{inviteError}</p>
+                <p className="mt-2 text-sm text-[var(--danger)]">{inviteError}</p>
               )}
               {inviteLink && (
-                <div className="mt-3 rounded-md border border-[#C2E5DC] bg-[#E8F5F1] p-3">
-                  <p className="text-sm text-[#4DAB9A]">
+                <div className="mt-3 rounded-md border border-[var(--success)]/20 bg-[var(--success)]/5 p-3">
+                  <p className="text-sm text-[var(--success)]">
                     Invite created. Share the link.
                   </p>
                   <div className="mt-1 flex items-center gap-2">
-                    <code className="flex-1 truncate rounded border border-[#C2E5DC] bg-white px-2 py-1 text-xs text-[#2D2D2D]">
+                    <code className="flex-1 truncate rounded border border-[var(--border)] bg-[var(--bg-primary)] px-2 py-1 text-xs text-[var(--text-primary)]">
                       {inviteLink}
                     </code>
                     <button
                       onClick={() => copyToClipboard(inviteLink)}
-                      className="rounded bg-[#4F46E5] px-3 py-1 text-xs font-medium text-white hover:bg-[#4338CA]"
+                      className="rounded bg-[var(--accent)] px-3 py-1 text-xs font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)]"
                     >
                       Copy link
                     </button>
@@ -221,9 +221,9 @@ export default function MemberList({
       {/* Pending Invites */}
       {isAdmin && pendingInvites.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-[#2D2D2D]">
+          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
             Pending Invites
-            <span className="ml-2 text-xs font-normal text-[#A3A3A3]">
+            <span className="ml-2 text-xs font-normal text-[var(--text-muted)]">
               {pendingInvites.length}
             </span>
           </h3>
@@ -231,13 +231,13 @@ export default function MemberList({
             {pendingInvites.map((invite) => (
               <div
                 key={invite.id}
-                className="flex items-center justify-between rounded-md border border-[#EEEEED] bg-white px-4 py-3"
+                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3"
               >
                 <div>
-                  <p className="text-sm font-medium text-[#2D2D2D]">
+                  <p className="text-sm font-medium text-[var(--text-primary)]">
                     {invite.email}
                   </p>
-                  <p className="text-xs text-[#A3A3A3]">
+                  <p className="text-xs text-[var(--text-muted)]">
                     Invited as{" "}
                     <span className="capitalize">{invite.role}</span>
                     {" by "}
@@ -248,7 +248,7 @@ export default function MemberList({
                 </div>
                 <button
                   onClick={() => handleCancelInvite(invite.id)}
-                  className="rounded px-3 py-1.5 text-sm text-[#EB5757] transition-all duration-150 hover:bg-[#FBE9E9] active:scale-[0.97]"
+                  className="rounded px-3 py-1.5 text-sm text-[var(--danger)] transition-all duration-150 hover:bg-[var(--danger-light)] active:scale-[0.97]"
                 >
                   Cancel
                 </button>
@@ -260,9 +260,9 @@ export default function MemberList({
 
       {/* Members List */}
       <div>
-        <h3 className="text-sm font-semibold text-[#2D2D2D]">
+        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
           Members
-          <span className="ml-2 text-xs font-normal text-[#A3A3A3]">
+          <span className="ml-2 text-xs font-normal text-[var(--text-muted)]">
             {members.length}
           </span>
         </h3>
@@ -270,7 +270,7 @@ export default function MemberList({
           {members.map((m) => (
             <div
               key={m.id}
-              className="flex items-center justify-between rounded-md border border-[#EEEEED] bg-white px-4 py-3"
+              className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3"
             >
               <div className="flex items-center gap-3">
                 <div className="relative">
@@ -283,17 +283,17 @@ export default function MemberList({
                     {(m.user.name || m.user.email)[0].toUpperCase()}
                   </div>
                   <span
-                    className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white ${STATUS_DOT[m.user.status] || STATUS_DOT.offline}`}
+                    className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[var(--status-dot-border)] ${STATUS_DOT[m.user.status] || STATUS_DOT.offline}`}
                   />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-[#2D2D2D]">
+                  <p className="text-sm font-medium text-[var(--text-primary)]">
                     {m.user.name || m.user.email}
                     {m.user.id === currentUserId && (
-                      <span className="ml-1 text-xs text-[#A3A3A3]">(you)</span>
+                      <span className="ml-1 text-xs text-[var(--text-muted)]">(you)</span>
                     )}
                   </p>
-                  <p className="text-xs text-[#A3A3A3]">{m.user.email}</p>
+                  <p className="text-xs text-[var(--text-muted)]">{m.user.email}</p>
                 </div>
               </div>
 
@@ -302,7 +302,7 @@ export default function MemberList({
                   <select
                     value={m.role}
                     onChange={(e) => handleRoleChange(m.id, e.target.value)}
-                    className="rounded border border-[#EEEEED] px-2 py-1 text-xs text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+                    className="rounded border border-[var(--border)] px-2 py-1 text-xs text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                   >
                     <option value="admin">Admin</option>
                     <option value="member">Member</option>
@@ -326,13 +326,13 @@ export default function MemberList({
                           <button
                             onClick={() => handleRemoveMember(m.id)}
                             disabled={removingId === m.id}
-                            className="rounded bg-[#EB5757] px-2 py-1 text-xs font-medium text-white transition-all duration-150 hover:bg-[#D14343] active:scale-[0.97] disabled:opacity-50"
+                            className="rounded bg-[var(--danger)] px-2 py-1 text-xs font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--danger-hover)] active:scale-[0.97] disabled:opacity-50"
                           >
                             {removingId === m.id ? "..." : "Confirm"}
                           </button>
                           <button
                             onClick={() => setConfirmRemoveId(null)}
-                            className="rounded px-2 py-1 text-xs text-[#6B6B6B] hover:bg-[#F0F0EF]"
+                            className="rounded px-2 py-1 text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-tertiary)]"
                           >
                             Cancel
                           </button>
@@ -340,7 +340,7 @@ export default function MemberList({
                       ) : (
                         <button
                           onClick={() => setConfirmRemoveId(m.id)}
-                          className="rounded px-2 py-1 text-xs text-[#EB5757] transition-all duration-150 hover:bg-[#FBE9E9] active:scale-[0.97]"
+                          className="rounded px-2 py-1 text-xs text-[var(--danger)] transition-all duration-150 hover:bg-[var(--danger-light)] active:scale-[0.97]"
                         >
                           Remove
                         </button>

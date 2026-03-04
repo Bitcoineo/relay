@@ -23,12 +23,12 @@ export default function MessageActions({
   const [showPicker, setShowPicker] = useState(false);
 
   return (
-    <div className="absolute -top-3 right-2 z-10 hidden items-center gap-0.5 rounded-md border border-[#EEEEED] bg-white px-0.5 py-0.5 shadow-sm group-hover:flex">
+    <div className="absolute -top-3 right-2 z-10 hidden items-center gap-0.5 rounded-md border border-[var(--border)] bg-[var(--bg-primary)] px-0.5 py-0.5 shadow-sm group-hover:flex">
       {/* Reply */}
       <button
         type="button"
         onClick={onReply}
-        className="rounded p-1 text-[#A3A3A3] transition-colors hover:bg-[#F8F8F7] hover:text-[#2D2D2D]"
+        className="rounded p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
         title="Reply"
       >
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -42,7 +42,7 @@ export default function MessageActions({
           key={emoji}
           type="button"
           onClick={() => onReact(emoji)}
-          className="rounded px-0.5 py-0.5 text-sm leading-none transition-colors hover:bg-[#F8F8F7]"
+          className="rounded px-0.5 py-0.5 text-sm leading-none transition-colors hover:bg-[var(--bg-secondary)]"
           title={emoji}
         >
           {emoji}
@@ -54,7 +54,7 @@ export default function MessageActions({
         <button
           type="button"
           onClick={() => setShowPicker(!showPicker)}
-          className="rounded p-1 text-[#A3A3A3] transition-colors hover:bg-[#F8F8F7] hover:text-[#2D2D2D]"
+          className="rounded p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
           title="More reactions"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -76,7 +76,7 @@ export default function MessageActions({
       <button
         type="button"
         onClick={onForward}
-        className="rounded p-1 text-[#A3A3A3] transition-colors hover:bg-[#F8F8F7] hover:text-[#2D2D2D]"
+        className="rounded p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
         title="Forward"
       >
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -89,7 +89,7 @@ export default function MessageActions({
         <button
           type="button"
           onClick={onDelete}
-          className="rounded p-1 text-[#A3A3A3] transition-colors hover:bg-[#F8F8F7] hover:text-[#EB5757]"
+          className="rounded p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--danger)]"
           title="Delete"
         >
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">

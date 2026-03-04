@@ -83,15 +83,15 @@ export default function MessageBubble({
   );
 
   const forwardedLabel = msg.forwardedFromChannel && (
-    <p className="mb-0.5 text-[11px] text-[#A3A3A3]">
+    <p className="mb-0.5 text-[11px] text-[var(--text-muted)]">
       Forwarded from{" "}
       <span className="font-medium">#{msg.forwardedFromChannel.name}</span>
     </p>
   );
 
   const replyQuote = msg.replyTo && (
-    <div className="mb-1 flex items-center gap-1.5 border-l-2 border-[#D1D5DB] pl-2 text-xs text-[#A3A3A3]">
-      <span className="font-medium text-[#6B6B6B]">
+    <div className="mb-1 flex items-center gap-1.5 border-l-2 border-[var(--border-strong)] pl-2 text-xs text-[var(--text-muted)]">
+      <span className="font-medium text-[var(--text-secondary)]">
         {getUserName(msg.replyTo.user)}
       </span>
       <span className="truncate">{msg.replyTo.content.slice(0, 80)}</span>
@@ -107,8 +107,8 @@ export default function MessageBubble({
           onClick={() => onReact(r.emoji)}
           className={`flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors ${
             r.userReacted
-              ? "border-[#4F46E5]/30 bg-[#4F46E5]/5 text-[#4F46E5]"
-              : "border-[#EEEEED] bg-[#F8F8F7] text-[#6B6B6B] hover:border-[#D1D5DB]"
+              ? "border-[var(--accent)]/30 bg-[var(--accent)]/5 text-[var(--accent-text)]"
+              : "border-[var(--border)] bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:border-[var(--border-strong)]"
           }`}
           title={r.users.join(", ")}
         >
@@ -123,31 +123,31 @@ export default function MessageBubble({
     <div>
       {showDateHeader && (
         <div className="my-4 flex items-center gap-3">
-          <div className="h-px flex-1 bg-[#EEEEED]" />
-          <span className="rounded-full border border-[#EEEEED] bg-white px-3 py-1 text-xs font-medium text-[#A3A3A3] shadow-sm">
+          <div className="h-px flex-1 bg-[var(--border)]" />
+          <span className="rounded-full border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-1 text-xs font-medium text-[var(--text-muted)] shadow-sm">
             {getDateLabel(msg.createdAt)}
           </span>
-          <div className="h-px flex-1 bg-[#EEEEED]" />
+          <div className="h-px flex-1 bg-[var(--border)]" />
         </div>
       )}
 
       {grouped ? (
-        <div className="group relative flex items-start py-0.5 pl-10 hover:bg-[#F8F8F7]">
+        <div className="group relative flex items-start py-0.5 pl-10 hover:bg-[var(--bg-secondary)]">
           {actionsBar}
-          <span className="invisible mr-2 flex-shrink-0 text-[11px] text-[#A3A3A3] group-hover:visible">
+          <span className="invisible mr-2 flex-shrink-0 text-[11px] text-[var(--text-muted)] group-hover:visible">
             {formatTime(msg.createdAt)}
           </span>
           <div className="min-w-0 flex-1">
             {forwardedLabel}
             {replyQuote}
-            <p className="text-[15px] text-[#2D2D2D]">
+            <p className="text-[15px] text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
             </p>
             {reactionPills}
           </div>
         </div>
       ) : (
-        <div className="group relative mt-3 flex items-start gap-2 py-1 hover:bg-[#F8F8F7]">
+        <div className="group relative mt-3 flex items-start gap-2 py-1 hover:bg-[var(--bg-secondary)]">
           {actionsBar}
           <button
             type="button"
@@ -172,12 +172,12 @@ export default function MessageBubble({
               </div>
             )}
             <span
-              className={`absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full border-[1.5px] border-white ${
+              className={`absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full border-[1.5px] border-[var(--status-dot-border)] ${
                 getMemberStatus(msg.userId) === "online"
-                  ? "bg-[#22C55E]"
+                  ? "bg-[var(--success)]"
                   : getMemberStatus(msg.userId) === "idle"
-                    ? "bg-[#F59E0B]"
-                    : "bg-[#D1D5DB]"
+                    ? "bg-[var(--warning)]"
+                    : "bg-[var(--border-strong)]"
               }`}
             />
           </button>
@@ -185,14 +185,14 @@ export default function MessageBubble({
             {forwardedLabel}
             {replyQuote}
             <div className="flex items-baseline gap-2">
-              <span className="text-sm font-semibold text-[#2D2D2D]">
+              <span className="text-sm font-semibold text-[var(--text-primary)]">
                 {getUserName(msg.user)}
               </span>
-              <span className="text-[11px] text-[#A3A3A3]">
+              <span className="text-[11px] text-[var(--text-muted)]">
                 {formatTime(msg.createdAt)}
               </span>
             </div>
-            <p className="text-[15px] text-[#2D2D2D]">
+            <p className="text-[15px] text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
             </p>
             {reactionPills}

@@ -31,7 +31,7 @@ export default async function MembersPage({
 
   return (
     <div className="flex-1 overflow-auto p-6 lg:p-8">
-      <h1 className="text-lg font-semibold text-[#2D2D2D]">Members</h1>
+      <h1 className="text-lg font-semibold text-[var(--text-primary)]">Members</h1>
       <div className="mt-6">
         <MemberList
           members={members ?? []}

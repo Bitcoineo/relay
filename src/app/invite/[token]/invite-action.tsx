@@ -73,18 +73,18 @@ export default function InviteAction({
   // Error / not found
   if (error || !invite) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp text-center">
-          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#FBE9E9]">
-            <svg className="h-6 w-6 text-[#EB5757]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[var(--danger-light)]">
+            <svg className="h-6 w-6 text-[var(--danger)]" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="mt-4 text-lg font-semibold text-[#2D2D2D]">Invite not found</h1>
-          <p className="mt-1 text-sm text-[#6B6B6B]">{error || "This link is expired or doesn't exist."}</p>
+          <h1 className="mt-4 text-lg font-semibold text-[var(--text-primary)]">Invite not found</h1>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">{error || "This link is expired or doesn't exist."}</p>
           <Link
             href={isLoggedIn ? "/workspaces" : "/auth/signin"}
-            className="mt-6 inline-block rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#4338CA]"
+            className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
           >
             {isLoggedIn ? "Go to workspaces" : "Sign in"}
           </Link>
@@ -96,14 +96,14 @@ export default function InviteAction({
   // Already processed
   if (invite.status !== "pending") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp text-center">
-          <h1 className="text-lg font-semibold text-[#2D2D2D]">
+          <h1 className="text-lg font-semibold text-[var(--text-primary)]">
             This invite was already {invite.status}
           </h1>
           <Link
             href={isLoggedIn ? "/workspaces" : "/auth/signin"}
-            className="mt-6 inline-block rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#4338CA]"
+            className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
           >
             {isLoggedIn ? "Go to workspaces" : "Sign in"}
           </Link>
@@ -115,13 +115,13 @@ export default function InviteAction({
   // Declined confirmation
   if (declined) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp text-center">
-          <h1 className="text-lg font-semibold text-[#2D2D2D]">Declined.</h1>
-          <p className="mt-1 text-sm text-[#6B6B6B]">You passed on {invite.workspace.name}.</p>
+          <h1 className="text-lg font-semibold text-[var(--text-primary)]">Declined.</h1>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">You passed on {invite.workspace.name}.</p>
           <Link
             href="/workspaces"
-            className="mt-6 inline-block rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#4338CA]"
+            className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
           >
             Go to workspaces
           </Link>
@@ -133,24 +133,24 @@ export default function InviteAction({
   // Not logged in
   if (!isLoggedIn) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp">
-          <div className="rounded-md bg-white p-6 text-center">
-            <h1 className="text-lg font-semibold text-[#2D2D2D]">You&apos;re invited</h1>
-            <p className="mt-2 text-sm text-[#6B6B6B]">
+          <div className="rounded-md bg-[var(--bg-primary)] p-6 text-center">
+            <h1 className="text-lg font-semibold text-[var(--text-primary)]">You&apos;re invited</h1>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">
               {invite.invitedBy.name || "Someone"} invited you to{" "}
-              <strong className="text-[#2D2D2D]">{invite.workspace.name}</strong>{" "}
+              <strong className="text-[var(--text-primary)]">{invite.workspace.name}</strong>{" "}
               as <span className="font-medium capitalize">{invite.role}</span>.
             </p>
             <Link
               href={`/auth/signin?callbackUrl=/invite/${token}`}
-              className="mt-6 inline-block w-full rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#4338CA]"
+              className="mt-6 inline-block w-full rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
             >
               Sign in to join
             </Link>
-            <p className="mt-3 text-xs text-[#A3A3A3]">
+            <p className="mt-3 text-xs text-[var(--text-muted)]">
               No account?{" "}
-              <Link href={`/auth/signup?callbackUrl=/invite/${token}`} className="font-medium text-[#4F46E5] hover:text-[#4338CA]">
+              <Link href={`/auth/signup?callbackUrl=/invite/${token}`} className="font-medium text-[var(--accent-text)] hover:text-[var(--accent-hover)]">
                 Create one
               </Link>
             </p>
@@ -163,17 +163,17 @@ export default function InviteAction({
   // Wrong account
   if (userEmail && userEmail.toLowerCase() !== invite.email.toLowerCase()) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp">
-          <div className="rounded-md border border-[#F2C94C]/30 bg-[#FDF6E3] p-6 text-center">
-            <h1 className="text-lg font-semibold text-[#2D2D2D]">Wrong account</h1>
-            <p className="mt-2 text-sm text-[#6B6B6B]">
-              This invite is for <strong className="text-[#2D2D2D]">{invite.email}</strong>, but you&apos;re signed in as{" "}
-              <strong className="text-[#2D2D2D]">{userEmail}</strong>.
+          <div className="rounded-md border border-[var(--warning)]/30 bg-[var(--warning)]/5 p-6 text-center">
+            <h1 className="text-lg font-semibold text-[var(--text-primary)]">Wrong account</h1>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">
+              This invite is for <strong className="text-[var(--text-primary)]">{invite.email}</strong>, but you&apos;re signed in as{" "}
+              <strong className="text-[var(--text-primary)]">{userEmail}</strong>.
             </p>
             <Link
               href={`/auth/signin?callbackUrl=/invite/${token}`}
-              className="mt-4 inline-block rounded-md border border-[#EEEEED] px-4 py-2 text-sm font-medium text-[#2D2D2D] transition-colors hover:bg-white"
+              className="mt-4 inline-block rounded-md border border-[var(--border)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-secondary)]"
             >
               Switch account
             </Link>
@@ -185,31 +185,31 @@ export default function InviteAction({
 
   // Ready to accept
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white px-4">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
       <div className="w-full max-w-sm animate-fadeInUp">
-        <div className="rounded-md bg-white p-6 text-center">
-          <h1 className="text-lg font-semibold text-[#2D2D2D]">Join {invite.workspace.name}</h1>
-          <p className="mt-2 text-sm text-[#6B6B6B]">
+        <div className="rounded-md bg-[var(--bg-primary)] p-6 text-center">
+          <h1 className="text-lg font-semibold text-[var(--text-primary)]">Join {invite.workspace.name}</h1>
+          <p className="mt-2 text-sm text-[var(--text-secondary)]">
             {invite.invitedBy.name || "Someone"} invited you as{" "}
-            <span className="font-medium capitalize text-[#2D2D2D]">{invite.role}</span>.
+            <span className="font-medium capitalize text-[var(--text-primary)]">{invite.role}</span>.
           </p>
 
           {actionError && (
-            <p className="mt-3 text-sm text-[#EB5757]">{actionError}</p>
+            <p className="mt-3 text-sm text-[var(--danger)]">{actionError}</p>
           )}
 
           <div className="mt-6 flex gap-3">
             <button
               onClick={handleDecline}
               disabled={loading}
-              className="flex-1 rounded-md border border-[#EEEEED] px-4 py-2.5 text-sm font-medium text-[#2D2D2D] transition-colors hover:bg-[#F8F8F7] disabled:opacity-50"
+              className="flex-1 rounded-md border border-[var(--border)] px-4 py-2.5 text-sm font-medium text-[var(--text-primary)] transition-colors hover:bg-[var(--bg-secondary)] disabled:opacity-50"
             >
               Decline
             </button>
             <button
               onClick={handleAccept}
               disabled={loading}
-              className="flex-1 rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#4338CA] disabled:opacity-50"
+              className="flex-1 rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)] disabled:opacity-50"
             >
               {loading ? "..." : "Join workspace"}
             </button>

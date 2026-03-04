@@ -7,8 +7,8 @@ export default async function WorkspacesPage() {
   const { data: workspaces } = await getUserWorkspaces(session!.user.id);
 
   return (
-    <div className="min-h-screen bg-[#F8F8F7]">
-      <header className="border-b border-[#EEEEED] bg-white px-6 py-3">
+    <div className="min-h-screen bg-[var(--bg-secondary)]">
+      <header className="border-b border-[var(--border)] bg-[var(--bg-primary)] px-6 py-3">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <div className="flex items-center gap-2">
             <svg
@@ -18,14 +18,14 @@ export default async function WorkspacesPage() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <rect x="2" y="6" width="6" height="16" rx="2" fill="#4F46E5" />
-              <rect x="11" y="3" width="6" height="22" rx="2" fill="#4F46E5" />
-              <rect x="20" y="9" width="6" height="13" rx="2" fill="#4F46E5" />
+              <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
+              <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
+              <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
             </svg>
-            <span className="text-sm font-bold text-[#2D2D2D]">Relay</span>
+            <span className="text-sm font-bold text-[var(--text-primary)]">Relay</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-sm text-[#6B6B6B]">
+            <span className="text-sm text-[var(--text-secondary)]">
               {session!.user.email}
             </span>
             <form
@@ -36,7 +36,7 @@ export default async function WorkspacesPage() {
             >
               <button
                 type="submit"
-                className="text-sm text-[#6B6B6B] transition-colors hover:text-[#2D2D2D]"
+                className="text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
               >
                 Sign out
               </button>

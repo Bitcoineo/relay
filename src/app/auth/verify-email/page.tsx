@@ -73,9 +73,9 @@ function VerifyEmailContent() {
   return (
     <div className="w-full max-w-sm rounded-md p-6 text-center animate-fadeInUp">
       {/* Mail icon */}
-      <div className="mx-auto w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+      <div className="mx-auto w-16 h-16 bg-[var(--accent-light)] rounded-full flex items-center justify-center mb-6">
         <svg
-          className="w-8 h-8 text-[#4F46E5]"
+          className="w-8 h-8 text-[var(--accent-text)]"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
@@ -98,29 +98,29 @@ function VerifyEmailContent() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect x="2" y="6" width="6" height="16" rx="2" fill="#4F46E5" />
-          <rect x="11" y="3" width="6" height="22" rx="2" fill="#4F46E5" />
-          <rect x="20" y="9" width="6" height="13" rx="2" fill="#4F46E5" />
+          <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
+          <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
+          <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
         </svg>
-        <span className="text-lg font-bold text-[#2D2D2D]">Relay</span>
+        <span className="text-lg font-bold text-[var(--text-primary)]">Relay</span>
       </Link>
 
-      <h1 className="text-2xl font-bold text-[#2D2D2D] mb-2">
+      <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">
         Check your email
       </h1>
-      <p className="text-[#6B6B6B] text-sm mb-6">
+      <p className="text-[var(--text-secondary)] text-sm mb-6">
         We sent a verification link to your email address. Click the link to
         verify your account.
       </p>
 
       {error && (
-        <div className="text-sm text-[#EB5757] bg-red-50 px-3 py-2 rounded mb-4">
+        <div className="text-sm text-[var(--danger)] bg-[var(--danger-light)] px-3 py-2 rounded mb-4">
           {error}
         </div>
       )}
 
       {message && (
-        <div className="text-sm text-green-600 bg-green-50 px-3 py-2 rounded mb-4">
+        <div className="text-sm text-[var(--success)] bg-[var(--success)]/10 px-3 py-2 rounded mb-4">
           {message}
         </div>
       )}
@@ -128,14 +128,14 @@ function VerifyEmailContent() {
       <button
         onClick={handleResend}
         disabled={resendDisabled}
-        className="w-full bg-[#4F46E5] hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97] text-white rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[#4F46E5] focus:ring-offset-2"
+        className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
       >
         {cooldown > 0
           ? `Resend in ${cooldown}s`
           : "Resend verification email"}
       </button>
 
-      <p className="text-xs text-[#A3A3A3] mt-4">
+      <p className="text-xs text-[var(--text-muted)] mt-4">
         The link expires in 24 hours.
       </p>
     </div>

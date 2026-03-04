@@ -164,13 +164,13 @@ export default function MessageInput({
   }
 
   return (
-    <div className="relative bg-white px-4 py-3">
+    <div className="relative bg-[var(--bg-primary)] px-4 py-3">
       {/* Reply banner */}
       {replyTo && (
-        <div className="mb-2 flex items-center justify-between rounded-md border border-[#EEEEED] bg-[#F8F8F7] px-3 py-2">
-          <div className="flex items-center gap-2 text-xs text-[#6B6B6B]">
+        <div className="mb-2 flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-2">
+          <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
             <svg
-              className="h-3.5 w-3.5 text-[#A3A3A3]"
+              className="h-3.5 w-3.5 text-[var(--text-muted)]"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
@@ -186,14 +186,14 @@ export default function MessageInput({
               Replying to{" "}
               <span className="font-medium">{getUserName(replyTo.user)}</span>
             </span>
-            <span className="truncate text-[#A3A3A3]">
+            <span className="truncate text-[var(--text-muted)]">
               {replyTo.content.slice(0, 60)}
             </span>
           </div>
           <button
             type="button"
             onClick={onCancelReply}
-            className="rounded p-0.5 text-[#A3A3A3] hover:text-[#2D2D2D]"
+            className="rounded p-0.5 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
           >
             <svg
               className="h-3.5 w-3.5"
@@ -214,7 +214,7 @@ export default function MessageInput({
 
       {/* Mention autocomplete dropdown */}
       {showMentions && filteredMembers.length > 0 && (
-        <div className="absolute bottom-full left-4 right-4 mb-1 max-h-48 overflow-y-auto rounded-md border border-[#EEEEED] bg-white shadow-lg">
+        <div className="absolute bottom-full left-4 right-4 mb-1 max-h-48 overflow-y-auto rounded-md border border-[var(--border)] bg-[var(--bg-primary)] shadow-lg">
           {filteredMembers.slice(0, 8).map((member, i) => (
             <button
               key={member.id}
@@ -222,8 +222,8 @@ export default function MessageInput({
               onClick={() => selectMention(member)}
               className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors ${
                 i === mentionIndex
-                  ? "bg-[#4F46E5] text-white"
-                  : "text-[#2D2D2D] hover:bg-[#F8F8F7]"
+                  ? "bg-[var(--accent)] text-[var(--text-inverse)]"
+                  : "text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
               }`}
             >
               <div
@@ -235,7 +235,7 @@ export default function MessageInput({
               <span className="truncate">{getUserName(member)}</span>
               <span
                 className={`ml-auto text-xs ${
-                  i === mentionIndex ? "text-white/70" : "text-[#A3A3A3]"
+                  i === mentionIndex ? "text-[var(--text-inverse)]/70" : "text-[var(--text-muted)]"
                 }`}
               >
                 {member.email}
@@ -246,7 +246,7 @@ export default function MessageInput({
       )}
 
       <form onSubmit={handleSend}>
-        <div className="flex items-end gap-2 rounded-lg border border-[#EEEEED] bg-white px-4 py-3 shadow-sm transition-shadow focus-within:border-[#4F46E5] focus-within:shadow-md focus-within:ring-1 focus-within:ring-[#4F46E5]">
+        <div className="flex items-end gap-2 rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3 shadow-sm transition-shadow focus-within:border-[var(--accent)] focus-within:shadow-md focus-within:ring-1 focus-within:ring-[var(--accent)]">
           <textarea
             ref={inputRef}
             value={input}
@@ -254,7 +254,7 @@ export default function MessageInput({
             onKeyDown={handleInputKeyDown}
             placeholder={`Message #${channelName}`}
             rows={1}
-            className="flex-1 resize-none bg-transparent text-[15px] leading-relaxed text-[#2D2D2D] placeholder-[#A3A3A3] focus:outline-none"
+            className="flex-1 resize-none bg-transparent text-[15px] leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
             style={{ maxHeight: "120px" }}
           />
           {/* Emoji button */}
@@ -262,7 +262,7 @@ export default function MessageInput({
             <button
               type="button"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className="rounded p-1 text-[#A3A3A3] transition-colors hover:text-[#2D2D2D]"
+              className="rounded p-1 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
               title="Emoji"
             >
               <svg

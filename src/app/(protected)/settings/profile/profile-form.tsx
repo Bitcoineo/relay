@@ -79,7 +79,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
     <div className="space-y-5">
       {/* Avatar */}
       <div>
-        <label className="mb-2 block text-xs font-medium text-[#6B6B6B]">
+        <label className="mb-2 block text-xs font-medium text-[var(--text-secondary)]">
           Profile photo
         </label>
         <div className="flex items-center gap-4">
@@ -104,7 +104,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="rounded-md border border-[#EEEEED] px-3 py-1.5 text-sm text-[#2D2D2D] hover:bg-[#F8F8F7]"
+              className="rounded-md border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
             >
               Upload photo
             </button>
@@ -112,12 +112,12 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
               <button
                 type="button"
                 onClick={() => setProfileImage("")}
-                className="ml-2 text-sm text-[#EB5757] hover:underline"
+                className="ml-2 text-sm text-[var(--danger)] hover:underline"
               >
                 Remove
               </button>
             )}
-            <p className="mt-1 text-xs text-[#A3A3A3]">Max 500KB, JPG or PNG</p>
+            <p className="mt-1 text-xs text-[var(--text-muted)]">Max 500KB, JPG or PNG</p>
           </div>
           <input
             ref={fileRef}
@@ -131,23 +131,23 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
 
       {/* Name */}
       <div>
-        <label className="mb-1 block text-xs font-medium text-[#6B6B6B]">
+        <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
           Display name
         </label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
 
       {/* Bio */}
       <div>
-        <label className="mb-1 flex items-center justify-between text-xs font-medium text-[#6B6B6B]">
+        <label className="mb-1 flex items-center justify-between text-xs font-medium text-[var(--text-secondary)]">
           Bio
           <span
-            className={`${bio.length > 200 ? "text-[#EB5757]" : "text-[#A3A3A3]"}`}
+            className={`${bio.length > 200 ? "text-[var(--danger)]" : "text-[var(--text-muted)]"}`}
           >
             {bio.length}/200
           </span>
@@ -157,14 +157,14 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           onChange={(e) => setBio(e.target.value)}
           maxLength={200}
           rows={3}
-          className="w-full resize-none rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+          className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
           placeholder="Tell us about yourself"
         />
       </div>
 
       {/* URLs */}
       <div>
-        <label className="mb-1 block text-xs font-medium text-[#6B6B6B]">
+        <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
           Website
         </label>
         <input
@@ -172,11 +172,11 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           value={websiteUrl}
           onChange={(e) => setWebsiteUrl(e.target.value)}
           placeholder="https://example.com"
-          className="w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
       <div>
-        <label className="mb-1 block text-xs font-medium text-[#6B6B6B]">
+        <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
           GitHub
         </label>
         <input
@@ -184,11 +184,11 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           value={githubUrl}
           onChange={(e) => setGithubUrl(e.target.value)}
           placeholder="https://github.com/username"
-          className="w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
       <div>
-        <label className="mb-1 block text-xs font-medium text-[#6B6B6B]">
+        <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
           Twitter
         </label>
         <input
@@ -196,23 +196,23 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           value={twitterUrl}
           onChange={(e) => setTwitterUrl(e.target.value)}
           placeholder="https://twitter.com/username"
-          className="w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
+          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
 
       {/* Save */}
-      {error && <p className="text-sm text-[#EB5757]">{error}</p>}
+      {error && <p className="text-sm text-[var(--danger)]">{error}</p>}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={handleSave}
           disabled={saving}
-          className="rounded-md bg-[#4F46E5] px-4 py-2 text-sm font-medium text-white hover:bg-[#4338CA] disabled:opacity-50"
+          className="rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--accent-hover)] disabled:opacity-50"
         >
           {saving ? "Saving..." : "Save changes"}
         </button>
         {saved && (
-          <span className="text-sm text-[#22C55E]">Saved!</span>
+          <span className="text-sm text-[var(--success)]">Saved!</span>
         )}
       </div>
     </div>

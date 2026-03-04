@@ -70,29 +70,29 @@ export default function SignUpPage() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect x="2" y="6" width="6" height="16" rx="2" fill="#4F46E5" />
-          <rect x="11" y="3" width="6" height="22" rx="2" fill="#4F46E5" />
-          <rect x="20" y="9" width="6" height="13" rx="2" fill="#4F46E5" />
+          <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
+          <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
+          <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
         </svg>
-        <span className="text-xl font-bold text-[#2D2D2D]">Relay</span>
+        <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
       </Link>
 
-      <h1 className="text-2xl font-bold text-[#2D2D2D] text-center mb-1">
+      <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-1">
         Create your account
       </h1>
-      <p className="text-[#6B6B6B] text-sm text-center mb-6">
+      <p className="text-[var(--text-secondary)] text-sm text-center mb-6">
         Get started with Relay for free.
       </p>
 
       {error && (
-        <div className="text-sm text-[#EB5757] bg-red-50 px-3 py-2 rounded mb-4">
+        <div className="text-sm text-[var(--danger)] bg-[var(--danger-light)] px-3 py-2 rounded mb-4">
           {error}
         </div>
       )}
 
       <button
         onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center gap-2 border border-[#EEEEED] rounded-md px-4 py-2.5 text-sm font-medium text-[#2D2D2D] hover:bg-[#F8F8F7] hover:shadow-sm active:scale-[0.97] transition-all"
+        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-md px-4 py-2.5 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] transition-all"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
@@ -116,9 +116,9 @@ export default function SignUpPage() {
       </button>
 
       <div className="flex items-center gap-3 my-6">
-        <div className="flex-1 h-px bg-[#EEEEED]" />
-        <span className="text-xs text-[#A3A3A3]">or</span>
-        <div className="flex-1 h-px bg-[#EEEEED]" />
+        <div className="flex-1 h-px bg-[var(--border)]" />
+        <span className="text-xs text-[var(--text-muted)]">or</span>
+        <div className="flex-1 h-px bg-[var(--border)]" />
       </div>
 
       <form onSubmit={handleSignUp} className="space-y-4">
@@ -128,7 +128,7 @@ export default function SignUpPage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="w-full border-0 border-b border-[#EEEEED] bg-transparent px-0 py-2 text-sm text-[#2D2D2D] placeholder:text-[#A3A3A3] focus:border-[#4F46E5] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <input
           type="email"
@@ -136,7 +136,7 @@ export default function SignUpPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full border-0 border-b border-[#EEEEED] bg-transparent px-0 py-2 text-sm text-[#2D2D2D] placeholder:text-[#A3A3A3] focus:border-[#4F46E5] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <input
           type="password"
@@ -145,22 +145,22 @@ export default function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength={8}
-          className="w-full border-0 border-b border-[#EEEEED] bg-transparent px-0 py-2 text-sm text-[#2D2D2D] placeholder:text-[#A3A3A3] focus:border-[#4F46E5] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[#4F46E5] hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97] text-white rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[#4F46E5] focus:ring-offset-2"
+          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
       </form>
 
-      <p className="text-center text-sm text-[#6B6B6B] mt-6">
+      <p className="text-center text-sm text-[var(--text-secondary)] mt-6">
         Already have an account?{" "}
         <Link
           href="/auth/signin"
-          className="text-[#4F46E5] hover:text-[#4338CA] hover:underline"
+          className="text-[var(--accent-text)] hover:text-[var(--accent-text)] hover:underline"
         >
           Sign in
         </Link>

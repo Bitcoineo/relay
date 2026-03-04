@@ -10,9 +10,9 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* ── Nav ── */}
-      <nav className="border-b border-[#EEEEED] px-6 py-4">
+      <nav className="border-b border-[var(--border)] px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <div className="flex items-center gap-2">
             <svg
@@ -22,22 +22,22 @@ export default async function Home() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <rect x="2" y="6" width="6" height="16" rx="2" fill="#4F46E5" />
-              <rect x="11" y="3" width="6" height="22" rx="2" fill="#4F46E5" />
-              <rect x="20" y="9" width="6" height="13" rx="2" fill="#4F46E5" />
+              <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
+              <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
+              <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
             </svg>
-            <span className="text-lg font-bold text-[#2D2D2D]">Relay</span>
+            <span className="text-lg font-bold text-[var(--text-primary)]">Relay</span>
           </div>
           <div className="flex items-center gap-3">
             <Link
               href="/auth/signin"
-              className="rounded-md px-4 py-2 text-sm font-medium text-[#6B6B6B] transition-colors hover:text-[#2D2D2D]"
+              className="rounded-md px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
             >
               Sign in
             </Link>
             <Link
               href="/auth/signup"
-              className="rounded-md bg-[#4F46E5] px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97]"
+              className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
             >
               Get started
             </Link>
@@ -48,23 +48,23 @@ export default async function Home() {
       {/* ── Hero ── */}
       <section className="px-6 py-24 text-center">
         <div className="mx-auto max-w-2xl animate-fadeInUp">
-          <h1 className="text-4xl font-bold tracking-tight text-[#2D2D2D] sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
             Messages that move work forward.
           </h1>
-          <p className="mt-4 text-lg text-[#6B6B6B]">
+          <p className="mt-4 text-lg text-[var(--text-secondary)]">
             Real-time chat for teams. Channels, mentions, presence &mdash;
             without the bloat.
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
             <Link
               href="/auth/signup"
-              className="rounded-md bg-[#4F46E5] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#4338CA] hover:shadow-md active:scale-[0.97]"
+              className="rounded-md bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
             >
               Start for free
             </Link>
             <Link
               href="/auth/signin"
-              className="rounded-md border border-[#EEEEED] px-6 py-3 text-sm font-medium text-[#6B6B6B] transition-all hover:bg-[#F8F8F7] hover:shadow-sm active:scale-[0.97]"
+              className="rounded-md border border-[var(--border)] px-6 py-3 text-sm font-medium text-[var(--text-secondary)] transition-all hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
             >
               Sign in
             </Link>
@@ -73,12 +73,12 @@ export default async function Home() {
       </section>
 
       {/* ── Feature cards ── */}
-      <section className="border-t border-[#EEEEED] bg-[#F8F8F7] px-6 py-20">
+      <section className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-20">
         <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50">
+          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-light)]">
               <svg
-                className="h-5 w-5 text-[#4F46E5]"
+                className="h-5 w-5 text-[var(--accent-text)]"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -91,18 +91,18 @@ export default async function Home() {
                 />
               </svg>
             </div>
-            <h3 className="mt-4 text-sm font-semibold text-[#2D2D2D]">
+            <h3 className="mt-4 text-sm font-semibold text-[var(--text-primary)]">
               Real-time messaging
             </h3>
-            <p className="mt-1 text-sm text-[#6B6B6B]">
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
               Every message delivered instantly. No refresh needed.
             </p>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50">
+          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-light)]">
               <svg
-                className="h-5 w-5 text-[#4F46E5]"
+                className="h-5 w-5 text-[var(--accent-text)]"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -115,18 +115,18 @@ export default async function Home() {
                 />
               </svg>
             </div>
-            <h3 className="mt-4 text-sm font-semibold text-[#2D2D2D]">
+            <h3 className="mt-4 text-sm font-semibold text-[var(--text-primary)]">
               Smart mentions
             </h3>
-            <p className="mt-1 text-sm text-[#6B6B6B]">
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
               @mention a teammate. If they&apos;re offline, they get an email.
             </p>
           </div>
 
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50">
+          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-light)]">
               <svg
-                className="h-5 w-5 text-[#4F46E5]"
+                className="h-5 w-5 text-[var(--accent-text)]"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -144,10 +144,10 @@ export default async function Home() {
                 />
               </svg>
             </div>
-            <h3 className="mt-4 text-sm font-semibold text-[#2D2D2D]">
+            <h3 className="mt-4 text-sm font-semibold text-[var(--text-primary)]">
               Know who&apos;s here
             </h3>
-            <p className="mt-1 text-sm text-[#6B6B6B]">
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
               Green dot means online. No guessing, no waiting.
             </p>
           </div>
@@ -155,28 +155,28 @@ export default async function Home() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="bg-[#2D2D2D] px-6 py-20 text-center">
-        <h2 className="text-2xl font-bold text-white sm:text-3xl">
+      <section className="bg-[var(--bg-inverse)] px-6 py-20 text-center">
+        <h2 className="text-2xl font-bold text-[var(--text-inverse)] sm:text-3xl">
           Your team is one workspace away.
         </h2>
         <Link
           href="/auth/signup"
-          className="mt-6 inline-block rounded-md bg-[#4F46E5] px-6 py-3 text-sm font-medium text-white transition-all hover:bg-[#4338CA] hover:shadow-lg active:scale-[0.97]"
+          className="mt-6 inline-block rounded-md bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
         >
           Create workspace
         </Link>
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-[#EEEEED] px-6 py-6">
-        <div className="mx-auto flex max-w-5xl items-center justify-between text-xs text-[#A3A3A3]">
+      <footer className="border-t border-[var(--border)] px-6 py-6">
+        <div className="mx-auto flex max-w-5xl items-center justify-between text-xs text-[var(--text-muted)]">
           <span>Built by Bitcoineo</span>
           <div className="flex items-center gap-4">
             <a
               href="https://github.com/Bitcoineo"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-[#2D2D2D]"
+              className="transition-colors hover:text-[var(--text-primary)]"
             >
               GitHub
             </a>
@@ -184,7 +184,7 @@ export default async function Home() {
               href="https://x.com/Bitcoineo"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-[#2D2D2D]"
+              className="transition-colors hover:text-[var(--text-primary)]"
             >
               X
             </a>
