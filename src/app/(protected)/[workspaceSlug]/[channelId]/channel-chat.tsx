@@ -356,9 +356,9 @@ export default function ChannelChat({
   // ─── Render ─────────────────────────────────────────────────────
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {/* Channel header */}
-      <header className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
+      <header className="flex flex-shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
         <div className="flex items-center">
           <span className="mr-1.5 text-[var(--text-muted)]">#</span>
           <h1 className="text-base font-semibold text-[var(--text-primary)]">
@@ -431,7 +431,7 @@ export default function ChannelChat({
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex flex-1 flex-col overflow-y-auto bg-[var(--bg-primary)] px-4 py-4 sm:px-6"
+        className="min-h-0 flex-1 overflow-y-auto bg-[var(--bg-primary)] px-4 py-4 sm:px-6"
       >
         {loadingOlder && (
           <div className="flex justify-center py-3">
@@ -508,7 +508,7 @@ export default function ChannelChat({
 
       {/* New messages pill */}
       {hasNewBelow && (
-        <div className="flex justify-center">
+        <div className="flex flex-shrink-0 justify-center">
           <button
             onClick={() => {
               messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -525,7 +525,7 @@ export default function ChannelChat({
 
       {/* Archived banner OR message input */}
       {isArchived ? (
-        <div className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-4 text-center">
+        <div className="flex-shrink-0 border-t border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-4 text-center">
           <p className="text-sm text-[var(--text-muted)]">
             This channel is archived. Messages are read-only.
           </p>

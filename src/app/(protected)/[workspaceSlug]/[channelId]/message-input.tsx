@@ -164,7 +164,7 @@ export default function MessageInput({
   }
 
   return (
-    <div className="relative bg-[var(--bg-primary)] px-4 py-3">
+    <div className="relative flex-shrink-0 bg-[var(--bg-primary)] px-4 py-3">
       {/* Reply banner */}
       {replyTo && (
         <div className="mb-2 flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-2">

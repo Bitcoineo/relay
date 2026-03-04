@@ -15,7 +15,7 @@ export default function TypingIndicator({ typingUsers }: TypingIndicatorProps) {
   }
 
   return (
-    <div className="flex h-6 items-center bg-[var(--bg-primary)] px-4 sm:px-6">
+    <div className="flex h-6 flex-shrink-0 items-center bg-[var(--bg-primary)] px-4 sm:px-6">
       {typingNames.length > 0 && (
         <div className="flex items-center gap-1.5 text-[13px] text-[var(--text-muted)]">
           <span className="flex items-center gap-0.5">
