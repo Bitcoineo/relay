@@ -40,14 +40,21 @@ export async function createMessage(
     return { data: null, error: "Message cannot be empty" };
   }
 
-  // Validate replyToId is in the same channel
+  // Validate and fetch replyTo in a single query
+  let replyTo: MessageWithUser["replyTo"] = null;
   if (replyToId) {
     const replyMsg = await db.query.messages.findFirst({
       where: eq(messages.id, replyToId),
+      with: { user: { columns: { id: true, name: true } } },
     });
     if (!replyMsg || replyMsg.channelId !== channelId) {
       return { data: null, error: "Reply target not found in this channel" };
     }
+    replyTo = {
+      id: replyMsg.id,
+      content: replyMsg.content,
+      user: replyMsg.user,
+    };
   }
 
   const [message] = await db
@@ -70,22 +77,6 @@ export async function createMessage(
       profileImage: true,
     },
   });
-
-  // Fetch replyTo data if present
-  let replyTo: MessageWithUser["replyTo"] = null;
-  if (replyToId) {
-    const replyMsg = await db.query.messages.findFirst({
-      where: eq(messages.id, replyToId),
-      with: { user: { columns: { id: true, name: true } } },
-    });
-    if (replyMsg) {
-      replyTo = {
-        id: replyMsg.id,
-        content: replyMsg.content,
-        user: replyMsg.user,
-      };
-    }
-  }
 
   return {
     data: {

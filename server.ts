@@ -23,6 +23,9 @@ const socketToUser = new Map<string, string>();
 // userId → userName (cache to avoid DB queries on typing/reactions)
 const userNameCache = new Map<string, string>();
 
+// socketId → Set<channelId> (per-socket channel membership cache)
+const socketChannelCache = new Map<string, Set<string>>();
+
 // ─── Helpers ─────────────────────────────────────────────────────────
 
 function parseCookies(cookieHeader: string): Record<string, string> {
@@ -88,6 +91,25 @@ nextApp.prepare().then(async () => {
       ),
     });
     return !!member;
+  }
+
+  // Cache-first channel membership check
+  async function checkChannelAccess(
+    socketId: string,
+    userId: string,
+    channelId: string
+  ): Promise<boolean> {
+    const cached = socketChannelCache.get(socketId);
+    if (cached?.has(channelId)) return true;
+    const isMember = await isChannelMember(userId, channelId);
+    if (isMember) {
+      if (!cached) {
+        socketChannelCache.set(socketId, new Set([channelId]));
+      } else {
+        cached.add(channelId);
+      }
+    }
+    return isMember;
   }
 
   async function getUserWorkspaceIds(userId: string): Promise<string[]> {
@@ -170,6 +192,12 @@ nextApp.prepare().then(async () => {
       }
       socket.join(channelId);
 
+      // Cache membership for this socket
+      if (!socketChannelCache.has(socket.id)) {
+        socketChannelCache.set(socket.id, new Set());
+      }
+      socketChannelCache.get(socket.id)!.add(channelId);
+
       // Ensure workspace room is joined for presence (handles new workspace additions)
       const channel = await db.query.channels.findFirst({
         where: eq(channelsTable.id, channelId),
@@ -189,6 +217,7 @@ nextApp.prepare().then(async () => {
 
     socket.on("leave_channel", (channelId: string) => {
       socket.leave(channelId);
+      socketChannelCache.get(socket.id)?.delete(channelId);
     });
 
     // ─── send_message ────────────────────────────────────────────
@@ -200,7 +229,7 @@ nextApp.prepare().then(async () => {
         content: string;
         replyToId?: string;
       }) => {
-        if (!(await isChannelMember(userId, data.channelId))) {
+        if (!(await checkChannelAccess(socket.id, userId, data.channelId))) {
           socket.emit("error", { message: "Not a member of this channel" });
           return;
         }
@@ -295,7 +324,7 @@ nextApp.prepare().then(async () => {
     socket.on(
       "send_reaction",
       async (data: { channelId: string; messageId: string; emoji: string }) => {
-        if (!(await isChannelMember(userId, data.channelId))) {
+        if (!(await checkChannelAccess(socket.id, userId, data.channelId))) {
           socket.emit("error", { message: "Not a member of this channel" });
           return;
         }
@@ -332,13 +361,13 @@ nextApp.prepare().then(async () => {
         fromChannelId: string;
         toChannelId: string;
       }) => {
-        if (!(await isChannelMember(userId, data.fromChannelId))) {
+        if (!(await checkChannelAccess(socket.id, userId, data.fromChannelId))) {
           socket.emit("error", {
             message: "Not a member of the source channel",
           });
           return;
         }
-        if (!(await isChannelMember(userId, data.toChannelId))) {
+        if (!(await checkChannelAccess(socket.id, userId, data.toChannelId))) {
           socket.emit("error", {
             message: "Not a member of the target channel",
           });
@@ -438,6 +467,7 @@ nextApp.prepare().then(async () => {
         }
       }
       socketToUser.delete(socket.id);
+      socketChannelCache.delete(socket.id);
 
       // Clean up name cache when user fully disconnects
       if (!connectedUsers.has(userId)) {

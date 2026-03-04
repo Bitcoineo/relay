@@ -32,18 +32,26 @@ export async function createWorkspace(
   let slug = slugify(trimmed);
   if (!slug) slug = "workspace";
 
-  // Avoid slug collisions
-  const existing = await db.query.workspaces.findFirst({
-    where: eq(workspaces.slug, slug),
-  });
-  if (existing) {
-    slug = `${slug}-${nanoid(6)}`;
+  // Insert with slug; retry with nanoid suffix on UNIQUE constraint violation
+  let workspace: typeof workspaces.$inferSelect;
+  try {
+    const [inserted] = await db
+      .insert(workspaces)
+      .values({ name: trimmed, slug, ownerId: userId })
+      .returning();
+    workspace = inserted;
+  } catch (err: unknown) {
+    if (err instanceof Error && err.message.includes("UNIQUE")) {
+      slug = `${slug}-${nanoid(6)}`;
+      const [inserted] = await db
+        .insert(workspaces)
+        .values({ name: trimmed, slug, ownerId: userId })
+        .returning();
+      workspace = inserted;
+    } else {
+      throw err;
+    }
   }
-
-  const [workspace] = await db
-    .insert(workspaces)
-    .values({ name: trimmed, slug, ownerId: userId })
-    .returning();
 
   // Add creator as owner
   await db.insert(workspaceMembers).values({
