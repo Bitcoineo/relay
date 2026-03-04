@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { getChannelById, getWorkspaceChannels } from "@/lib/channels";
+import { getChannelById, getWorkspaceChannels, getChannelMembers } from "@/lib/channels";
 import { getWorkspaceBySlug } from "@/lib/workspaces";
 import { getWorkspaceMembers } from "@/lib/members";
 import { hasPermission } from "@/lib/permissions";
@@ -20,6 +20,8 @@ export default async function ChannelPage({
   const { data: workspace } = await getWorkspaceBySlug(params.workspaceSlug);
   if (!workspace) redirect("/workspaces");
 
+  const isDm = channel.isDm === 1;
+
   const [{ data: members }, adminPerm, ownerPerm, { data: allChannels }] =
     await Promise.all([
       getWorkspaceMembers(workspace.id),
@@ -27,6 +29,24 @@ export default async function ChannelPage({
       hasPermission(session.user.id, workspace.id, "owner"),
       getWorkspaceChannels(workspace.id, session.user.id, true),
     ]);
+
+  // For DMs, resolve the other user
+  let dmOtherUser: {
+    id: string;
+    name: string | null;
+    email: string;
+    avatarColor: string | null;
+    profileImage: string | null;
+    status: string;
+  } | undefined;
+
+  if (isDm) {
+    const channelMembersList = await getChannelMembers(channel.id);
+    const other = channelMembersList.find((m) => m.userId !== session.user.id);
+    if (other) {
+      dmOtherUser = other.user;
+    }
+  }
 
   return (
     <ChannelChat
@@ -50,6 +70,8 @@ export default async function ChannelPage({
       channels={(allChannels ?? [])
         .filter((c) => c.archived === 0)
         .map((c) => ({ id: c.id, name: c.name }))}
+      isDm={isDm}
+      dmOtherUser={dmOtherUser}
     />
   );
 }

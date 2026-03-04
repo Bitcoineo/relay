@@ -58,6 +58,7 @@ export async function getWorkspaceChannels(
   const result = memberships
     .map((m) => m.channel)
     .filter((c) => c.workspaceId === workspaceId)
+    .filter((c) => c.isDm === 0)
     .filter((c) => includeArchived || c.archived === 0);
 
   return { data: result, error: null };
@@ -71,6 +72,25 @@ export async function getChannelById(
   });
 
   return { data: channel ?? null, error: null };
+}
+
+export async function getChannelMembers(channelId: string) {
+  const members = await db.query.channelMembers.findMany({
+    where: eq(channelMembers.channelId, channelId),
+    with: {
+      user: {
+        columns: {
+          id: true,
+          name: true,
+          email: true,
+          avatarColor: true,
+          profileImage: true,
+          status: true,
+        },
+      },
+    },
+  });
+  return members;
 }
 
 export async function joinChannel(
@@ -107,6 +127,9 @@ export async function leaveChannel(
   if (channel.isDefault === 1) {
     return { data: null, error: "Cannot leave the default channel" };
   }
+  if (channel.isDm === 1) {
+    return { data: null, error: "Cannot leave a direct message" };
+  }
 
   await db
     .delete(channelMembers)
@@ -132,6 +155,9 @@ export async function deleteChannel(
   if (channel.isDefault === 1) {
     return { data: null, error: "Cannot delete the default channel" };
   }
+  if (channel.isDm === 1) {
+    return { data: null, error: "Cannot delete a direct message" };
+  }
 
   await db.delete(channels).where(eq(channels.id, channelId));
 
@@ -147,6 +173,10 @@ export async function updateChannel(
   });
   if (!channel) {
     return { data: null, error: "Channel not found" };
+  }
+
+  if (channel.isDm === 1) {
+    return { data: null, error: "Cannot update a direct message channel" };
   }
 
   const updates: Partial<typeof channels.$inferInsert> = {};
@@ -215,6 +245,9 @@ export async function archiveChannel(
   }
   if (channel.isDefault === 1) {
     return { data: null, error: "Cannot archive the default channel" };
+  }
+  if (channel.isDm === 1) {
+    return { data: null, error: "Cannot archive a direct message" };
   }
 
   await db

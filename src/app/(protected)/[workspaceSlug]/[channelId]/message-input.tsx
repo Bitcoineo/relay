@@ -19,6 +19,8 @@ interface MessageInputProps {
   onMessageSent: () => void;
   members: MemberInfo[];
   currentUserId: string;
+  isDm?: boolean;
+  dmOtherUserName?: string;
 }
 
 export default function MessageInput({
@@ -30,6 +32,8 @@ export default function MessageInput({
   onMessageSent,
   members,
   currentUserId,
+  isDm = false,
+  dmOtherUserName,
 }: MessageInputProps) {
   const [input, setInput] = useState("");
   const [showMentions, setShowMentions] = useState(false);
@@ -261,7 +265,7 @@ export default function MessageInput({
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleInputKeyDown}
-            placeholder={`Message #${channelName}`}
+            placeholder={isDm && dmOtherUserName ? `Message ${dmOtherUserName}` : `Message #${channelName}`}
             rows={1}
             className="flex-1 resize-none bg-transparent text-base leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
             style={{ maxHeight: "120px" }}

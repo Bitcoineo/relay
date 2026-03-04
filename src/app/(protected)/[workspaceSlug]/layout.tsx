@@ -4,6 +4,7 @@ import { getWorkspaceBySlug } from "@/lib/workspaces";
 import { getWorkspaceChannels } from "@/lib/channels";
 import { hasPermission, isMember } from "@/lib/permissions";
 import { getWorkspaceMembers } from "@/lib/members";
+import { getUserDMs } from "@/lib/direct-messages";
 import Sidebar from "./sidebar";
 import SocketProvider from "./socket-provider";
 
@@ -35,7 +36,11 @@ export default async function WorkspaceLayout({
     "admin"
   ));
 
-  const { data: members } = await getWorkspaceMembers(workspace.id);
+  const [{ data: members }, { data: directMessages }] = await Promise.all([
+    getWorkspaceMembers(workspace.id),
+    getUserDMs(workspace.id, session.user.id),
+  ]);
+
   const onlineCount = (members ?? []).filter(
     (m) => m.user.status === "online"
   ).length;
@@ -72,6 +77,8 @@ export default async function WorkspaceLayout({
           profileImage={currentMemberData?.user.profileImage || null}
           onlineCount={onlineCount}
           onlineMembers={onlineMembers}
+          directMessages={directMessages ?? []}
+          currentUserId={session.user.id}
         />
 
         <div className="flex min-w-0 flex-1 flex-col overflow-hidden">{children}</div>

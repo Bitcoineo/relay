@@ -13,6 +13,15 @@ import PinnedMessagesPanel from "./pinned-messages-panel";
 import type { Message, MemberInfo, MessageUser } from "./chat-types";
 import { getUserColor, getUserName } from "./chat-types";
 
+interface DmOtherUser {
+  id: string;
+  name: string | null;
+  email: string;
+  avatarColor: string | null;
+  profileImage: string | null;
+  status: string;
+}
+
 interface ChannelChatProps {
   channelId: string;
   channelName: string;
@@ -25,6 +34,8 @@ interface ChannelChatProps {
   isOwner?: boolean;
   isDefault?: boolean;
   channels?: Array<{ id: string; name: string }>;
+  isDm?: boolean;
+  dmOtherUser?: DmOtherUser;
 }
 
 export default function ChannelChat({
@@ -39,6 +50,8 @@ export default function ChannelChat({
   isOwner = false,
   isDefault = false,
   channels = [],
+  isDm = false,
+  dmOtherUser,
 }: ChannelChatProps) {
   const socket = useSocket();
   const router = useRouter();
@@ -360,24 +373,66 @@ export default function ChannelChat({
       {/* Channel header */}
       <header className="flex flex-shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
         <div className="flex items-center">
-          <span className="mr-1.5 text-[var(--text-muted)]">#</span>
-          <h1 className="text-base font-semibold text-[var(--text-primary)]">
-            {channelName}
-          </h1>
-          {isArchived && (
-            <span className="ml-2 rounded bg-[var(--warning)]/10 px-1.5 py-0.5 text-xs font-medium text-[var(--warning)]">
-              Archived
-            </span>
-          )}
-          <span className="ml-2 text-sm text-[var(--text-muted)]">
-            · {onlineInChannel} online
-          </span>
-          {channelDescription && (
-            <span className="ml-3 hidden text-sm text-[var(--text-muted)] sm:inline">
-              {channelDescription}
-            </span>
+          {isDm && dmOtherUser ? (
+            <>
+              <div className="relative mr-2 flex-shrink-0">
+                {dmOtherUser.profileImage ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={dmOtherUser.profileImage}
+                    alt=""
+                    className="h-6 w-6 rounded-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-medium text-white"
+                    style={{
+                      backgroundColor: dmOtherUser.avatarColor || "#0D9488",
+                    }}
+                  >
+                    {(dmOtherUser.name || dmOtherUser.email)[0].toUpperCase()}
+                  </div>
+                )}
+                <span
+                  className={`absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] ${
+                    getMemberStatus(dmOtherUser.id) === "online"
+                      ? "bg-[var(--success)]"
+                      : getMemberStatus(dmOtherUser.id) === "idle"
+                        ? "bg-[var(--warning)]"
+                        : "bg-[var(--border-strong)]"
+                  }`}
+                />
+              </div>
+              <h1 className="text-base font-semibold text-[var(--text-primary)]">
+                {dmOtherUser.name || dmOtherUser.email.split("@")[0]}
+              </h1>
+              <span className="ml-2 text-sm capitalize text-[var(--text-muted)]">
+                {getMemberStatus(dmOtherUser.id)}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="mr-1.5 text-[var(--text-muted)]">#</span>
+              <h1 className="text-base font-semibold text-[var(--text-primary)]">
+                {channelName}
+              </h1>
+              {isArchived && (
+                <span className="ml-2 rounded bg-[var(--warning)]/10 px-1.5 py-0.5 text-xs font-medium text-[var(--warning)]">
+                  Archived
+                </span>
+              )}
+              <span className="ml-2 text-sm text-[var(--text-muted)]">
+                · {onlineInChannel} online
+              </span>
+              {channelDescription && (
+                <span className="ml-3 hidden text-sm text-[var(--text-muted)] sm:inline">
+                  {channelDescription}
+                </span>
+              )}
+            </>
           )}
         </div>
+        {!isDm && (
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -425,6 +480,7 @@ export default function ChannelChat({
           </button>
           )}
         </div>
+        )}
       </header>
 
       {/* Messages area */}
@@ -471,10 +527,21 @@ export default function ChannelChat({
         {!initialLoad && messages.length > 0 && !nextCursor && (
           <div className="mb-6 pb-4">
             <p className="text-sm text-[var(--text-muted)]">
-              This is the start of{" "}
-              <span className="font-medium text-[var(--text-primary)]">
-                #{channelName}
-              </span>
+              {isDm && dmOtherUser ? (
+                <>
+                  This is the beginning of your conversation with{" "}
+                  <span className="font-medium text-[var(--text-primary)]">
+                    {dmOtherUser.name || dmOtherUser.email.split("@")[0]}
+                  </span>
+                </>
+              ) : (
+                <>
+                  This is the start of{" "}
+                  <span className="font-medium text-[var(--text-primary)]">
+                    #{channelName}
+                  </span>
+                </>
+              )}
             </p>
           </div>
         )}
@@ -540,6 +607,8 @@ export default function ChannelChat({
           onMessageSent={() => setReplyTo(null)}
           members={members}
           currentUserId={currentUserId}
+          isDm={isDm}
+          dmOtherUserName={dmOtherUser?.name || dmOtherUser?.email?.split("@")[0]}
         />
       )}
 
@@ -593,6 +662,8 @@ export default function ChannelChat({
           status={profilePopup.status}
           position={profilePopup.position}
           onClose={() => setProfilePopup(null)}
+          workspaceSlug={workspaceSlug}
+          currentUserId={currentUserId}
         />
       )}
     </div>

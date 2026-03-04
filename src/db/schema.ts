@@ -128,6 +128,7 @@ export const channels = sqliteTable("channel", {
   name: text("name").notNull(),
   description: text("description"),
   isDefault: integer("isDefault").notNull().default(0),
+  isDm: integer("isDm").notNull().default(0),
   archived: integer("archived").notNull().default(0),
   createdBy: text("createdBy")
     .notNull()

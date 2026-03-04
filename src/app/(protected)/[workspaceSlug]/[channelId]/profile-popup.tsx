@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 interface ProfilePopupProps {
   userId: string;
@@ -9,6 +10,8 @@ interface ProfilePopupProps {
   status: string;
   position: { top: number; left: number };
   onClose: () => void;
+  workspaceSlug?: string;
+  currentUserId?: string;
 }
 
 interface ProfileData {
@@ -31,8 +34,12 @@ export default function ProfilePopup({
   status,
   position,
   onClose,
+  workspaceSlug,
+  currentUserId,
 }: ProfilePopupProps) {
+  const router = useRouter();
   const [profile, setProfile] = useState<ProfileData | null>(null);
+  const [startingDm, setStartingDm] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -148,6 +155,31 @@ export default function ProfilePopup({
 
       {profile?.email && (
         <p className="mt-2 text-xs text-[var(--text-muted)]">{profile.email}</p>
+      )}
+
+      {workspaceSlug && currentUserId && userId !== currentUserId && (
+        <button
+          type="button"
+          disabled={startingDm}
+          onClick={async () => {
+            setStartingDm(true);
+            const res = await fetch(`/api/workspaces/${workspaceSlug}/dm`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ userId }),
+            });
+            if (res.ok) {
+              const { channelId } = await res.json();
+              onClose();
+              router.push(`/${workspaceSlug}/${channelId}`);
+              router.refresh();
+            }
+            setStartingDm(false);
+          }}
+          className="mt-3 w-full rounded-md bg-[var(--accent)] px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)] disabled:opacity-50"
+        >
+          {startingDm ? "..." : "Message"}
+        </button>
       )}
     </div>
   );

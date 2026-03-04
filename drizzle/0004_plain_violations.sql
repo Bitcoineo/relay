@@ -1,0 +1,1 @@
+ALTER TABLE `channel` ADD `isDm` integer DEFAULT 0 NOT NULL;
