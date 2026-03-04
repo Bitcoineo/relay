@@ -47,7 +47,12 @@ export default async function WorkspaceLayout({
       name: m.user.name,
       email: m.user.email,
       avatarColor: m.user.avatarColor,
+      profileImage: m.user.profileImage,
     }));
+
+  const currentMemberData = (members ?? []).find(
+    (m) => m.user.id === session.user!.id
+  );
 
   return (
     <SocketProvider>
@@ -63,7 +68,8 @@ export default async function WorkspaceLayout({
           }))}
           isAdmin={isAdmin}
           userName={session.user.name || session.user.email || "User"}
-          avatarColor="#4F46E5"
+          avatarColor={currentMemberData?.user.avatarColor || "#4F46E5"}
+          profileImage={currentMemberData?.user.profileImage || null}
           onlineCount={onlineCount}
           onlineMembers={onlineMembers}
         />

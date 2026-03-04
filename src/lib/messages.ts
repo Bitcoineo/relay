@@ -1,4 +1,4 @@
-import { eq, and, lt, desc } from "drizzle-orm";
+import { eq, and, lt, desc, isNotNull } from "drizzle-orm";
 import { db } from "@/db";
 import { messages, users } from "@/db/schema";
 
@@ -27,6 +27,7 @@ export type MessageWithUser = typeof messages.$inferSelect & {
   forwardedFromChannel: { id: string; name: string } | null;
   forwardedFromUser: { id: string; name: string | null } | null;
   reactions: ReactionData[];
+  pinnedBy?: { id: string; name: string | null } | null;
 };
 
 export async function createMessage(
@@ -92,6 +93,7 @@ export async function createMessage(
       forwardedFromChannel: null,
       forwardedFromUser: null,
       reactions: [],
+      pinnedBy: null,
     },
     error: null,
   };
@@ -136,6 +138,7 @@ export async function getChannelMessages(
         columns: { id: true, emoji: true, userId: true },
         with: { user: { columns: { id: true, name: true } } },
       },
+      pinnedBy: { columns: { id: true, name: true } },
     },
   });
 
@@ -199,6 +202,7 @@ export async function forwardMessage(
       forwardedFromChannel: original.channel,
       forwardedFromUser: original.user,
       reactions: [],
+      pinnedBy: null,
     },
     error: null,
   };
@@ -223,4 +227,86 @@ export async function deleteMessage(
   await db.delete(messages).where(eq(messages.id, messageId));
 
   return { data: { deleted: true }, error: null };
+}
+
+const fullMessageWith = {
+  user: {
+    columns: {
+      id: true,
+      name: true,
+      email: true,
+      avatarColor: true,
+      profileImage: true,
+    },
+  },
+  replyTo: {
+    columns: { id: true, content: true },
+    with: { user: { columns: { id: true, name: true } } },
+  },
+  forwardedFromChannel: { columns: { id: true, name: true } },
+  forwardedFromUser: { columns: { id: true, name: true } },
+  reactions: {
+    columns: { id: true, emoji: true, userId: true },
+    with: { user: { columns: { id: true, name: true } } },
+  },
+  pinnedBy: { columns: { id: true, name: true } },
+} as const;
+
+export async function pinMessage(
+  messageId: string,
+  pinnedById: string
+): Promise<Result<MessageWithUser>> {
+  const message = await db.query.messages.findFirst({
+    where: eq(messages.id, messageId),
+  });
+
+  if (!message) return { data: null, error: "Message not found" };
+  if (message.pinnedAt) return { data: null, error: "Message is already pinned" };
+
+  await db
+    .update(messages)
+    .set({ pinnedAt: new Date().toISOString(), pinnedById })
+    .where(eq(messages.id, messageId));
+
+  const updated = await db.query.messages.findFirst({
+    where: eq(messages.id, messageId),
+    with: fullMessageWith,
+  });
+
+  return { data: updated as MessageWithUser, error: null };
+}
+
+export async function unpinMessage(
+  messageId: string
+): Promise<Result<MessageWithUser>> {
+  const message = await db.query.messages.findFirst({
+    where: eq(messages.id, messageId),
+  });
+
+  if (!message) return { data: null, error: "Message not found" };
+  if (!message.pinnedAt) return { data: null, error: "Message is not pinned" };
+
+  await db
+    .update(messages)
+    .set({ pinnedAt: null, pinnedById: null })
+    .where(eq(messages.id, messageId));
+
+  const updated = await db.query.messages.findFirst({
+    where: eq(messages.id, messageId),
+    with: fullMessageWith,
+  });
+
+  return { data: updated as MessageWithUser, error: null };
+}
+
+export async function getPinnedMessages(
+  channelId: string
+): Promise<Result<MessageWithUser[]>> {
+  const rows = await db.query.messages.findMany({
+    where: and(eq(messages.channelId, channelId), isNotNull(messages.pinnedAt)),
+    orderBy: [desc(messages.pinnedAt)],
+    with: fullMessageWith,
+  });
+
+  return { data: rows as MessageWithUser[], error: null };
 }

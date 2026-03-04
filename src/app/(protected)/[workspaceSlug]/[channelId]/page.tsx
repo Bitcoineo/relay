@@ -40,6 +40,7 @@ export default async function ChannelPage({
         name: m.user.name,
         email: m.user.email,
         avatarColor: m.user.avatarColor,
+        profileImage: m.user.profileImage,
         status: m.user.status,
       }))}
       isArchived={channel.archived === 1}

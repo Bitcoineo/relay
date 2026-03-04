@@ -14,7 +14,7 @@ export async function getWorkspaceMembers(workspaceId: string): Promise<
         id: string;
         name: string | null;
         email: string;
-        image: string | null;
+        profileImage: string | null;
         avatarColor: string | null;
         status: string;
       };
@@ -30,7 +30,7 @@ export async function getWorkspaceMembers(workspaceId: string): Promise<
           id: true,
           name: true,
           email: true,
-          image: true,
+          profileImage: true,
           avatarColor: true,
           status: true,
         },

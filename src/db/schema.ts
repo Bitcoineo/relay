@@ -183,6 +183,10 @@ export const messages = sqliteTable(
     createdAt: text("createdAt")
       .notNull()
       .$defaultFn(() => new Date().toISOString()),
+    pinnedAt: text("pinnedAt"),
+    pinnedById: text("pinnedById").references(() => users.id, {
+      onDelete: "set null",
+    }),
   },
   (msg) => ({
     channelCreatedAtIdx: index("message_channel_created_at").on(
@@ -284,6 +288,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   mentions: many(mentions),
   reactions: many(reactions),
   forwardedMessages: many(messages, { relationName: "forwardedByUser" }),
+  pinnedMessages: many(messages, { relationName: "pinnedMessages" }),
 }));
 
 export const workspacesRelations = relations(workspaces, ({ one, many }) => ({
@@ -361,6 +366,11 @@ export const messagesRelations = relations(messages, ({ one, many }) => ({
     fields: [messages.forwardedFromUserId],
     references: [users.id],
     relationName: "forwardedByUser",
+  }),
+  pinnedBy: one(users, {
+    fields: [messages.pinnedById],
+    references: [users.id],
+    relationName: "pinnedMessages",
   }),
 }));
 

@@ -12,6 +12,7 @@ interface OnlineMember {
   name: string | null;
   email: string;
   avatarColor: string | null;
+  profileImage: string | null;
 }
 
 interface SidebarProps {
@@ -26,6 +27,7 @@ interface SidebarProps {
   isAdmin: boolean;
   userName: string;
   avatarColor: string;
+  profileImage: string | null;
   onlineCount: number;
   onlineMembers: OnlineMember[];
 }
@@ -37,6 +39,7 @@ export default function Sidebar({
   isAdmin,
   userName,
   avatarColor,
+  profileImage,
   onlineCount: initialOnlineCount,
   onlineMembers,
 }: SidebarProps) {
@@ -394,14 +397,23 @@ export default function Sidebar({
                     className="flex items-center gap-2 px-1 py-1"
                   >
                     <div className="relative">
-                      <div
-                        className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-medium text-white"
-                        style={{
-                          backgroundColor: m.avatarColor || "#4F46E5",
-                        }}
-                      >
-                        {(m.name || m.email)[0].toUpperCase()}
-                      </div>
+                      {m.profileImage ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={m.profileImage}
+                          alt=""
+                          className="h-5 w-5 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-medium text-white"
+                          style={{
+                            backgroundColor: m.avatarColor || "#4F46E5",
+                          }}
+                        >
+                          {(m.name || m.email)[0].toUpperCase()}
+                        </div>
+                      )}
                       <span className="absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] bg-[var(--success)]" />
                     </div>
                     <span className="truncate text-xs text-[var(--text-secondary)]">
@@ -425,12 +437,21 @@ export default function Sidebar({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="relative">
-                <div
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium text-white"
-                  style={{ backgroundColor: avatarColor }}
-                >
-                  {userName[0].toUpperCase()}
-                </div>
+                {profileImage ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
+                  <img
+                    src={profileImage}
+                    alt=""
+                    className="h-7 w-7 rounded-full object-cover"
+                  />
+                ) : (
+                  <div
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium text-white"
+                    style={{ backgroundColor: avatarColor }}
+                  >
+                    {userName[0].toUpperCase()}
+                  </div>
+                )}
                 <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[var(--status-dot-border)] bg-[var(--success)]" />
               </div>
               <span className="truncate text-sm text-[var(--text-primary)]">

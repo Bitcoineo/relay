@@ -7,17 +7,23 @@ const INLINE_REACTIONS = ["👍", "❤️", "😂", "🎉", "👀"];
 
 interface MessageActionsProps {
   isOwnMessage: boolean;
+  isPinned: boolean;
+  canPin: boolean;
   onReply: () => void;
   onForward: () => void;
   onReact: (emoji: string) => void;
+  onPin?: () => void;
   onDelete?: () => void;
 }
 
 export default function MessageActions({
   isOwnMessage,
+  isPinned,
+  canPin,
   onReply,
   onForward,
   onReact,
+  onPin,
   onDelete,
 }: MessageActionsProps) {
   const [showPicker, setShowPicker] = useState(false);
@@ -83,6 +89,21 @@ export default function MessageActions({
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
         </svg>
       </button>
+
+      {/* Pin */}
+      {canPin && onPin && (
+        <button
+          type="button"
+          onClick={onPin}
+          className="rounded p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
+          title={isPinned ? "Unpin message" : "Pin message"}
+        >
+          <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill={isPinned ? "currentColor" : "none"} strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 4v3.2c0 .28-.11.55-.3.75L5.4 11.6c-.5.53-.2 1.4.5 1.4h5.1v6l1 2 1-2v-6h5.1c.7 0 1-.87.5-1.4L15.3 7.95a1.06 1.06 0 01-.3-.75V4" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 4h10" />
+          </svg>
+        </button>
+      )}
 
       {/* Delete (own messages only) */}
       {isOwnMessage && onDelete && (

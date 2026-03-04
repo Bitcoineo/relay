@@ -70,10 +70,11 @@ nextApp.prepare().then(async () => {
   // Dynamic imports so dotenv is loaded first
   const { db } = await import("./src/db");
   const { eq, and } = await import("drizzle-orm");
-  const { users, channelMembers, workspaceMembers, workspaces } = await import(
+  const { users, channelMembers, workspaceMembers, workspaces, messages } = await import(
     "./src/db/schema"
   );
-  const { createMessage, forwardMessage } = await import("./src/lib/messages");
+  const { createMessage, forwardMessage, pinMessage, unpinMessage } = await import("./src/lib/messages");
+  const { hasPermission } = await import("./src/lib/permissions");
   const { toggleReaction } = await import("./src/lib/reactions");
   const { replaceShortcodes } = await import("./src/lib/emoji");
   const { mentions } = await import("./src/db/schema");
@@ -386,6 +387,58 @@ nextApp.prepare().then(async () => {
         }
 
         io.to(data.toChannelId).emit("new_message", result.data);
+      }
+    );
+
+    // ─── pin_message ───────────────────────────────────────────────
+
+    socket.on(
+      "pin_message",
+      async (data: { channelId: string; messageId: string }) => {
+        if (!(await checkChannelAccess(socket.id, userId, data.channelId))) {
+          socket.emit("error", { message: "Not a member of this channel" });
+          return;
+        }
+
+        // Look up channel to get workspaceId for permission check
+        const channel = await db.query.channels.findFirst({
+          where: eq(channelsTable.id, data.channelId),
+          columns: { workspaceId: true },
+        });
+        if (!channel) {
+          socket.emit("error", { message: "Channel not found" });
+          return;
+        }
+
+        const permission = await hasPermission(userId, channel.workspaceId, "admin");
+        if (!permission) {
+          socket.emit("error", { message: "Only admins can pin messages" });
+          return;
+        }
+
+        // Fetch to check current pin state
+        const msg = await db.query.messages.findFirst({
+          where: eq(messages.id, data.messageId),
+        });
+        if (!msg || msg.channelId !== data.channelId) {
+          socket.emit("error", { message: "Message not found" });
+          return;
+        }
+
+        const result = msg.pinnedAt
+          ? await unpinMessage(data.messageId)
+          : await pinMessage(data.messageId, userId);
+
+        if (result.error) {
+          socket.emit("error", { message: result.error });
+          return;
+        }
+
+        io.to(data.channelId).emit("message_pinned", {
+          message: result.data,
+          action: msg.pinnedAt ? "unpinned" : "pinned",
+          pinnedByName: userNameCache.get(userId) || "Someone",
+        });
       }
     );
 

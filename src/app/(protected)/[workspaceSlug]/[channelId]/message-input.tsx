@@ -226,12 +226,21 @@ export default function MessageInput({
                   : "text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
               }`}
             >
-              <div
-                className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-medium text-white"
-                style={{ backgroundColor: getUserColor(member) }}
-              >
-                {getUserName(member)[0].toUpperCase()}
-              </div>
+              {member.profileImage ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={member.profileImage}
+                  alt=""
+                  className="h-6 w-6 flex-shrink-0 rounded-full object-cover"
+                />
+              ) : (
+                <div
+                  className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-medium text-white"
+                  style={{ backgroundColor: getUserColor(member) }}
+                >
+                  {getUserName(member)[0].toUpperCase()}
+                </div>
+              )}
               <span className="truncate">{getUserName(member)}</span>
               <span
                 className={`ml-auto text-xs ${

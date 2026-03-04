@@ -11,7 +11,7 @@ interface Member {
     id: string;
     name: string | null;
     email: string;
-    image: string | null;
+    profileImage: string | null;
     avatarColor: string | null;
     status: string;
   };
@@ -274,14 +274,23 @@ export default function MemberList({
             >
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium text-white"
-                    style={{
-                      backgroundColor: m.user.avatarColor || "#4F46E5",
-                    }}
-                  >
-                    {(m.user.name || m.user.email)[0].toUpperCase()}
-                  </div>
+                  {m.user.profileImage ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={m.user.profileImage}
+                      alt=""
+                      className="h-9 w-9 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium text-white"
+                      style={{
+                        backgroundColor: m.user.avatarColor || "#4F46E5",
+                      }}
+                    >
+                      {(m.user.name || m.user.email)[0].toUpperCase()}
+                    </div>
+                  )}
                   <span
                     className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[var(--status-dot-border)] ${STATUS_DOT[m.user.status] || STATUS_DOT.offline}`}
                   />

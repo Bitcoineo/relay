@@ -30,6 +30,9 @@ export interface Message {
   forwardedFromChannel?: { id: string; name: string } | null;
   forwardedFromUser?: { id: string; name: string | null } | null;
   reactions?: ReactionData[];
+  pinnedAt?: string | null;
+  pinnedById?: string | null;
+  pinnedBy?: { id: string; name: string | null } | null;
 }
 
 export interface MemberInfo {
@@ -37,6 +40,7 @@ export interface MemberInfo {
   name: string | null;
   email: string;
   avatarColor: string | null;
+  profileImage?: string | null;
   status: string;
 }
 

@@ -9,6 +9,7 @@ import ProfilePopup from "./profile-popup";
 import MessageBubble from "./message-bubble";
 import MessageInput from "./message-input";
 import TypingIndicator from "./typing-indicator";
+import PinnedMessagesPanel from "./pinned-messages-panel";
 import type { Message, MemberInfo, MessageUser } from "./chat-types";
 import { getUserColor, getUserName } from "./chat-types";
 
@@ -53,6 +54,9 @@ export default function ChannelChat({
   const [replyTo, setReplyTo] = useState<Message | null>(null);
   const [forwardMessage, setForwardMessage] = useState<Message | null>(null);
   const [showSettings, setShowSettings] = useState(false);
+  const [showPinned, setShowPinned] = useState(false);
+  const [pinnedMessages, setPinnedMessages] = useState<Message[]>([]);
+  const [pinnedCount, setPinnedCount] = useState(0);
   const [profilePopup, setProfilePopup] = useState<{
     userId: string;
     avatarColor: string;
@@ -97,6 +101,16 @@ export default function ChannelChat({
     [workspaceSlug, channelId]
   );
 
+  const fetchPinnedMessages = useCallback(async () => {
+    const res = await fetch(
+      `/api/workspaces/${workspaceSlug}/channels/${channelId}/pins`
+    );
+    if (!res.ok) return;
+    const data = await res.json();
+    setPinnedMessages(data);
+    setPinnedCount(data.length);
+  }, [workspaceSlug, channelId]);
+
   // ─── Initial load + Socket.io setup ─────────────────────────────
 
   useEffect(() => {
@@ -112,6 +126,8 @@ export default function ChannelChat({
         messagesEndRef.current?.scrollIntoView();
       });
     });
+
+    fetchPinnedMessages();
 
     if (socket) {
       socket.emit("join_channel", channelId);
@@ -214,11 +230,39 @@ export default function ChannelChat({
         );
       };
 
+      const handleMessagePinned = (data: {
+        message: Message;
+        action: "pinned" | "unpinned";
+        pinnedByName: string;
+      }) => {
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === data.message.id
+              ? {
+                  ...msg,
+                  pinnedAt: data.message.pinnedAt,
+                  pinnedById: data.message.pinnedById,
+                  pinnedBy: data.message.pinnedBy,
+                }
+              : msg
+          )
+        );
+        setPinnedCount((prev) =>
+          data.action === "pinned" ? prev + 1 : Math.max(0, prev - 1)
+        );
+        setPinnedMessages((prev) =>
+          data.action === "pinned"
+            ? [data.message, ...prev]
+            : prev.filter((m) => m.id !== data.message.id)
+        );
+      };
+
       socket.on("new_message", handleNewMessage);
       socket.on("user_typing", handleTyping);
       socket.on("user_stop_typing", handleStopTyping);
       socket.on("presence_update", handlePresence);
       socket.on("reaction_update", handleReactionUpdate);
+      socket.on("message_pinned", handleMessagePinned);
 
       return () => {
         mounted = false;
@@ -228,13 +272,14 @@ export default function ChannelChat({
         socket.off("user_stop_typing", handleStopTyping);
         socket.off("presence_update", handlePresence);
         socket.off("reaction_update", handleReactionUpdate);
+        socket.off("message_pinned", handleMessagePinned);
       };
     }
 
     return () => {
       mounted = false;
     };
-  }, [socket, channelId, fetchMessages, currentUserId]);
+  }, [socket, channelId, fetchMessages, fetchPinnedMessages, currentUserId]);
 
   // ─── Infinite scroll ────────────────────────────────────────────
 
@@ -279,6 +324,11 @@ export default function ChannelChat({
   function handleReact(messageId: string, emoji: string) {
     if (!socket) return;
     socket.emit("send_reaction", { channelId, messageId, emoji });
+  }
+
+  function handlePin(messageId: string) {
+    if (!socket) return;
+    socket.emit("pin_message", { channelId, messageId });
   }
 
   function handleDelete(messageId: string) {
@@ -328,10 +378,29 @@ export default function ChannelChat({
             </span>
           )}
         </div>
-        {isAdmin && (
+        <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => setShowSettings(true)}
+            onClick={() => {
+              setShowSettings(false);
+              if (!showPinned) fetchPinnedMessages();
+              setShowPinned(!showPinned);
+            }}
+            className="flex items-center gap-1 rounded p-1.5 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
+            title="Pinned messages"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 4v3.2c0 .28-.11.55-.3.75L5.4 11.6c-.5.53-.2 1.4.5 1.4h5.1v6l1 2 1-2v-6h5.1c.7 0 1-.87.5-1.4L15.3 7.95a1.06 1.06 0 01-.3-.75V4" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M7 4h10" />
+            </svg>
+            {pinnedCount > 0 && (
+              <span className="text-xs font-medium">{pinnedCount}</span>
+            )}
+          </button>
+          {isAdmin && (
+          <button
+            type="button"
+            onClick={() => { setShowPinned(false); setShowSettings(true); }}
             className="rounded p-1.5 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
             title="Channel settings"
           >
@@ -354,7 +423,8 @@ export default function ChannelChat({
               />
             </svg>
           </button>
-        )}
+          )}
+        </div>
       </header>
 
       {/* Messages area */}
@@ -429,6 +499,8 @@ export default function ChannelChat({
                   ? () => handleDelete(msg.id)
                   : undefined
               }
+              canPin={isAdmin || isOwner}
+              onPin={isAdmin || isOwner ? () => handlePin(msg.id) : undefined}
               onAvatarClick={handleAvatarClick}
               getMemberStatus={getMemberStatus}
             />
@@ -481,6 +553,16 @@ export default function ChannelChat({
           channels={channels}
           onClose={() => setForwardMessage(null)}
           socket={socket}
+        />
+      )}
+
+      {/* Pinned messages panel */}
+      {showPinned && (
+        <PinnedMessagesPanel
+          pinnedMessages={pinnedMessages}
+          canPin={!!(isAdmin || isOwner)}
+          onUnpin={(messageId) => handlePin(messageId)}
+          onClose={() => setShowPinned(false)}
         />
       )}
 

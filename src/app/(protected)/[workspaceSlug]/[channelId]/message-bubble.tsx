@@ -24,6 +24,8 @@ interface MessageBubbleProps {
   onForward: () => void;
   onReact: (emoji: string) => void;
   onDelete?: () => void;
+  canPin?: boolean;
+  onPin?: () => void;
   onAvatarClick: (e: React.MouseEvent, user: MessageUser, status: string) => void;
   getMemberStatus: (userId: string) => string;
 }
@@ -65,6 +67,8 @@ export default function MessageBubble({
   onForward,
   onReact,
   onDelete,
+  canPin = false,
+  onPin,
   onAvatarClick,
   getMemberStatus,
 }: MessageBubbleProps) {
@@ -75,9 +79,12 @@ export default function MessageBubble({
   const actionsBar = !isArchived && (
     <MessageActions
       isOwnMessage={msg.userId === currentUserId}
+      isPinned={!!msg.pinnedAt}
+      canPin={canPin}
       onReply={onReply}
       onForward={onForward}
       onReact={onReact}
+      onPin={onPin}
       onDelete={onDelete}
     />
   );
@@ -191,6 +198,15 @@ export default function MessageBubble({
               <span className="text-[11px] text-[var(--text-muted)]">
                 {formatTime(msg.createdAt)}
               </span>
+              {msg.pinnedAt && (
+                <span className="flex items-center gap-0.5 text-[10px] text-[var(--warning)]">
+                  <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth={0.5}>
+                    <path d="M9 4v3.2c0 .28-.11.55-.3.75L5.4 11.6c-.5.53-.2 1.4.5 1.4h5.1v6l1 2 1-2v-6h5.1c.7 0 1-.87.5-1.4L15.3 7.95a1.06 1.06 0 01-.3-.75V4" />
+                    <path d="M7 4h10" />
+                  </svg>
+                  Pinned
+                </span>
+              )}
             </div>
             <p className="text-[15px] text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
