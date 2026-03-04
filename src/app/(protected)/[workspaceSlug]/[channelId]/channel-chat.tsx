@@ -361,11 +361,11 @@ export default function ChannelChat({
       <header className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
         <div className="flex items-center">
           <span className="mr-1.5 text-[var(--text-muted)]">#</span>
-          <h1 className="text-sm font-semibold text-[var(--text-primary)]">
+          <h1 className="text-base font-semibold text-[var(--text-primary)]">
             {channelName}
           </h1>
           {isArchived && (
-            <span className="ml-2 rounded bg-[var(--warning)]/10 px-1.5 py-0.5 text-[10px] font-medium text-[var(--warning)]">
+            <span className="ml-2 rounded bg-[var(--warning)]/10 px-1.5 py-0.5 text-xs font-medium text-[var(--warning)]">
               Archived
             </span>
           )}
@@ -462,11 +462,8 @@ export default function ChannelChat({
                 />
               </svg>
             </div>
-            <p className="mt-3 text-sm font-medium text-[var(--text-primary)]">
-              No messages yet
-            </p>
-            <p className="mt-1 text-sm text-[var(--text-muted)]">
-              Start the conversation in #{channelName}.
+            <p className="mt-3 text-sm text-[var(--text-muted)]">
+              No messages yet. Say something.
             </p>
           </div>
         )}
@@ -474,7 +471,7 @@ export default function ChannelChat({
         {!initialLoad && messages.length > 0 && !nextCursor && (
           <div className="mb-6 pb-4">
             <p className="text-sm text-[var(--text-muted)]">
-              This is the beginning of{" "}
+              This is the start of{" "}
               <span className="font-medium text-[var(--text-primary)]">
                 #{channelName}
               </span>
@@ -530,7 +527,7 @@ export default function ChannelChat({
       {isArchived ? (
         <div className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-4 text-center">
           <p className="text-sm text-[var(--text-muted)]">
-            This channel is archived. No new messages can be sent.
+            This channel is archived. Messages are read-only.
           </p>
         </div>
       ) : (

@@ -28,7 +28,7 @@ function SignInForm() {
     });
 
     if (result?.error) {
-      setError("Invalid email or password");
+      setError("Wrong email or password.");
       setLoading(false);
     } else {
       router.push("/workspaces");
@@ -57,12 +57,9 @@ function SignInForm() {
         <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
       </Link>
 
-      <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-1">
-        Sign in
+      <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-6">
+        Welcome back
       </h1>
-      <p className="text-[var(--text-secondary)] text-sm text-center mb-6">
-        Welcome back! Sign in to continue.
-      </p>
 
       {error && (
         <div className="text-sm text-[var(--danger)] bg-[var(--danger-light)] px-3 py-2 rounded mb-4">
@@ -72,7 +69,7 @@ function SignInForm() {
 
       <button
         onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-md px-4 py-2.5 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] transition-all"
+        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-md px-4 py-3 text-base font-medium text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] transition-all"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
@@ -108,7 +105,7 @@ function SignInForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <input
           type="password"
@@ -116,24 +113,24 @@ function SignInForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-3 text-base font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
         >
-          {loading ? "Signing in..." : "Sign in"}
+          {loading ? "One moment..." : "Continue"}
         </button>
       </form>
 
-      <p className="text-center text-sm text-[var(--text-secondary)] mt-6">
-        Don&apos;t have an account?{" "}
+      <p className="text-center text-[15px] text-[var(--text-secondary)] mt-6">
+        New here?{" "}
         <Link
           href="/auth/signup"
           className="text-[var(--accent-text)] hover:text-[var(--accent-hover)] hover:underline"
         >
-          Sign up
+          Create an account
         </Link>
       </p>
     </div>

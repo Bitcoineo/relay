@@ -88,14 +88,17 @@ export default function ProfilePopup({
           />
         </div>
         <div>
-          <p className="text-sm font-semibold text-[var(--text-primary)]">{userName}</p>
-          <p className="text-xs capitalize text-[var(--text-muted)]">{status}</p>
+          <p className="text-[15px] font-semibold text-[var(--text-primary)]">{userName}</p>
+          <div className="flex items-center gap-1.5">
+            <span className={`h-2 w-2 rounded-full ${statusColor}`} />
+            <span className="text-[13px] capitalize text-[var(--text-muted)]">{status === "online" ? "Online" : status === "idle" ? "Idle" : "Offline"}</span>
+          </div>
         </div>
       </div>
 
       {/* Bio */}
       {profile?.bio && (
-        <p className="mt-3 text-xs text-[var(--text-secondary)]">{profile.bio}</p>
+        <p className="mt-3 text-[13px] text-[var(--text-secondary)]">{profile.bio}</p>
       )}
 
       {/* Links */}
@@ -144,7 +147,7 @@ export default function ProfilePopup({
       )}
 
       {profile?.email && (
-        <p className="mt-2 text-[11px] text-[var(--text-muted)]">{profile.email}</p>
+        <p className="mt-2 text-xs text-[var(--text-muted)]">{profile.email}</p>
       )}
     </div>
   );

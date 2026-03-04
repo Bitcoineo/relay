@@ -22,7 +22,7 @@ export default async function WorkspacesPage() {
               <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
               <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
             </svg>
-            <span className="text-sm font-bold text-[var(--text-primary)]">Relay</span>
+            <span className="text-base font-bold text-[var(--text-primary)]">Relay</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm text-[var(--text-secondary)]">

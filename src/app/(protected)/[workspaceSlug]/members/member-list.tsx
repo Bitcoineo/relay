@@ -85,7 +85,7 @@ export default function MemberList({
     const data = await res.json();
 
     if (!res.ok) {
-      setInviteError(data.error || "Failed to send invite");
+      setInviteError(data.error || "Something went wrong. Try again.");
       setInviteLoading(false);
       return;
     }
@@ -132,7 +132,7 @@ export default function MemberList({
   return (
     <div className="space-y-8">
       {/* Online count */}
-      <p className="text-sm text-[var(--text-secondary)]">
+      <p className="text-[15px] text-[var(--text-secondary)]">
         {onlineCount} of {members.length} members online
       </p>
 
@@ -144,11 +144,11 @@ export default function MemberList({
               onClick={() => setShowInvite(true)}
               className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
             >
-              Invite member
+              Invite
             </button>
           ) : (
             <div className="rounded-md border border-[var(--border)] bg-[var(--bg-primary)] p-4">
-              <h3 className="text-sm font-semibold text-[var(--text-primary)]">Invite</h3>
+              <h3 className="text-base font-semibold text-[var(--text-primary)]">Invite a member</h3>
               <form onSubmit={handleInvite} className="mt-3 flex items-end gap-3">
                 <div className="flex-1">
                   <input
@@ -179,6 +179,7 @@ export default function MemberList({
                   className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] disabled:opacity-50"
                 >
                   {inviteLoading ? "Sending..." : "Send invite"}
+
                 </button>
                 <button
                   type="button"
@@ -198,7 +199,7 @@ export default function MemberList({
               {inviteLink && (
                 <div className="mt-3 rounded-md border border-[var(--success)]/20 bg-[var(--success)]/5 p-3">
                   <p className="text-sm text-[var(--success)]">
-                    Invite created. Share the link.
+                    Invite sent.
                   </p>
                   <div className="mt-1 flex items-center gap-2">
                     <code className="flex-1 truncate rounded border border-[var(--border)] bg-[var(--bg-primary)] px-2 py-1 text-xs text-[var(--text-primary)]">
@@ -221,8 +222,8 @@ export default function MemberList({
       {/* Pending Invites */}
       {isAdmin && pendingInvites.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-            Pending Invites
+          <h3 className="text-base font-semibold text-[var(--text-primary)]">
+            Pending invites
             <span className="ml-2 text-xs font-normal text-[var(--text-muted)]">
               {pendingInvites.length}
             </span>
@@ -260,11 +261,8 @@ export default function MemberList({
 
       {/* Members List */}
       <div>
-        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Members
-          <span className="ml-2 text-xs font-normal text-[var(--text-muted)]">
-            {members.length}
-          </span>
+        <h3 className="text-base font-semibold text-[var(--text-primary)]">
+          Members &middot; {members.length}
         </h3>
         <div className="mt-2 space-y-2">
           {members.map((m) => (
@@ -279,11 +277,11 @@ export default function MemberList({
                     <img
                       src={m.user.profileImage}
                       alt=""
-                      className="h-9 w-9 rounded-full object-cover"
+                      className="h-10 w-10 rounded-full object-cover"
                     />
                   ) : (
                     <div
-                      className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium text-white"
+                      className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium text-white"
                       style={{
                         backgroundColor: m.user.avatarColor || "#4F46E5",
                       }}
@@ -296,13 +294,13 @@ export default function MemberList({
                   />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-[var(--text-primary)]">
+                  <p className="text-[15px] font-medium text-[var(--text-primary)]">
                     {m.user.name || m.user.email}
                     {m.user.id === currentUserId && (
-                      <span className="ml-1 text-xs text-[var(--text-muted)]">(you)</span>
+                      <span className="ml-1 text-[13px] text-[var(--text-muted)]">(you)</span>
                     )}
                   </p>
-                  <p className="text-xs text-[var(--text-muted)]">{m.user.email}</p>
+                  <p className="text-[13px] text-[var(--text-muted)]">{m.user.email}</p>
                 </div>
               </div>
 

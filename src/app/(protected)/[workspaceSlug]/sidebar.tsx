@@ -97,7 +97,7 @@ export default function Sidebar({
 
     if (!res.ok) {
       const data = await res.json();
-      setError(data.error || "Failed to create channel");
+      setError(data.error || "Something went wrong. Try again.");
       setLoading(false);
       return;
     }
@@ -170,7 +170,7 @@ export default function Sidebar({
         <div className="p-4">
           <Link
             href="/workspaces"
-            className="flex items-center gap-1 text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+            className="flex items-center gap-1 text-[13px] text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
           >
             <svg
               className="h-3 w-3"
@@ -185,9 +185,9 @@ export default function Sidebar({
                 d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
               />
             </svg>
-            All Workspaces
+            All workspaces
           </Link>
-          <h2 className="mt-3 flex items-center gap-1 truncate text-sm font-bold text-[var(--text-primary)]">
+          <h2 className="mt-3 flex items-center gap-1 truncate text-base font-bold text-[var(--text-primary)]">
             {workspaceName}
             <svg
               className="h-3 w-3 flex-shrink-0 text-[var(--text-muted)]"
@@ -203,7 +203,7 @@ export default function Sidebar({
               />
             </svg>
           </h2>
-          <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">
+          <p className="mt-0.5 text-xs text-[var(--text-muted)]">
             {onlineCount} online
           </p>
         </div>
@@ -211,7 +211,7 @@ export default function Sidebar({
         {/* Channels */}
         <nav className="flex-1 overflow-y-auto px-3">
           <div className="flex items-center justify-between px-2">
-            <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">
+            <p className="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">
               Channels
             </p>
             {isAdmin && (
@@ -288,14 +288,14 @@ export default function Sidebar({
                 <li key={channel.id}>
                   <Link
                     href={channelPath}
-                    className={`flex items-center gap-2 rounded-md py-2 text-sm transition-all duration-120 ${
+                    className={`flex items-center gap-2 rounded-md py-2 text-[15px] transition-all duration-120 ${
                       isActive
                         ? "translate-x-0.5 border-l-[3px] border-[var(--accent)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--accent-text)]"
                         : "px-2 text-[var(--text-secondary)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
                     }`}
                   >
                     <span
-                      className={`text-sm ${isActive ? "text-[var(--accent-text)]" : "text-[var(--text-muted)]"}`}
+                      className={`text-[15px] ${isActive ? "text-[var(--accent-text)]" : "text-[var(--text-muted)]"}`}
                     >
                       #
                     </span>
@@ -308,7 +308,7 @@ export default function Sidebar({
 
           {activeChannels.length === 0 && (
             <p className="mt-2 px-2 text-sm text-[var(--text-muted)]">
-              No channels yet
+              No channels
             </p>
           )}
 
@@ -318,7 +318,7 @@ export default function Sidebar({
               <button
                 type="button"
                 onClick={() => setShowArchived(!showArchived)}
-                className="flex w-full items-center gap-1 px-2 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                className="flex w-full items-center gap-1 px-2 text-xs font-medium uppercase tracking-wider text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
               >
                 <svg
                   className={`h-3 w-3 transition-transform ${showArchived ? "rotate-90" : ""}`}
@@ -340,13 +340,13 @@ export default function Sidebar({
                       <li key={channel.id}>
                         <Link
                           href={channelPath}
-                          className={`flex items-center gap-2 rounded-md py-2 text-sm transition-all duration-120 ${
+                          className={`flex items-center gap-2 rounded-md py-2 text-[15px] transition-all duration-120 ${
                             isActive
                               ? "translate-x-0.5 border-l-[3px] border-[var(--text-muted)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--text-muted)]"
                               : "px-2 text-[var(--text-muted)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)]"
                           }`}
                         >
-                          <span className="text-sm text-[var(--border-strong)]">#</span>
+                          <span className="text-[15px] text-[var(--border-strong)]">#</span>
                           <span className="truncate opacity-60">{channel.name}</span>
                         </Link>
                       </li>
@@ -361,7 +361,7 @@ export default function Sidebar({
           <div className="mt-4 border-t border-[var(--border)] pt-4">
             <Link
               href={`/${workspaceSlug}/members`}
-              className={`flex items-center gap-2 rounded-md py-2 text-sm transition-all duration-120 ${
+              className={`flex items-center gap-2 rounded-md py-2 text-[15px] transition-all duration-120 ${
                 membersActive
                   ? "translate-x-0.5 border-l-[3px] border-[var(--accent)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--accent-text)]"
                   : "px-2 text-[var(--text-secondary)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
@@ -387,7 +387,7 @@ export default function Sidebar({
           {/* Online members */}
           {onlineMembers.length > 0 && (
             <div className="mt-3 px-2">
-              <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">
+              <p className="mb-1.5 text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">
                 Online
               </p>
               <ul className="space-y-1">
@@ -402,11 +402,11 @@ export default function Sidebar({
                         <img
                           src={m.profileImage}
                           alt=""
-                          className="h-5 w-5 rounded-full object-cover"
+                          className="h-6 w-6 rounded-full object-cover"
                         />
                       ) : (
                         <div
-                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-medium text-white"
+                          className="flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-medium text-white"
                           style={{
                             backgroundColor: m.avatarColor || "#4F46E5",
                           }}
@@ -416,7 +416,7 @@ export default function Sidebar({
                       )}
                       <span className="absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] bg-[var(--success)]" />
                     </div>
-                    <span className="truncate text-xs text-[var(--text-secondary)]">
+                    <span className="truncate text-[13px] text-[var(--text-secondary)]">
                       {m.name || m.email.split("@")[0]}
                     </span>
                   </li>
@@ -424,7 +424,7 @@ export default function Sidebar({
               </ul>
               <Link
                 href={`/${workspaceSlug}/members`}
-                className="mt-1 block px-1 text-[11px] text-[var(--text-muted)] transition-colors hover:text-[var(--accent-text)]"
+                className="mt-1 block px-1 text-xs text-[var(--text-muted)] transition-colors hover:text-[var(--accent-text)]"
               >
                 View all →
               </Link>
@@ -442,11 +442,11 @@ export default function Sidebar({
                   <img
                     src={profileImage}
                     alt=""
-                    className="h-7 w-7 rounded-full object-cover"
+                    className="h-8 w-8 rounded-full object-cover"
                   />
                 ) : (
                   <div
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-medium text-white"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium text-white"
                     style={{ backgroundColor: avatarColor }}
                   >
                     {userName[0].toUpperCase()}
@@ -454,7 +454,7 @@ export default function Sidebar({
                 )}
                 <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[var(--status-dot-border)] bg-[var(--success)]" />
               </div>
-              <span className="truncate text-sm text-[var(--text-primary)]">
+              <span className="truncate text-[15px] text-[var(--text-primary)]">
                 {userName}
               </span>
             </div>

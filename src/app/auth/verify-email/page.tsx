@@ -12,7 +12,7 @@ function VerifyEmailContent() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(
     searchParams.get("error") === "expired"
-      ? "Your verification link has expired. Please request a new one."
+      ? "Your verification link has expired. Request a new one."
       : ""
   );
 
@@ -62,10 +62,10 @@ function VerifyEmailContent() {
         return;
       }
 
-      setMessage("Verification email sent! Check your inbox.");
+      setMessage("Sent. Check your inbox.");
       setCooldown(60);
     } catch {
-      setError("Failed to resend. Please try again.");
+      setError("Something went wrong. Try again.");
       setResendDisabled(false);
     }
   }, []);
@@ -106,11 +106,10 @@ function VerifyEmailContent() {
       </Link>
 
       <h1 className="text-2xl font-bold text-[var(--text-primary)] mb-2">
-        Check your email
+        Check your inbox
       </h1>
-      <p className="text-[var(--text-secondary)] text-sm mb-6">
-        We sent a verification link to your email address. Click the link to
-        verify your account.
+      <p className="text-[var(--text-secondary)] text-[15px] mb-6">
+        We sent a link to your email. Click it to verify.
       </p>
 
       {error && (
@@ -128,11 +127,11 @@ function VerifyEmailContent() {
       <button
         onClick={handleResend}
         disabled={resendDisabled}
-        className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+        className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-3 text-base font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
       >
         {cooldown > 0
-          ? `Resend in ${cooldown}s`
-          : "Resend verification email"}
+          ? `Wait ${cooldown}s`
+          : "Resend email"}
       </button>
 
       <p className="text-xs text-[var(--text-muted)] mt-4">

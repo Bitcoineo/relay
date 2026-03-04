@@ -48,7 +48,7 @@ export default function ChannelSettings({
 
     if (!res.ok) {
       const data = await res.json();
-      setError(data.error || "Failed to update");
+      setError(data.error || "Something went wrong. Try again.");
       setSaving(false);
       return;
     }
@@ -89,8 +89,8 @@ export default function ChannelSettings({
       <div className="w-full max-w-sm bg-[var(--bg-primary)] shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
-          <h2 className="text-sm font-semibold text-[var(--text-primary)]">
-            Channel Settings
+          <h2 className="text-base font-semibold text-[var(--text-primary)]">
+            Channel settings
           </h2>
           <button
             type="button"
@@ -108,25 +108,26 @@ export default function ChannelSettings({
           {isAdmin && (
             <div className="space-y-3">
               <div>
-                <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
-                  Channel name
+                <label className="mb-1 block text-[13px] font-medium text-[var(--text-secondary)]">
+                  Name
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-base text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
+                <label className="mb-1 block text-[13px] font-medium text-[var(--text-secondary)]">
                   Description
                 </label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
-                  className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  placeholder="What's this channel for?"
+                  className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
               {error && <p className="text-xs text-[var(--danger)]">{error}</p>}
@@ -149,10 +150,10 @@ export default function ChannelSettings({
                 onClick={handleSetDefault}
                 className="text-sm text-[var(--accent-text)] hover:underline"
               >
-                Set as default channel
+                Default channel
               </button>
               <p className="mt-1 text-xs text-[var(--text-muted)]">
-                New members will automatically join this channel.
+                New members join this channel automatically.
               </p>
             </div>
           )}
@@ -165,12 +166,12 @@ export default function ChannelSettings({
                 onClick={handleToggleArchive}
                 className="text-sm text-[var(--warning)] hover:underline"
               >
-                {channel.archived ? "Unarchive channel" : "Archive channel"}
+                {channel.archived ? "Restore channel" : "Archive channel"}
               </button>
               <p className="mt-1 text-xs text-[var(--text-muted)]">
                 {channel.archived
-                  ? "Restore this channel to active status."
-                  : "Archived channels are read-only."}
+                  ? "Restore this channel to active."
+                  : "Hide from sidebar. No new messages."}
               </p>
             </div>
           )}
@@ -192,7 +193,7 @@ export default function ChannelSettings({
                     Delete #{channel.name}?
                   </p>
                   <p className="mt-1 text-xs text-[var(--text-secondary)]">
-                    All messages will be permanently lost.
+                    Permanently removes the channel and all messages.
                   </p>
                   <div className="mt-3 flex gap-2">
                     <button
@@ -200,7 +201,7 @@ export default function ChannelSettings({
                       onClick={handleDelete}
                       className="rounded-md bg-[var(--danger)] px-3 py-1.5 text-sm font-medium text-[var(--text-inverse)] hover:bg-[var(--danger-hover)]"
                     >
-                      Delete
+                      Delete forever
                     </button>
                     <button
                       type="button"

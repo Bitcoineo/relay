@@ -43,7 +43,7 @@ export default function WorkspaceList({
 
     if (!res.ok) {
       const data = await res.json();
-      setError(data.error || "Failed to create workspace");
+      setError(data.error || "Something went wrong. Try again.");
       setLoading(false);
       return;
     }
@@ -72,11 +72,11 @@ export default function WorkspaceList({
             />
           </svg>
         </div>
-        <h2 className="mt-4 text-lg font-semibold text-[var(--text-primary)]">
+        <h2 className="mt-4 text-xl font-semibold text-[var(--text-primary)]">
           No workspaces yet
         </h2>
         <p className="mt-1 text-sm text-[var(--text-secondary)]">
-          A workspace is where your team lives. Start one.
+          No workspaces yet. Create one and invite your team.
         </p>
         <button
           onClick={() => setShowForm(true)}
@@ -91,13 +91,13 @@ export default function WorkspaceList({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-[var(--text-primary)]">Workspaces</h2>
+        <h2 className="text-xl font-semibold text-[var(--text-primary)]">Workspaces</h2>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
             className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all duration-150 hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
           >
-            New workspace
+            Create workspace
           </button>
         )}
       </div>
@@ -120,7 +120,7 @@ export default function WorkspaceList({
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-[var(--border)] px-3 py-2.5 text-sm text-[var(--text-primary)] transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+              className="mt-1 block w-full rounded-md border border-[var(--border)] px-3 py-2.5 text-base text-[var(--text-primary)] transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
               placeholder="e.g. Marketing, Engineering"
               autoFocus
             />
@@ -156,7 +156,7 @@ export default function WorkspaceList({
             style={{ animationDelay: `${i * 50}ms` }}
           >
             <div className="flex items-start justify-between">
-              <h3 className="text-lg font-medium text-[var(--text-primary)]">
+              <h3 className="text-xl font-medium text-[var(--text-primary)]">
                 {ws.name}
               </h3>
               <span

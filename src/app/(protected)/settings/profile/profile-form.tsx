@@ -65,7 +65,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
 
     if (!res.ok) {
       const data = await res.json();
-      setError(data.error || "Failed to save");
+      setError(data.error || "Something went wrong. Try again.");
       setSaving(false);
       return;
     }
@@ -80,7 +80,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
       {/* Avatar */}
       <div>
         <label className="mb-2 block text-xs font-medium text-[var(--text-secondary)]">
-          Profile photo
+          Photo
         </label>
         <div className="flex items-center gap-4">
           {profileImage ? (
@@ -106,7 +106,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
               onClick={() => fileRef.current?.click()}
               className="rounded-md border border-[var(--border)] px-3 py-1.5 text-sm text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]"
             >
-              Upload photo
+              Upload
             </button>
             {profileImage && (
               <button
@@ -158,7 +158,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           maxLength={200}
           rows={3}
           className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
-          placeholder="Tell us about yourself"
+          placeholder="A few words about you"
         />
       </div>
 
@@ -189,7 +189,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
       </div>
       <div>
         <label className="mb-1 block text-xs font-medium text-[var(--text-secondary)]">
-          Twitter
+          X (Twitter)
         </label>
         <input
           type="url"
@@ -212,7 +212,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           {saving ? "Saving..." : "Save changes"}
         </button>
         {saved && (
-          <span className="text-sm text-[var(--success)]">Saved!</span>
+          <span className="text-sm text-[var(--success)]">Saved.</span>
         )}
       </div>
     </div>

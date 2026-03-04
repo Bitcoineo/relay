@@ -178,6 +178,81 @@ body {
   animation: slideUp 200ms ease-out;
 }
 
+/* ── Float (hero SVG bob) ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 6s infinite ease-in-out;
+}
+
+/* ── Scroll reveal ── */
+@keyframes scrollReveal {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.scroll-reveal {
+  opacity: 0;
+}
+.scroll-reveal.revealed {
+  animation: scrollReveal 500ms ease-out forwards;
+}
+
+/* ── Particle drift (CTA section) ── */
+@keyframes particleDrift1 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  50% { transform: translate(30px, -40px); opacity: 0.7; }
+}
+@keyframes particleDrift2 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  50% { transform: translate(-25px, -35px); opacity: 0.6; }
+}
+@keyframes particleDrift3 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.35; }
+  50% { transform: translate(20px, 30px); opacity: 0.65; }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+}
+.particle-1 {
+  width: 4px; height: 4px; top: 15%; left: 10%;
+  animation: particleDrift1 10s infinite ease-in-out;
+}
+.particle-2 {
+  width: 3px; height: 3px; top: 70%; left: 25%;
+  animation: particleDrift2 8s infinite ease-in-out 1s;
+}
+.particle-3 {
+  width: 5px; height: 5px; top: 30%; right: 15%;
+  animation: particleDrift3 12s infinite ease-in-out 2s;
+}
+.particle-4 {
+  width: 3px; height: 3px; top: 80%; right: 30%;
+  animation: particleDrift1 9s infinite ease-in-out 3s;
+}
+.particle-5 {
+  width: 6px; height: 6px; top: 50%; left: 50%;
+  animation: particleDrift2 11s infinite ease-in-out 0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float {
+    animation: none;
+  }
+  .particle {
+    animation: none;
+    opacity: 0.2;
+  }
+  .scroll-reveal {
+    opacity: 1;
+  }
+}
+
 *,
 *::before,
 *::after {

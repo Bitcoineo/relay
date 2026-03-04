@@ -42,8 +42,8 @@ export default function ForwardModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--overlay)]">
       <div className="w-full max-w-sm rounded-lg bg-[var(--bg-primary)] p-5 shadow-xl">
-        <h3 className="text-sm font-semibold text-[var(--text-primary)]">
-          Forward message
+        <h3 className="text-base font-semibold text-[var(--text-primary)]">
+          Forward
         </h3>
 
         {/* Message preview */}
@@ -58,8 +58,8 @@ export default function ForwardModal({
           type="text"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          placeholder="Search channels..."
-          className="mt-3 w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          placeholder="Search channels"
+          className="mt-3 w-full rounded-md border border-[var(--border)] px-3 py-2 text-base text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
           autoFocus
           disabled={forwarded}
         />
@@ -115,7 +115,7 @@ export default function ForwardModal({
             }`}
           >
             {forwarded
-              ? "Forwarded!"
+              ? "Forwarded"
               : forwarding
                 ? "Forwarding..."
                 : "Forward"}

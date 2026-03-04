@@ -90,14 +90,14 @@ export default function MessageBubble({
   );
 
   const forwardedLabel = msg.forwardedFromChannel && (
-    <p className="mb-0.5 text-[11px] text-[var(--text-muted)]">
+    <p className="mb-0.5 text-xs text-[var(--text-muted)]">
       Forwarded from{" "}
       <span className="font-medium">#{msg.forwardedFromChannel.name}</span>
     </p>
   );
 
   const replyQuote = msg.replyTo && (
-    <div className="mb-1 flex items-center gap-1.5 border-l-2 border-[var(--border-strong)] pl-2 text-xs text-[var(--text-muted)]">
+    <div className="mb-1 flex items-center gap-1.5 border-l-2 border-[var(--border-strong)] pl-2 text-[13px] text-[var(--text-muted)]">
       <span className="font-medium text-[var(--text-secondary)]">
         {getUserName(msg.replyTo.user)}
       </span>
@@ -112,7 +112,7 @@ export default function MessageBubble({
           key={r.emoji}
           type="button"
           onClick={() => onReact(r.emoji)}
-          className={`flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors ${
+          className={`flex items-center gap-1 rounded-full border px-2 py-0.5 text-[13px] transition-colors ${
             r.userReacted
               ? "border-[var(--accent)]/30 bg-[var(--accent)]/5 text-[var(--accent-text)]"
               : "border-[var(--border)] bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:border-[var(--border-strong)]"
@@ -131,7 +131,7 @@ export default function MessageBubble({
       {showDateHeader && (
         <div className="my-4 flex items-center gap-3">
           <div className="h-px flex-1 bg-[var(--border)]" />
-          <span className="rounded-full border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-1 text-xs font-medium text-[var(--text-muted)] shadow-sm">
+          <span className="rounded-full border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-1 text-[13px] font-medium text-[var(--text-muted)] shadow-sm">
             {getDateLabel(msg.createdAt)}
           </span>
           <div className="h-px flex-1 bg-[var(--border)]" />
@@ -141,13 +141,13 @@ export default function MessageBubble({
       {grouped ? (
         <div className="group relative flex items-start py-0.5 pl-10 hover:bg-[var(--bg-secondary)]">
           {actionsBar}
-          <span className="invisible mr-2 flex-shrink-0 text-[11px] text-[var(--text-muted)] group-hover:visible">
+          <span className="invisible mr-2 flex-shrink-0 text-xs text-[var(--text-muted)] group-hover:visible">
             {formatTime(msg.createdAt)}
           </span>
           <div className="min-w-0 flex-1">
             {forwardedLabel}
             {replyQuote}
-            <p className="text-[15px] text-[var(--text-primary)]">
+            <p className="text-base text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
             </p>
             {reactionPills}
@@ -168,11 +168,11 @@ export default function MessageBubble({
               <img
                 src={msg.user.profileImage}
                 alt=""
-                className="h-8 w-8 rounded-full object-cover"
+                className="h-9 w-9 rounded-full object-cover"
               />
             ) : (
               <div
-                className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-medium text-white"
                 style={{ backgroundColor: getUserColor(msg.user) }}
               >
                 {getUserName(msg.user)[0].toUpperCase()}
@@ -192,14 +192,14 @@ export default function MessageBubble({
             {forwardedLabel}
             {replyQuote}
             <div className="flex items-baseline gap-2">
-              <span className="text-sm font-semibold text-[var(--text-primary)]">
+              <span className="text-[15px] font-semibold text-[var(--text-primary)]">
                 {getUserName(msg.user)}
               </span>
-              <span className="text-[11px] text-[var(--text-muted)]">
+              <span className="text-xs text-[var(--text-muted)]">
                 {formatTime(msg.createdAt)}
               </span>
               {msg.pinnedAt && (
-                <span className="flex items-center gap-0.5 text-[10px] text-[var(--warning)]">
+                <span className="flex items-center gap-0.5 text-[11px] text-[var(--warning)]">
                   <svg className="h-3 w-3" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth={0.5}>
                     <path d="M9 4v3.2c0 .28-.11.55-.3.75L5.4 11.6c-.5.53-.2 1.4.5 1.4h5.1v6l1 2 1-2v-6h5.1c.7 0 1-.87.5-1.4L15.3 7.95a1.06 1.06 0 01-.3-.75V4" />
                     <path d="M7 4h10" />
@@ -208,7 +208,7 @@ export default function MessageBubble({
                 </span>
               )}
             </div>
-            <p className="text-[15px] text-[var(--text-primary)]">
+            <p className="text-base text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
             </p>
             {reactionPills}

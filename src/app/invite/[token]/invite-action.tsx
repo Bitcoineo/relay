@@ -43,7 +43,7 @@ export default function InviteAction({
     const data = await res.json();
 
     if (!res.ok) {
-      setActionError(data.error || "Failed to accept invite");
+      setActionError(data.error || "Something went wrong. Try again.");
       setLoading(false);
       return;
     }
@@ -61,7 +61,7 @@ export default function InviteAction({
 
     if (!res.ok) {
       const data = await res.json();
-      setActionError(data.error || "Failed to decline invite");
+      setActionError(data.error || "Something went wrong. Try again.");
       setLoading(false);
       return;
     }
@@ -81,7 +81,7 @@ export default function InviteAction({
             </svg>
           </div>
           <h1 className="mt-4 text-lg font-semibold text-[var(--text-primary)]">Invite not found</h1>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">{error || "This link is expired or doesn't exist."}</p>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">{error || "This invite has expired or doesn't exist."}</p>
           <Link
             href={isLoggedIn ? "/workspaces" : "/auth/signin"}
             className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
@@ -117,8 +117,8 @@ export default function InviteAction({
     return (
       <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp text-center">
-          <h1 className="text-lg font-semibold text-[var(--text-primary)]">Declined.</h1>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">You passed on {invite.workspace.name}.</p>
+          <h1 className="text-lg font-semibold text-[var(--text-primary)]">Declined</h1>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">You declined the invite to {invite.workspace.name}.</p>
           <Link
             href="/workspaces"
             className="mt-6 inline-block rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
@@ -136,17 +136,16 @@ export default function InviteAction({
       <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)] px-4">
         <div className="w-full max-w-sm animate-fadeInUp">
           <div className="rounded-md bg-[var(--bg-primary)] p-6 text-center">
-            <h1 className="text-lg font-semibold text-[var(--text-primary)]">You&apos;re invited</h1>
+            <h1 className="text-lg font-semibold text-[var(--text-primary)]">Join {invite.workspace.name}</h1>
             <p className="mt-2 text-sm text-[var(--text-secondary)]">
-              {invite.invitedBy.name || "Someone"} invited you to{" "}
-              <strong className="text-[var(--text-primary)]">{invite.workspace.name}</strong>{" "}
-              as <span className="font-medium capitalize">{invite.role}</span>.
+              {invite.invitedBy.name || "Someone"} invited you as{" "}
+              <span className="font-medium capitalize">{invite.role}</span>.
             </p>
             <Link
               href={`/auth/signin?callbackUrl=/invite/${token}`}
               className="mt-6 inline-block w-full rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-colors hover:bg-[var(--accent-hover)]"
             >
-              Sign in to join
+              Sign in to accept this invite
             </Link>
             <p className="mt-3 text-xs text-[var(--text-muted)]">
               No account?{" "}
@@ -190,8 +189,7 @@ export default function InviteAction({
         <div className="rounded-md bg-[var(--bg-primary)] p-6 text-center">
           <h1 className="text-lg font-semibold text-[var(--text-primary)]">Join {invite.workspace.name}</h1>
           <p className="mt-2 text-sm text-[var(--text-secondary)]">
-            {invite.invitedBy.name || "Someone"} invited you as{" "}
-            <span className="font-medium capitalize text-[var(--text-primary)]">{invite.role}</span>.
+            {invite.invitedBy.name || "Someone"} invited you as {invite.role}.
           </p>
 
           {actionError && (

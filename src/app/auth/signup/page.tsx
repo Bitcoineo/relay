@@ -42,7 +42,7 @@ export default function SignUpPage() {
 
       if (signInResult?.error) {
         setError(
-          "Account created but sign-in failed. Please sign in manually."
+          "Account created but sign-in failed. Please sign in."
         );
         setLoading(false);
         return;
@@ -50,7 +50,7 @@ export default function SignUpPage() {
 
       router.push("/auth/verify-email");
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError("Something went wrong. Try again.");
       setLoading(false);
     }
   };
@@ -80,8 +80,8 @@ export default function SignUpPage() {
       <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-1">
         Create your account
       </h1>
-      <p className="text-[var(--text-secondary)] text-sm text-center mb-6">
-        Get started with Relay for free.
+      <p className="text-[var(--text-secondary)] text-[15px] text-center mb-6">
+        Free. No credit card.
       </p>
 
       {error && (
@@ -92,7 +92,7 @@ export default function SignUpPage() {
 
       <button
         onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-md px-4 py-2.5 text-sm font-medium text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] transition-all"
+        className="w-full flex items-center justify-center gap-2 border border-[var(--border)] rounded-md px-4 py-3 text-base font-medium text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] transition-all"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
@@ -128,7 +128,7 @@ export default function SignUpPage() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <input
           type="email"
@@ -136,7 +136,7 @@ export default function SignUpPage() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <input
           type="password"
@@ -145,19 +145,19 @@ export default function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength={8}
-          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
+          className="w-full border-0 border-b border-[var(--border)] bg-transparent px-0 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-0"
         />
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-2.5 text-sm font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+          className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97] text-[var(--text-inverse)] rounded-md px-4 py-3 text-base font-medium transition-all disabled:opacity-50 focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
         >
-          {loading ? "Creating account..." : "Create account"}
+          {loading ? "Setting up..." : "Create account"}
         </button>
       </form>
 
-      <p className="text-center text-sm text-[var(--text-secondary)] mt-6">
-        Already have an account?{" "}
+      <p className="text-center text-[15px] text-[var(--text-secondary)] mt-6">
+        Already have one?{" "}
         <Link
           href="/auth/signin"
           className="text-[var(--accent-text)] hover:text-[var(--accent-text)] hover:underline"

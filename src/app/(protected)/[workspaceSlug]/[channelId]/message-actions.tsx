@@ -96,7 +96,7 @@ export default function MessageActions({
           type="button"
           onClick={onPin}
           className="rounded p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]"
-          title={isPinned ? "Unpin message" : "Pin message"}
+          title={isPinned ? "Unpin" : "Pin"}
         >
           <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill={isPinned ? "currentColor" : "none"} strokeWidth={1.5} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 4v3.2c0 .28-.11.55-.3.75L5.4 11.6c-.5.53-.2 1.4.5 1.4h5.1v6l1 2 1-2v-6h5.1c.7 0 1-.87.5-1.4L15.3 7.95a1.06 1.06 0 01-.3-.75V4" />

@@ -26,8 +26,8 @@ export default function PinnedMessagesPanel({
       <div className="flex w-full max-w-sm flex-col bg-[var(--bg-primary)] shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] px-4 py-3">
-          <h2 className="text-sm font-semibold text-[var(--text-primary)]">
-            Pinned Messages ({pinnedMessages.length})
+          <h2 className="text-base font-semibold text-[var(--text-primary)]">
+            Pinned messages
           </h2>
           <button
             type="button"
@@ -49,7 +49,7 @@ export default function PinnedMessagesPanel({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 4h10" />
               </svg>
               <p className="mt-3 text-sm text-[var(--text-muted)]">
-                No pinned messages yet
+                No pinned messages in this channel.
               </p>
             </div>
           ) : (
@@ -69,24 +69,24 @@ export default function PinnedMessagesPanel({
                       />
                     ) : (
                       <div
-                        className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-medium text-white"
+                        className="flex h-5 w-5 items-center justify-center rounded-full text-[11px] font-medium text-white"
                         style={{ backgroundColor: getUserColor(msg.user) }}
                       >
                         {getUserName(msg.user)[0].toUpperCase()}
                       </div>
                     )}
-                    <span className="text-xs font-medium text-[var(--text-primary)]">
+                    <span className="text-[13px] font-medium text-[var(--text-primary)]">
                       {getUserName(msg.user)}
                     </span>
-                    <span className="text-[10px] text-[var(--text-muted)]">
+                    <span className="text-xs text-[var(--text-muted)]">
                       {formatTime(msg.createdAt)}
                     </span>
                   </div>
-                  <p className="mt-1.5 line-clamp-3 text-sm text-[var(--text-secondary)]">
+                  <p className="mt-1.5 line-clamp-3 text-[15px] text-[var(--text-secondary)]">
                     {msg.content}
                   </p>
                   {msg.pinnedBy && (
-                    <p className="mt-1.5 text-[10px] text-[var(--text-muted)]">
+                    <p className="mt-1.5 text-xs text-[var(--text-muted)]">
                       Pinned by {msg.pinnedBy.name || "Unknown"}
                     </p>
                   )}

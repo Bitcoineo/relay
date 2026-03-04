@@ -168,7 +168,7 @@ export default function MessageInput({
       {/* Reply banner */}
       {replyTo && (
         <div className="mb-2 flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-2">
-          <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
+          <div className="flex items-center gap-2 text-[13px] text-[var(--text-secondary)]">
             <svg
               className="h-3.5 w-3.5 text-[var(--text-muted)]"
               fill="none"
@@ -235,7 +235,7 @@ export default function MessageInput({
                 />
               ) : (
                 <div
-                  className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-medium text-white"
+                  className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[11px] font-medium text-white"
                   style={{ backgroundColor: getUserColor(member) }}
                 >
                   {getUserName(member)[0].toUpperCase()}
@@ -263,7 +263,7 @@ export default function MessageInput({
             onKeyDown={handleInputKeyDown}
             placeholder={`Message #${channelName}`}
             rows={1}
-            className="flex-1 resize-none bg-transparent text-[15px] leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
+            className="flex-1 resize-none bg-transparent text-base leading-relaxed text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
             style={{ maxHeight: "120px" }}
           />
           {/* Emoji button */}
