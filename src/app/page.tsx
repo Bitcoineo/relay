@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* ── Nav ── */}
-      <nav className="fixed left-1/2 z-50 mt-4 w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2 rounded-2xl border border-[var(--border)]/50 bg-[var(--bg-primary)]/80 px-6 py-3 shadow-sm backdrop-blur-xl">
+      <nav className="fixed left-1/2 z-50 mt-4 w-[calc(100%-1.5rem)] -translate-x-1/2 rounded-xl border border-[var(--border)]/50 bg-[var(--bg-primary)]/80 px-4 py-2.5 shadow-sm backdrop-blur-xl md:w-[calc(100%-2rem)] md:max-w-4xl md:rounded-2xl md:px-6 md:py-3">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
             <svg
@@ -27,13 +27,13 @@ export default async function Home() {
               <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
               <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
             </svg>
-            <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
+            <span className="text-lg font-bold text-[var(--text-primary)] md:text-xl">Relay</span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <ThemeToggle />
             <Link
               href="/auth/signin"
-              className="px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--accent)]"
+              className="hidden px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--accent)] xs:inline"
             >
               Sign in
             </Link>
@@ -48,26 +48,26 @@ export default async function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="px-6 pb-16 pt-28 md:min-h-[70vh] md:flex md:items-center">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 md:flex-row md:items-center md:gap-16">
+      <section className="px-4 pb-12 pt-24 md:px-6 md:pb-16 md:pt-28 md:min-h-[70vh] md:flex md:items-center">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 md:flex-row md:items-center md:gap-16">
           {/* Left — copy (55%) */}
           <div className="animate-fadeInUp text-center md:w-[55%] md:text-left">
-            <h1 className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+            <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
               Your team&apos;s conversations. <span className="text-[var(--accent)]">All in one place</span>.
             </h1>
-            <p className="mt-4 text-lg text-[var(--text-secondary)]">
+            <p className="mt-4 px-2 text-base text-[var(--text-secondary)] md:px-0 md:text-lg">
               Channels for every project. Know who&apos;s online, who&apos;s mentioned, and what you missed.
             </p>
-            <div className="mt-8 flex items-center justify-center gap-3 md:justify-start">
+            <div className="mt-8 flex flex-col items-center gap-3 md:flex-row md:justify-start">
               <Link
                 href="/auth/signup"
-                className="rounded-full bg-[var(--accent)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
+                className="w-full rounded-full bg-[var(--accent)] px-6 py-2.5 text-center text-[15px] font-medium text-[var(--text-inverse)] transition-all duration-150 hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97] md:w-auto"
               >
                 Start for free
               </Link>
               <Link
                 href="/auth/signin"
-                className="rounded-full border border-[var(--border)] px-6 py-2.5 text-[15px] font-medium text-[var(--text-secondary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97]"
+                className="w-full rounded-full border border-[var(--border)] px-6 py-2.5 text-center text-[15px] font-medium text-[var(--text-secondary)] transition-all duration-150 hover:scale-[1.01] hover:bg-[var(--bg-secondary)] hover:shadow-sm active:scale-[0.97] md:w-auto"
               >
                 Sign in
               </Link>
@@ -75,7 +75,7 @@ export default async function Home() {
           </div>
 
           {/* Right — illustration (45%) */}
-          <div className="relative w-full md:w-[45%]">
+          <div className="relative mx-auto w-full max-w-xs md:mx-0 md:max-w-none md:w-[45%]">
             {/* Background blob */}
             <div
               aria-hidden="true"
@@ -95,8 +95,8 @@ export default async function Home() {
       </section>
 
       {/* ── Feature cards ── */}
-      <section className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-20">
-        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-12 md:px-6 md:py-20">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1 — Real-time (Teal) */}
           <ScrollReveal delay={0}>
             <div className="group h-full rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#0D9488] hover:shadow-lg">
@@ -208,7 +208,7 @@ export default async function Home() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="relative overflow-hidden px-6 py-20 text-center" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #134E4A 100%)' }}>
+      <section className="relative overflow-hidden px-4 py-14 text-center md:px-6 md:py-20" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #134E4A 100%)' }}>
         {/* Subtle radial glow for depth */}
         <div
           aria-hidden="true"
@@ -223,13 +223,13 @@ export default async function Home() {
         <div aria-hidden="true" className="particle particle-5" />
 
         <ScrollReveal>
-          <h2 className="text-2xl font-bold text-[var(--text-inverse)] sm:text-3xl">
+          <h2 className="text-xl font-bold text-[var(--text-inverse)] sm:text-3xl">
             Start a conversation that moves work forward.
           </h2>
           <div className="mt-6 flex flex-col items-center gap-2">
             <Link
               href="/auth/signup"
-              className="inline-block rounded-full bg-white px-6 py-2.5 text-[15px] font-medium text-[#134E4A] transition-all duration-150 hover:scale-[1.02] hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
+              className="inline-block w-full max-w-xs rounded-full bg-white px-6 py-2.5 text-[15px] font-medium text-[#134E4A] transition-all duration-150 hover:scale-[1.02] hover:bg-white/90 hover:shadow-lg active:scale-[0.97] md:w-auto md:max-w-none"
             >
               Create a workspace
             </Link>
@@ -238,8 +238,8 @@ export default async function Home() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-[var(--border)] px-6 py-5">
-        <div className="mx-auto flex max-w-5xl items-center justify-center gap-4 text-xs text-[var(--text-muted)]">
+      <footer className="border-t border-[var(--border)] px-4 py-5 md:px-6">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 text-xs text-[var(--text-muted)] md:gap-4">
           <span>Built by Bitcoineo</span>
           <span className="text-[var(--border-strong)]">&middot;</span>
           <a
