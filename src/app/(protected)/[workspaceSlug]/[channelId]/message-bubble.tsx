@@ -139,15 +139,15 @@ export default function MessageBubble({
       )}
 
       {grouped ? (
-        <div className="group relative flex items-start py-0.5 pl-10 hover:bg-[var(--bg-secondary)]">
+        <div className="group relative py-0.5 pl-[44px] hover:bg-[var(--bg-secondary)]">
           {actionsBar}
-          <span className="invisible mr-2 flex-shrink-0 text-xs text-[var(--text-muted)] group-hover:visible">
+          <span className="absolute left-0 top-0.5 hidden w-[44px] text-center text-xs text-[var(--text-muted)] group-hover:inline">
             {formatTime(msg.createdAt)}
           </span>
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0">
             {forwardedLabel}
             {replyQuote}
-            <p className="text-base text-[var(--text-primary)]">
+            <p className="whitespace-pre-wrap text-base text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
             </p>
             {reactionPills}
@@ -208,7 +208,7 @@ export default function MessageBubble({
                 </span>
               )}
             </div>
-            <p className="text-base text-[var(--text-primary)]">
+            <p className="whitespace-pre-wrap text-base text-[var(--text-primary)]">
               {renderContent(msg.content, members)}
             </p>
             {reactionPills}
