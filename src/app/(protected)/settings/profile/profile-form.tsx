@@ -138,7 +138,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
 
@@ -157,7 +157,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           onChange={(e) => setBio(e.target.value)}
           maxLength={200}
           rows={3}
-          className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full resize-none rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
           placeholder="A few words about you"
         />
       </div>
@@ -172,7 +172,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           value={websiteUrl}
           onChange={(e) => setWebsiteUrl(e.target.value)}
           placeholder="https://example.com"
-          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
       <div>
@@ -184,7 +184,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           value={githubUrl}
           onChange={(e) => setGithubUrl(e.target.value)}
           placeholder="https://github.com/username"
-          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
       <div>
@@ -196,7 +196,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
           value={twitterUrl}
           onChange={(e) => setTwitterUrl(e.target.value)}
           placeholder="https://twitter.com/username"
-          className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
         />
       </div>
 

@@ -59,7 +59,7 @@ export default function ForwardModal({
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Search channels"
-          className="mt-3 w-full rounded-md border border-[var(--border)] px-3 py-2 text-base text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+          className="mt-3 w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
           autoFocus
           disabled={forwarded}
         />

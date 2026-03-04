@@ -115,7 +115,7 @@ export default function ChannelSettings({
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-md border border-[var(--border)] px-3 py-2 text-base text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  className="w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-base text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
               <div>
@@ -127,7 +127,7 @@ export default function ChannelSettings({
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
                   placeholder="What's this channel for?"
-                  className="w-full resize-none rounded-md border border-[var(--border)] px-3 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                  className="w-full resize-none rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                 />
               </div>
               {error && <p className="text-xs text-[var(--danger)]">{error}</p>}

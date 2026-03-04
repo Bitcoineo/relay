@@ -156,7 +156,7 @@ export default function MemberList({
                     required
                     value={inviteEmail}
                     onChange={(e) => setInviteEmail(e.target.value)}
-                    className="block w-full rounded-md border border-[var(--border)] px-3 py-2.5 text-sm transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                    className="block w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2.5 text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                     placeholder="Email address"
                     autoFocus
                   />
@@ -167,7 +167,7 @@ export default function MemberList({
                     onChange={(e) =>
                       setInviteRole(e.target.value as "member" | "admin")
                     }
-                    className="block rounded-md border border-[var(--border)] px-3 py-2.5 text-sm focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                    className="block rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2.5 text-sm text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                   >
                     <option value="member">Member</option>
                     <option value="admin">Admin</option>
@@ -309,7 +309,7 @@ export default function MemberList({
                   <select
                     value={m.role}
                     onChange={(e) => handleRoleChange(m.id, e.target.value)}
-                    className="rounded border border-[var(--border)] px-2 py-1 text-xs text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
+                    className="rounded border border-[var(--input-border)] bg-[var(--input-bg)] px-2 py-1 text-xs text-[var(--text-primary)] focus:border-[var(--accent)] focus:outline-none focus:ring-1 focus:ring-[var(--accent)]"
                   >
                     <option value="admin">Admin</option>
                     <option value="member">Member</option>

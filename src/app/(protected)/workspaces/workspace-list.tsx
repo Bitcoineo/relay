@@ -120,7 +120,7 @@ export default function WorkspaceList({
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 block w-full rounded-md border border-[var(--border)] px-3 py-2.5 text-base text-[var(--text-primary)] transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+              className="mt-1 block w-full rounded-md border border-[var(--input-border)] bg-[var(--input-bg)] px-3 py-2.5 text-base text-[var(--text-primary)] placeholder-[var(--text-muted)] transition-all duration-150 focus:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
               placeholder="e.g. Marketing, Engineering"
               autoFocus
             />
