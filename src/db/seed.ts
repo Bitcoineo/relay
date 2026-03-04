@@ -26,7 +26,7 @@ async function seed() {
     email: "test@example.com",
     emailVerified: 1,
     password: hashedPassword,
-    avatarColor: "#6366f1",
+    avatarColor: "#0D9488",
   });
 
   console.log("Created test user: test@example.com / password123");

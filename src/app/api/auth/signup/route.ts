@@ -7,7 +7,7 @@ import { users, emailVerificationTokens } from "@/db/schema";
 import { sendVerificationEmail } from "@/lib/email";
 
 const AVATAR_COLORS = [
-  "#6366f1",
+  "#0D9488",
   "#ec4899",
   "#f59e0b",
   "#10b981",
