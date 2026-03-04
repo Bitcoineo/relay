@@ -14,12 +14,12 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* ── Nav ── */}
-      <nav className="border-b border-[var(--border)] px-6 py-4">
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+      <nav className="fixed left-1/2 z-50 mt-4 w-[calc(100%-2rem)] max-w-4xl -translate-x-1/2 rounded-2xl border border-[var(--border)]/50 bg-[var(--bg-primary)]/80 px-6 py-3 shadow-sm backdrop-blur-xl">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
             <svg
-              width="24"
-              height="24"
+              width="28"
+              height="28"
               viewBox="0 0 28 28"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -27,19 +27,19 @@ export default async function Home() {
               <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
               <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
             </svg>
-            <span className="text-lg font-bold text-[var(--text-primary)]">Relay</span>
+            <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <Link
               href="/auth/signin"
-              className="rounded-md px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
+              className="px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--accent)]"
             >
               Sign in
             </Link>
             <Link
               href="/auth/signup"
-              className="rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-md active:scale-[0.97]"
+              className="rounded-full bg-[var(--accent)] px-4 py-2.5 text-sm font-medium text-[var(--text-inverse)] transition-all hover:scale-[1.02] hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
             >
               Start for free
             </Link>
@@ -48,10 +48,21 @@ export default async function Home() {
       </nav>
 
       {/* ── Hero ── */}
-      <section className="px-6 py-16 md:min-h-[70vh] md:flex md:items-center">
+      <section className="px-6 pb-16 pt-28 md:min-h-[70vh] md:flex md:items-center">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 md:flex-row md:items-center md:gap-16">
           {/* Left — copy (55%) */}
           <div className="animate-fadeInUp text-center md:w-[55%] md:text-left">
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 28 28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mx-auto mb-4 md:mx-0"
+            >
+              <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
+              <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
+            </svg>
             <h1 className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
               Your team&apos;s conversations. <span className="text-[var(--accent)]">All in one place</span>.
             </h1>

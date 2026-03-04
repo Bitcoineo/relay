@@ -152,8 +152,8 @@ export default function Sidebar({
         <div className="border-b border-[var(--border)] px-4 py-3">
           <Link href="/workspaces" className="flex items-center gap-2">
             <svg
-              width="16"
-              height="16"
+              width="20"
+              height="20"
               viewBox="0 0 28 28"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -161,7 +161,7 @@ export default function Sidebar({
               <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
               <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
             </svg>
-            <span className="text-sm font-bold text-[var(--text-primary)]">Relay</span>
+            <span className="text-base font-bold text-[var(--text-primary)]">Relay</span>
           </Link>
         </div>
 

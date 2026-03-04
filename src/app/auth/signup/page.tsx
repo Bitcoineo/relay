@@ -64,8 +64,8 @@ export default function SignUpPage() {
       {/* Logo */}
       <Link href="/" className="flex items-center justify-center gap-2 mb-6">
         <svg
-          width="28"
-          height="28"
+          width="32"
+          height="32"
           viewBox="0 0 28 28"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,7 @@ export default function SignUpPage() {
           <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
           <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
         </svg>
-        <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
+        <span className="text-3xl font-bold text-[var(--text-primary)]">Relay</span>
       </Link>
 
       <h1 className="text-2xl font-bold text-[var(--text-primary)] text-center mb-1">
