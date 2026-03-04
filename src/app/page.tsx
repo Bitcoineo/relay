@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import Link from "next/link";
+import ThemeToggle from "@/app/components/ThemeToggle";
 
 export default async function Home() {
   const session = await auth();
@@ -29,6 +30,7 @@ export default async function Home() {
             <span className="text-lg font-bold text-[var(--text-primary)]">Relay</span>
           </div>
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link
               href="/auth/signin"
               className="rounded-md px-4 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
@@ -48,12 +50,14 @@ export default async function Home() {
       {/* ── Hero ── */}
       <section className="px-6 py-24 text-center">
         <div className="mx-auto max-w-2xl animate-fadeInUp">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--accent)]">
+            Open-source &middot; Next.js &middot; Socket.io &middot; Real-time
+          </p>
           <h1 className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
             Messages that move work forward.
           </h1>
           <p className="mt-4 text-lg text-[var(--text-secondary)]">
-            Real-time chat for teams. Channels, mentions, presence &mdash;
-            without the bloat.
+            Channels, @mentions, typing indicators, and live presence &mdash; all real-time, all yours.
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
             <Link
@@ -86,7 +90,7 @@ export default async function Home() {
 
       {/* ── Feature cards ── */}
       <section className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-20">
-        <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] p-6 shadow-sm transition-shadow hover:shadow-md">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-light)]">
               <svg
@@ -163,20 +167,60 @@ export default async function Home() {
               Green dot means online. No guessing, no waiting.
             </p>
           </div>
+
+          <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-primary)] p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-light)]">
+              <svg
+                className="h-5 w-5 text-[var(--accent-text)]"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+                />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-sm font-semibold text-[var(--text-primary)]">
+              Organised workspaces
+            </h3>
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              Separate spaces for every team. Invite members, assign roles, share links.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="bg-[var(--bg-inverse)] px-6 py-20 text-center">
+      <section className="relative overflow-hidden px-6 py-20 text-center" style={{ background: 'linear-gradient(135deg, #4F46E5 0%, #1e1b4b 100%)' }}>
+        {/* Subtle radial glow for depth */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{ background: 'radial-gradient(ellipse at 60% 50%, rgba(129,140,248,0.18) 0%, transparent 70%)' }}
+        />
         <h2 className="text-2xl font-bold text-[var(--text-inverse)] sm:text-3xl">
           Your team is one workspace away.
         </h2>
-        <Link
-          href="/auth/signup"
-          className="mt-6 inline-block rounded-md bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
-        >
-          Create workspace
-        </Link>
+        <div className="mt-6 flex flex-col items-center gap-2">
+          <Link
+            href="/auth/signup"
+            className="inline-block rounded-md bg-[var(--accent)] px-6 py-3 text-sm font-medium text-[var(--text-inverse)] transition-all hover:bg-[var(--accent-hover)] hover:shadow-lg active:scale-[0.97]"
+          >
+            Create workspace
+          </Link>
+          <a
+            href="https://github.com/Bitcoineo/relay"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm font-medium text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+          >
+            or explore the code &rarr;
+          </a>
+        </div>
       </section>
 
       {/* ── Footer ── */}
