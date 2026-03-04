@@ -238,6 +238,92 @@ export default function Sidebar({
 
         {/* Channels */}
         <nav className="flex-1 overflow-y-auto px-3">
+          {/* Direct messages section */}
+          <div className="flex items-center justify-between px-2">
+            <p className="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">
+              Direct messages
+            </p>
+            <button
+              onClick={() => setShowDmPicker(true)}
+              className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+              title="New direct message"
+            >
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <ul className="mt-1 space-y-0.5">
+            {initialDirectMessages.map((dm) => {
+              const dmPath = `/${workspaceSlug}/${dm.channelId}`;
+              const isActive = pathname === dmPath;
+              const displayName = dm.otherUser.name || dm.otherUser.email.split("@")[0];
+              const userStatus = dmStatuses.get(dm.otherUser.id) || dm.otherUser.status;
+              const statusColor =
+                userStatus === "online"
+                  ? "bg-[var(--success)]"
+                  : userStatus === "idle"
+                    ? "bg-[var(--warning)]"
+                    : "bg-[var(--border-strong)]";
+
+              return (
+                <li key={dm.channelId}>
+                  <Link
+                    href={dmPath}
+                    className={`flex items-center gap-2 rounded-md py-2 text-[15px] transition-all duration-120 ${
+                      isActive
+                        ? "translate-x-0.5 border-l-[3px] border-[var(--accent)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--accent-text)]"
+                        : "px-2 text-[var(--text-secondary)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    <div className="relative flex-shrink-0">
+                      {dm.otherUser.profileImage ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img
+                          src={dm.otherUser.profileImage}
+                          alt=""
+                          className="h-5 w-5 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-medium text-white"
+                          style={{
+                            backgroundColor: dm.otherUser.avatarColor || "#0D9488",
+                          }}
+                        >
+                          {displayName[0].toUpperCase()}
+                        </div>
+                      )}
+                      <span
+                        className={`absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] ${statusColor}`}
+                      />
+                    </div>
+                    <span className="truncate">{displayName}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
+          {initialDirectMessages.length === 0 && (
+            <p className="mt-2 px-2 text-sm text-[var(--text-muted)]">
+              No conversations yet
+            </p>
+          )}
+
+          {/* Channels */}
+          <div className="mt-4 border-t border-[var(--border)] pt-4">
           <div className="flex items-center justify-between px-2">
             <p className="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">
               Channels
@@ -384,91 +470,6 @@ export default function Sidebar({
               )}
             </div>
           )}
-
-          {/* Direct messages section */}
-          <div className="mt-4 border-t border-[var(--border)] pt-4">
-            <div className="flex items-center justify-between px-2">
-              <p className="text-xs font-medium uppercase tracking-wider text-[var(--text-muted)]">
-                Direct messages
-              </p>
-              <button
-                onClick={() => setShowDmPicker(true)}
-                className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
-                title="New direct message"
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4.5v15m7.5-7.5h-15"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <ul className="mt-1 space-y-0.5">
-              {initialDirectMessages.map((dm) => {
-                const dmPath = `/${workspaceSlug}/${dm.channelId}`;
-                const isActive = pathname === dmPath;
-                const displayName = dm.otherUser.name || dm.otherUser.email.split("@")[0];
-                const userStatus = dmStatuses.get(dm.otherUser.id) || dm.otherUser.status;
-                const statusColor =
-                  userStatus === "online"
-                    ? "bg-[var(--success)]"
-                    : userStatus === "idle"
-                      ? "bg-[var(--warning)]"
-                      : "bg-[var(--border-strong)]";
-
-                return (
-                  <li key={dm.channelId}>
-                    <Link
-                      href={dmPath}
-                      className={`flex items-center gap-2 rounded-md py-2 text-[15px] transition-all duration-120 ${
-                        isActive
-                          ? "translate-x-0.5 border-l-[3px] border-[var(--accent)] bg-[var(--bg-primary)] pl-[calc(0.5rem-3px)] pr-2 font-medium text-[var(--accent-text)]"
-                          : "px-2 text-[var(--text-secondary)] hover:translate-x-0.5 hover:bg-[var(--bg-tertiary)] hover:text-[var(--text-primary)]"
-                      }`}
-                    >
-                      <div className="relative flex-shrink-0">
-                        {dm.otherUser.profileImage ? (
-                          /* eslint-disable-next-line @next/next/no-img-element */
-                          <img
-                            src={dm.otherUser.profileImage}
-                            alt=""
-                            className="h-5 w-5 rounded-full object-cover"
-                          />
-                        ) : (
-                          <div
-                            className="flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-medium text-white"
-                            style={{
-                              backgroundColor: dm.otherUser.avatarColor || "#0D9488",
-                            }}
-                          >
-                            {displayName[0].toUpperCase()}
-                          </div>
-                        )}
-                        <span
-                          className={`absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] ${statusColor}`}
-                        />
-                      </div>
-                      <span className="truncate">{displayName}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {initialDirectMessages.length === 0 && (
-              <p className="mt-2 px-2 text-sm text-[var(--text-muted)]">
-                No conversations yet
-              </p>
-            )}
           </div>
 
           {/* Members section */}
