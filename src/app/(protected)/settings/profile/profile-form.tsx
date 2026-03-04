@@ -94,7 +94,7 @@ export default function ProfileForm({ profile }: ProfileFormProps) {
             <div
               className="flex h-16 w-16 items-center justify-center rounded-full text-xl font-medium text-white"
               style={{
-                backgroundColor: profile.avatarColor || "#4F46E5",
+                backgroundColor: profile.avatarColor || "#0D9488",
               }}
             >
               {(name || "U")[0].toUpperCase()}

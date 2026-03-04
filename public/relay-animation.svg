@@ -90,35 +90,6 @@
         85%,100% { transform: translate(440px,55px) scale(0) translate(-440px,-55px); opacity: 0; }
       }
 
-      /* ── Presence dot pulse ── */
-      @-webkit-keyframes relay_presence_pulse {
-        0%,100% { -webkit-transform: translate(38px,271px) scale(1) translate(-38px,-271px); transform: translate(38px,271px) scale(1) translate(-38px,-271px); }
-        50% { -webkit-transform: translate(38px,271px) scale(1.3) translate(-38px,-271px); transform: translate(38px,271px) scale(1.3) translate(-38px,-271px); }
-      }
-      @keyframes relay_presence_pulse {
-        0%,100% { transform: translate(38px,271px) scale(1) translate(-38px,-271px); }
-        50% { transform: translate(38px,271px) scale(1.3) translate(-38px,-271px); }
-      }
-
-      @-webkit-keyframes relay_presence_pulse2 {
-        0%,100% { -webkit-transform: translate(65px,271px) scale(1) translate(-65px,-271px); transform: translate(65px,271px) scale(1) translate(-65px,-271px); }
-        50% { -webkit-transform: translate(65px,271px) scale(1.3) translate(-65px,-271px); transform: translate(65px,271px) scale(1.3) translate(-65px,-271px); }
-      }
-      @keyframes relay_presence_pulse2 {
-        0%,100% { transform: translate(65px,271px) scale(1) translate(-65px,-271px); }
-        50% { transform: translate(65px,271px) scale(1.3) translate(-65px,-271px); }
-      }
-
-      /* ── Logo bar shimmer ── */
-      @-webkit-keyframes relay_logo_pulse {
-        0%,100% { opacity: 1; }
-        50% { opacity: 0.35; }
-      }
-      @keyframes relay_logo_pulse {
-        0%,100% { opacity: 1; }
-        50% { opacity: 0.35; }
-      }
-
       /* ── Apply animations ── */
       .relay-msg1 {
         -webkit-animation-name: relay_msg1_in;
@@ -163,48 +134,6 @@
         -webkit-animation-timing-function: cubic-bezier(0.42,0,0.58,1);
         animation-timing-function: cubic-bezier(0.42,0,0.58,1);
       }
-      .relay-presence-1 {
-        -webkit-animation-name: relay_presence_pulse;
-        animation-name: relay_presence_pulse;
-        -webkit-animation-duration: 2s;
-        animation-duration: 2s;
-        -webkit-animation-timing-function: ease-in-out;
-        animation-timing-function: ease-in-out;
-      }
-      .relay-presence-2 {
-        -webkit-animation-name: relay_presence_pulse2;
-        animation-name: relay_presence_pulse2;
-        -webkit-animation-duration: 2s;
-        animation-duration: 2s;
-        -webkit-animation-delay: 0.3s;
-        animation-delay: 0.3s;
-        -webkit-animation-timing-function: ease-in-out;
-        animation-timing-function: ease-in-out;
-      }
-      .relay-logo-bar1 {
-        -webkit-animation-name: relay_logo_pulse;
-        animation-name: relay_logo_pulse;
-        -webkit-animation-duration: 2s;
-        animation-duration: 2s;
-        -webkit-animation-delay: 0s;
-        animation-delay: 0s;
-      }
-      .relay-logo-bar2 {
-        -webkit-animation-name: relay_logo_pulse;
-        animation-name: relay_logo_pulse;
-        -webkit-animation-duration: 2s;
-        animation-duration: 2s;
-        -webkit-animation-delay: 0.15s;
-        animation-delay: 0.15s;
-      }
-      .relay-logo-bar3 {
-        -webkit-animation-name: relay_logo_pulse;
-        animation-name: relay_logo_pulse;
-        -webkit-animation-duration: 2s;
-        animation-duration: 2s;
-        -webkit-animation-delay: 0.3s;
-        animation-delay: 0.3s;
-      }
     }
   </style>
 
@@ -219,18 +148,17 @@
       <!-- Clean right edge (cover right rounded corners) -->
       <rect x="98" y="0" width="12" height="320" fill="#FFFFFF"/>
 
-      <!-- Brand logo mark: 3 bars -->
-      <rect class="relay-logo-bar1" x="14" y="19" width="4" height="12" rx="1.5" fill="#4F46E5"/>
-      <rect class="relay-logo-bar2" x="21" y="15" width="4" height="18" rx="1.5" fill="#4F46E5"/>
-      <rect class="relay-logo-bar3" x="28" y="21" width="4" height="10" rx="1.5" fill="#4F46E5"/>
+      <!-- Brand logo mark: chat bubble with lightning bolt -->
+      <path d="M14 16c0-1.5 1.2-2.7 2.7-2.7h10.6c1.5 0 2.7 1.2 2.7 2.7v7.5c0 1.5-1.2 2.7-2.7 2.7h-4.8l-2.5 3v-3h-3.3c-1.5 0-2.7-1.2-2.7-2.7V16z" fill="#0D9488"/>
+      <path d="M24 15.5l-3 4.5h2.3l-.3 3.5 3-4.5h-2.3l.3-3.5z" fill="#FFFFFF"/>
 
       <!-- Logo text -->
       <text x="38" y="29" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#2D2D2D">Relay</text>
 
       <!-- Channel rows -->
       <!-- Row 1: # general (active) -->
-      <rect x="6" y="52" width="98" height="26" rx="5" fill="rgba(79,70,229,0.08)"/>
-      <text x="14" y="69" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="600" fill="#4F46E5"># general</text>
+      <rect x="6" y="52" width="98" height="26" rx="5" fill="rgba(13,148,136,0.08)"/>
+      <text x="14" y="69" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="600" fill="#0D9488"># general</text>
 
       <!-- Row 2: # design -->
       <rect x="6" y="82" width="98" height="26" rx="5" fill="transparent"/>
@@ -245,20 +173,20 @@
 
       <!-- Presence avatars -->
       <!-- Avatar 1 -->
-      <circle cx="30" cy="192" r="8" fill="#4F46E5" opacity="0.15"/>
-      <text x="30" y="195" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">A</text>
+      <circle cx="30" cy="192" r="8" fill="#0D9488" opacity="0.15"/>
+      <text x="30" y="195" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#0D9488" text-anchor="middle">A</text>
       <rect x="40" y="187" width="42" height="4" rx="2" fill="#2D2D2D" opacity="0.12"/>
-      <circle class="relay-presence-1" cx="38" cy="196" r="3" fill="#22C55E"/>
+      <circle cx="38" cy="196" r="3" fill="#22C55E"/>
 
       <!-- Avatar 2 -->
-      <circle cx="30" cy="214" r="8" fill="#4F46E5" opacity="0.15"/>
-      <text x="30" y="217" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">M</text>
+      <circle cx="30" cy="214" r="8" fill="#0D9488" opacity="0.15"/>
+      <text x="30" y="217" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#0D9488" text-anchor="middle">M</text>
       <rect x="40" y="209" width="36" height="4" rx="2" fill="#2D2D2D" opacity="0.12"/>
       <circle cx="38" cy="218" r="3" fill="#22C55E"/>
 
       <!-- Avatar 3 -->
-      <circle cx="30" cy="236" r="8" fill="#4F46E5" opacity="0.15"/>
-      <text x="30" y="239" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">J</text>
+      <circle cx="30" cy="236" r="8" fill="#0D9488" opacity="0.15"/>
+      <text x="30" y="239" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#0D9488" text-anchor="middle">J</text>
       <rect x="40" y="231" width="30" height="4" rx="2" fill="#2D2D2D" opacity="0.12"/>
       <circle cx="38" cy="240" r="3" fill="#F59E0B"/>
     </g>
@@ -276,8 +204,8 @@
       <!-- Message bubble 1 (received, left-aligned) -->
       <g class="relay-msg1">
         <!-- Avatar -->
-        <circle cx="132" cy="76" r="11" fill="#4F46E5" opacity="0.2"/>
-        <text x="132" y="79.5" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#4F46E5" text-anchor="middle">S</text>
+        <circle cx="132" cy="76" r="11" fill="#0D9488" opacity="0.2"/>
+        <text x="132" y="79.5" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#0D9488" text-anchor="middle">S</text>
         <!-- Bubble -->
         <rect x="148" y="62" width="170" height="36" rx="10" fill="#F0F0EF"/>
         <!-- Sender name -->
@@ -289,7 +217,7 @@
 
       <!-- Message bubble 2 (sent, right-aligned) -->
       <g class="relay-msg2">
-        <rect x="260" y="116" width="188" height="36" rx="10" fill="#4F46E5"/>
+        <rect x="260" y="116" width="188" height="36" rx="10" fill="#0D9488"/>
         <!-- Sender -->
         <text x="270" y="130" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#FFFFFF" opacity="0.85">You</text>
         <!-- Text placeholder bars -->
@@ -314,8 +242,8 @@
       <!-- Typing indicator -->
       <g class="relay-typing-pill">
         <!-- Small avatar -->
-        <circle cx="132" cy="232" r="8" fill="#4F46E5" opacity="0.15"/>
-        <text x="132" y="235" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">J</text>
+        <circle cx="132" cy="232" r="8" fill="#0D9488" opacity="0.15"/>
+        <text x="132" y="235" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#0D9488" text-anchor="middle">J</text>
         <!-- Pill -->
         <rect x="148" y="222" width="52" height="22" rx="11" fill="#F0F0EF"/>
         <!-- Bouncing dots -->
@@ -326,7 +254,7 @@
 
       <!-- New message badge -->
       <g class="relay-badge">
-        <circle cx="440" cy="55" r="9" fill="#4F46E5"/>
+        <circle cx="440" cy="55" r="9" fill="#0D9488"/>
         <text x="440" y="58.5" font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
       </g>
 

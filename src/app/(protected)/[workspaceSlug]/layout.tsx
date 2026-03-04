@@ -68,7 +68,7 @@ export default async function WorkspaceLayout({
           }))}
           isAdmin={isAdmin}
           userName={session.user.name || session.user.email || "User"}
-          avatarColor={currentMemberData?.user.avatarColor || "#4F46E5"}
+          avatarColor={currentMemberData?.user.avatarColor || "#0D9488"}
           profileImage={currentMemberData?.user.profileImage || null}
           onlineCount={onlineCount}
           onlineMembers={onlineMembers}

@@ -283,7 +283,7 @@ export default function MemberList({
                     <div
                       className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium text-white"
                       style={{
-                        backgroundColor: m.user.avatarColor || "#4F46E5",
+                        backgroundColor: m.user.avatarColor || "#0D9488",
                       }}
                     >
                       {(m.user.name || m.user.email)[0].toUpperCase()}

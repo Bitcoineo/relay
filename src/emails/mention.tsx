@@ -76,7 +76,7 @@ const paragraph = {
 
 const messageBox = {
   backgroundColor: "#F8F8F7",
-  borderLeft: "3px solid #4F46E5",
+  borderLeft: "3px solid #0D9488",
   padding: "12px 16px",
   borderRadius: "4px",
   margin: "16px 0",
@@ -95,7 +95,7 @@ const buttonContainer = {
 };
 
 const button = {
-  backgroundColor: "#4F46E5",
+  backgroundColor: "#0D9488",
   color: "#ffffff",
   padding: "12px 32px",
   borderRadius: "6px",

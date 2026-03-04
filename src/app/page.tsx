@@ -16,7 +16,7 @@ export default async function Home() {
       {/* ── Nav ── */}
       <nav className="border-b border-[var(--border)] px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <svg
               width="24"
               height="24"
@@ -24,12 +24,11 @@ export default async function Home() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
-              <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
-              <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
+              <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
+              <path d="M15.5 6L11 13h3.5L13 19l6-7.5h-3.5L15.5 6z" fill="white" />
             </svg>
             <span className="text-lg font-bold text-[var(--text-primary)]">Relay</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <Link
@@ -81,7 +80,7 @@ export default async function Home() {
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-10 -top-10 -z-10 h-[400px] w-[400px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(79,70,229,0.05) 0%, transparent 70%)" }}
+              style={{ background: "radial-gradient(circle, rgba(13,148,136,0.05) 0%, transparent 70%)" }}
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -95,22 +94,15 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ── Trust band ── */}
-      <section className="border-y border-[var(--border)] px-6 py-4">
-        <p className="text-center text-sm text-[var(--text-muted)]">
-          Real-time &middot; Open source &middot; Deploy anywhere
-        </p>
-      </section>
-
       {/* ── Feature cards ── */}
-      <section className="bg-[var(--bg-secondary)] px-6 py-20">
+      <section className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-20">
         <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Card 1 — Real-time (Indigo) */}
+          {/* Card 1 — Real-time (Teal) */}
           <ScrollReveal delay={0}>
-            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[var(--accent)] hover:shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(79,70,229,0.08)] transition-all duration-300 group-hover:bg-[rgba(79,70,229,0.15)] group-hover:scale-110">
+            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#0D9488] hover:shadow-lg">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(13,148,136,0.08)] transition-all duration-300 group-hover:bg-[rgba(13,148,136,0.15)] group-hover:scale-110">
                 <svg
-                  className="h-5 w-5 text-[#4F46E5]"
+                  className="h-5 w-5 text-[#0D9488]"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
@@ -119,7 +111,7 @@ export default async function Home() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
                   />
                 </svg>
               </div>
@@ -132,35 +124,8 @@ export default async function Home() {
             </div>
           </ScrollReveal>
 
-          {/* Card 2 — Mentions (Emerald) */}
-          <ScrollReveal delay={100} className="lg:mt-4">
-            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#10B981] hover:shadow-lg">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(16,185,129,0.08)] transition-all duration-300 group-hover:bg-[rgba(16,185,129,0.15)] group-hover:scale-110">
-                <svg
-                  className="h-5 w-5 text-[#10B981]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"
-                  />
-                </svg>
-              </div>
-              <h3 className="mt-4 text-[15px] font-semibold text-[var(--text-primary)]">
-                Mentions that notify
-              </h3>
-              <p className="mt-1 text-[15px] text-[var(--text-secondary)]">
-                Tag someone with @. If they&apos;re not online, they&apos;ll get an email.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          {/* Card 3 — Presence (Amber) */}
-          <ScrollReveal delay={200}>
+          {/* Card 2 — Mentions (Amber) */}
+          <ScrollReveal delay={100}>
             <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#F59E0B] hover:shadow-lg">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(245,158,11,0.08)] transition-all duration-300 group-hover:bg-[rgba(245,158,11,0.15)] group-hover:scale-110">
                 <svg
@@ -173,12 +138,34 @@ export default async function Home() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                   />
+                </svg>
+              </div>
+              <h3 className="mt-4 text-[15px] font-semibold text-[var(--text-primary)]">
+                Mentions that notify
+              </h3>
+              <p className="mt-1 text-[15px] text-[var(--text-secondary)]">
+                Tag someone with @. If they&apos;re not online, they&apos;ll get an email.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* Card 3 — Presence (Emerald) */}
+          <ScrollReveal delay={200}>
+            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#10B981] hover:shadow-lg">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(16,185,129,0.08)] transition-all duration-300 group-hover:bg-[rgba(16,185,129,0.15)] group-hover:scale-110">
+                <svg
+                  className="h-5 w-5 text-[#10B981]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
                   />
                 </svg>
               </div>
@@ -192,7 +179,7 @@ export default async function Home() {
           </ScrollReveal>
 
           {/* Card 4 — Workspaces (Violet) */}
-          <ScrollReveal delay={300} className="lg:mt-4">
+          <ScrollReveal delay={300}>
             <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#8B5CF6] hover:shadow-lg">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(139,92,246,0.08)] transition-all duration-300 group-hover:bg-[rgba(139,92,246,0.15)] group-hover:scale-110">
                 <svg
@@ -205,7 +192,7 @@ export default async function Home() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+                    d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"
                   />
                 </svg>
               </div>
@@ -221,12 +208,12 @@ export default async function Home() {
       </section>
 
       {/* ── Bottom CTA ── */}
-      <section className="relative overflow-hidden px-6 py-20 text-center" style={{ background: 'linear-gradient(135deg, #4F46E5 0%, #1e1b4b 100%)' }}>
+      <section className="relative overflow-hidden px-6 py-20 text-center" style={{ background: 'linear-gradient(135deg, #0D9488 0%, #134E4A 100%)' }}>
         {/* Subtle radial glow for depth */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
-          style={{ background: 'radial-gradient(ellipse at 60% 50%, rgba(129,140,248,0.18) 0%, transparent 70%)' }}
+          style={{ background: 'radial-gradient(ellipse at 60% 50%, rgba(94,234,212,0.18) 0%, transparent 70%)' }}
         />
         {/* Floating particles */}
         <div aria-hidden="true" className="particle particle-1" />
@@ -242,7 +229,7 @@ export default async function Home() {
           <div className="mt-6 flex flex-col items-center gap-2">
             <Link
               href="/auth/signup"
-              className="inline-block rounded-md bg-white px-6 py-3 text-sm font-medium text-[#1e1b4b] transition-all hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
+              className="inline-block rounded-md bg-white px-6 py-3 text-sm font-medium text-[#134E4A] transition-all hover:bg-white/90 hover:shadow-lg active:scale-[0.97]"
             >
               Create a workspace
             </Link>
@@ -259,31 +246,30 @@ export default async function Home() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-[var(--border)] px-6 py-6">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 text-xs text-[var(--text-muted)]">
+      <footer className="border-t border-[var(--border)] px-6 py-5">
+        <div className="mx-auto flex max-w-5xl items-center justify-center gap-4 text-xs text-[var(--text-muted)]">
           <span>Built by Bitcoineo</span>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/Bitcoineo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
-            >
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-              </svg>
-            </a>
-            <a
-              href="https://x.com/Bitcoineo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
-            >
-              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-          </div>
+          <span className="text-[var(--border-strong)]">&middot;</span>
+          <a
+            href="https://github.com/Bitcoineo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+          >
+            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+          <a
+            href="https://x.com/Bitcoineo"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+          >
+            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
         </div>
       </footer>
     </div>

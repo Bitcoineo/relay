@@ -70,9 +70,8 @@ export default function SignUpPage() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <rect x="2" y="6" width="6" height="16" rx="2" fill="var(--accent)" />
-          <rect x="11" y="3" width="6" height="22" rx="2" fill="var(--accent)" />
-          <rect x="20" y="9" width="6" height="13" rx="2" fill="var(--accent)" />
+          <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
+          <path d="M15.5 6L11 13h3.5L13 19l6-7.5h-3.5L15.5 6z" fill="white" />
         </svg>
         <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
       </Link>
