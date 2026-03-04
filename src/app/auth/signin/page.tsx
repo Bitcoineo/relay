@@ -51,7 +51,7 @@ function SignInForm() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
-          <path d="M15.5 6L11 13h3.5L13 19l6-7.5h-3.5L15.5 6z" fill="white" />
+          <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
         </svg>
         <span className="text-xl font-bold text-[var(--text-primary)]">Relay</span>
       </Link>

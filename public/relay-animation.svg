@@ -150,7 +150,7 @@
 
       <!-- Brand logo mark: chat bubble with lightning bolt -->
       <path d="M14 16c0-1.5 1.2-2.7 2.7-2.7h10.6c1.5 0 2.7 1.2 2.7 2.7v7.5c0 1.5-1.2 2.7-2.7 2.7h-4.8l-2.5 3v-3h-3.3c-1.5 0-2.7-1.2-2.7-2.7V16z" fill="#0D9488"/>
-      <path d="M24 15.5l-3 4.5h2.3l-.3 3.5 3-4.5h-2.3l.3-3.5z" fill="#FFFFFF"/>
+      <path d="M22.7 15.5L20 20.2h1.7L21 24l3-4.7h-1.7l.4-3.8z" fill="#FFFFFF"/>
 
       <!-- Logo text -->
       <text x="38" y="29" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#2D2D2D">Relay</text>

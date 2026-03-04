@@ -25,7 +25,7 @@ export default async function Home() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
-              <path d="M15.5 6L11 13h3.5L13 19l6-7.5h-3.5L15.5 6z" fill="white" />
+              <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
             </svg>
             <span className="text-lg font-bold text-[var(--text-primary)]">Relay</span>
           </Link>
@@ -99,7 +99,7 @@ export default async function Home() {
         <div className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {/* Card 1 — Real-time (Teal) */}
           <ScrollReveal delay={0}>
-            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#0D9488] hover:shadow-lg">
+            <div className="group h-full rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#0D9488] hover:shadow-lg">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(13,148,136,0.08)] transition-all duration-300 group-hover:bg-[rgba(13,148,136,0.15)] group-hover:scale-110">
                 <svg
                   className="h-5 w-5 text-[#0D9488]"
@@ -126,7 +126,7 @@ export default async function Home() {
 
           {/* Card 2 — Mentions (Amber) */}
           <ScrollReveal delay={100}>
-            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#F59E0B] hover:shadow-lg">
+            <div className="group h-full rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#F59E0B] hover:shadow-lg">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(245,158,11,0.08)] transition-all duration-300 group-hover:bg-[rgba(245,158,11,0.15)] group-hover:scale-110">
                 <svg
                   className="h-5 w-5 text-[#F59E0B]"
@@ -153,7 +153,7 @@ export default async function Home() {
 
           {/* Card 3 — Presence (Emerald) */}
           <ScrollReveal delay={200}>
-            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#10B981] hover:shadow-lg">
+            <div className="group h-full rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#10B981] hover:shadow-lg">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(16,185,129,0.08)] transition-all duration-300 group-hover:bg-[rgba(16,185,129,0.15)] group-hover:scale-110">
                 <svg
                   className="h-5 w-5 text-[#10B981]"
@@ -180,7 +180,7 @@ export default async function Home() {
 
           {/* Card 4 — Workspaces (Violet) */}
           <ScrollReveal delay={300}>
-            <div className="group rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#8B5CF6] hover:shadow-lg">
+            <div className="group h-full rounded-lg border border-[var(--border)] border-t-2 border-t-transparent bg-[var(--bg-primary)] p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-t-[#8B5CF6] hover:shadow-lg">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(139,92,246,0.08)] transition-all duration-300 group-hover:bg-[rgba(139,92,246,0.15)] group-hover:scale-110">
                 <svg
                   className="h-5 w-5 text-[#8B5CF6]"
