@@ -1,0 +1,336 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320" id="relay-root">
+  <title>Relay - Real-time team messaging</title>
+  <desc>Animated illustration of the Relay chat interface showing real-time messaging with channel sidebar, chat bubbles, typing indicator, and presence dots.</desc>
+
+  <defs>
+    <clipPath id="relay-clip">
+      <rect width="480" height="320" rx="12"/>
+    </clipPath>
+  </defs>
+
+  <style>
+    @media (prefers-reduced-motion: no-preference) {
+      #relay-root * {
+        -webkit-animation-duration: 4s;
+        animation-duration: 4s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-timing-function: cubic-bezier(0,0,1,1);
+        animation-timing-function: cubic-bezier(0,0,1,1);
+      }
+
+      /* ── Message entrance animations ── */
+      @-webkit-keyframes relay_msg1_in {
+        0% { opacity: 0; -webkit-transform: translateY(8px); transform: translateY(8px); }
+        5% { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+        100% { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+      }
+      @keyframes relay_msg1_in {
+        0% { opacity: 0; transform: translateY(8px); }
+        5% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      @-webkit-keyframes relay_msg2_in {
+        0%,10% { opacity: 0; -webkit-transform: translateY(8px); transform: translateY(8px); }
+        15% { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+        100% { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+      }
+      @keyframes relay_msg2_in {
+        0%,10% { opacity: 0; transform: translateY(8px); }
+        15% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      @-webkit-keyframes relay_msg3_in {
+        0%,20% { opacity: 0; -webkit-transform: translateY(8px); transform: translateY(8px); }
+        25% { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+        100% { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+      }
+      @keyframes relay_msg3_in {
+        0%,20% { opacity: 0; transform: translateY(8px); }
+        25% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Typing indicator ── */
+      @-webkit-keyframes relay_typing_in {
+        0%,28% { opacity: 0; -webkit-transform: scale(0.8); transform: scale(0.8); }
+        33% { opacity: 1; -webkit-transform: scale(1); transform: scale(1); }
+        82% { opacity: 1; }
+        90%,100% { opacity: 0; }
+      }
+      @keyframes relay_typing_in {
+        0%,28% { opacity: 0; transform: scale(0.8); }
+        33% { opacity: 1; transform: scale(1); }
+        82% { opacity: 1; }
+        90%,100% { opacity: 0; }
+      }
+
+      @-webkit-keyframes relay_bounce {
+        0%,60%,100% { -webkit-transform: translateY(0); transform: translateY(0); }
+        30% { -webkit-transform: translateY(-5px); transform: translateY(-5px); }
+      }
+      @keyframes relay_bounce {
+        0%,60%,100% { transform: translateY(0); }
+        30% { transform: translateY(-5px); }
+      }
+
+      /* ── Badge pop ── */
+      @-webkit-keyframes relay_badge_pop {
+        0%,22% { -webkit-transform: translate(440px,55px) scale(0) translate(-440px,-55px); transform: translate(440px,55px) scale(0) translate(-440px,-55px); opacity: 0; }
+        27% { -webkit-transform: translate(440px,55px) scale(1.2) translate(-440px,-55px); transform: translate(440px,55px) scale(1.2) translate(-440px,-55px); opacity: 1; }
+        30%,78% { -webkit-transform: translate(440px,55px) scale(1) translate(-440px,-55px); transform: translate(440px,55px) scale(1) translate(-440px,-55px); opacity: 1; }
+        85%,100% { -webkit-transform: translate(440px,55px) scale(0) translate(-440px,-55px); transform: translate(440px,55px) scale(0) translate(-440px,-55px); opacity: 0; }
+      }
+      @keyframes relay_badge_pop {
+        0%,22% { transform: translate(440px,55px) scale(0) translate(-440px,-55px); opacity: 0; }
+        27% { transform: translate(440px,55px) scale(1.2) translate(-440px,-55px); opacity: 1; }
+        30%,78% { transform: translate(440px,55px) scale(1) translate(-440px,-55px); opacity: 1; }
+        85%,100% { transform: translate(440px,55px) scale(0) translate(-440px,-55px); opacity: 0; }
+      }
+
+      /* ── Presence dot pulse ── */
+      @-webkit-keyframes relay_presence_pulse {
+        0%,100% { -webkit-transform: translate(38px,271px) scale(1) translate(-38px,-271px); transform: translate(38px,271px) scale(1) translate(-38px,-271px); }
+        50% { -webkit-transform: translate(38px,271px) scale(1.3) translate(-38px,-271px); transform: translate(38px,271px) scale(1.3) translate(-38px,-271px); }
+      }
+      @keyframes relay_presence_pulse {
+        0%,100% { transform: translate(38px,271px) scale(1) translate(-38px,-271px); }
+        50% { transform: translate(38px,271px) scale(1.3) translate(-38px,-271px); }
+      }
+
+      @-webkit-keyframes relay_presence_pulse2 {
+        0%,100% { -webkit-transform: translate(65px,271px) scale(1) translate(-65px,-271px); transform: translate(65px,271px) scale(1) translate(-65px,-271px); }
+        50% { -webkit-transform: translate(65px,271px) scale(1.3) translate(-65px,-271px); transform: translate(65px,271px) scale(1.3) translate(-65px,-271px); }
+      }
+      @keyframes relay_presence_pulse2 {
+        0%,100% { transform: translate(65px,271px) scale(1) translate(-65px,-271px); }
+        50% { transform: translate(65px,271px) scale(1.3) translate(-65px,-271px); }
+      }
+
+      /* ── Logo bar shimmer ── */
+      @-webkit-keyframes relay_logo_pulse {
+        0%,100% { opacity: 1; }
+        50% { opacity: 0.35; }
+      }
+      @keyframes relay_logo_pulse {
+        0%,100% { opacity: 1; }
+        50% { opacity: 0.35; }
+      }
+
+      /* ── Apply animations ── */
+      .relay-msg1 {
+        -webkit-animation-name: relay_msg1_in;
+        animation-name: relay_msg1_in;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+      }
+      .relay-msg2 {
+        -webkit-animation-name: relay_msg2_in;
+        animation-name: relay_msg2_in;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+      }
+      .relay-msg3 {
+        -webkit-animation-name: relay_msg3_in;
+        animation-name: relay_msg3_in;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+      }
+      .relay-typing-pill {
+        -webkit-animation-name: relay_typing_in;
+        animation-name: relay_typing_in;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+      }
+      .relay-dot {
+        -webkit-animation-name: relay_bounce;
+        animation-name: relay_bounce;
+        -webkit-animation-duration: 1.4s;
+        animation-duration: 1.4s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+      }
+      .relay-dot-1 { -webkit-animation-delay: 0s; animation-delay: 0s; }
+      .relay-dot-2 { -webkit-animation-delay: 0.16s; animation-delay: 0.16s; }
+      .relay-dot-3 { -webkit-animation-delay: 0.32s; animation-delay: 0.32s; }
+      .relay-badge {
+        -webkit-animation-name: relay_badge_pop;
+        animation-name: relay_badge_pop;
+        -webkit-animation-fill-mode: backwards;
+        animation-fill-mode: backwards;
+        -webkit-animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+        animation-timing-function: cubic-bezier(0.42,0,0.58,1);
+      }
+      .relay-presence-1 {
+        -webkit-animation-name: relay_presence_pulse;
+        animation-name: relay_presence_pulse;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+      }
+      .relay-presence-2 {
+        -webkit-animation-name: relay_presence_pulse2;
+        animation-name: relay_presence_pulse2;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+      }
+      .relay-logo-bar1 {
+        -webkit-animation-name: relay_logo_pulse;
+        animation-name: relay_logo_pulse;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-delay: 0s;
+        animation-delay: 0s;
+      }
+      .relay-logo-bar2 {
+        -webkit-animation-name: relay_logo_pulse;
+        animation-name: relay_logo_pulse;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-delay: 0.15s;
+        animation-delay: 0.15s;
+      }
+      .relay-logo-bar3 {
+        -webkit-animation-name: relay_logo_pulse;
+        animation-name: relay_logo_pulse;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s;
+      }
+    }
+  </style>
+
+  <g clip-path="url(#relay-clip)">
+
+    <!-- Layer 1: Background card -->
+    <rect width="480" height="320" rx="12" fill="#F8F8F7" stroke="#EEEEED" stroke-width="1"/>
+
+    <!-- Layer 2: Sidebar -->
+    <g id="relay-sidebar">
+      <rect x="0" y="0" width="110" height="320" rx="12" fill="#FFFFFF"/>
+      <!-- Clean right edge (cover right rounded corners) -->
+      <rect x="98" y="0" width="12" height="320" fill="#FFFFFF"/>
+
+      <!-- Brand logo mark: 3 bars -->
+      <rect class="relay-logo-bar1" x="14" y="19" width="4" height="12" rx="1.5" fill="#4F46E5"/>
+      <rect class="relay-logo-bar2" x="21" y="15" width="4" height="18" rx="1.5" fill="#4F46E5"/>
+      <rect class="relay-logo-bar3" x="28" y="21" width="4" height="10" rx="1.5" fill="#4F46E5"/>
+
+      <!-- Logo text -->
+      <text x="38" y="29" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#2D2D2D">Relay</text>
+
+      <!-- Channel rows -->
+      <!-- Row 1: # general (active) -->
+      <rect x="6" y="52" width="98" height="26" rx="5" fill="rgba(79,70,229,0.08)"/>
+      <text x="14" y="69" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="600" fill="#4F46E5"># general</text>
+
+      <!-- Row 2: # design -->
+      <rect x="6" y="82" width="98" height="26" rx="5" fill="transparent"/>
+      <text x="14" y="99" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="500" fill="#6B6B6B"># design</text>
+
+      <!-- Row 3: # engineering -->
+      <rect x="6" y="112" width="98" height="26" rx="5" fill="transparent"/>
+      <text x="14" y="129" font-family="system-ui,-apple-system,sans-serif" font-size="9.5" font-weight="500" fill="#6B6B6B"># engineering</text>
+
+      <!-- Section label -->
+      <text x="14" y="170" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#A3A3A3" letter-spacing="0.5">MEMBERS</text>
+
+      <!-- Presence avatars -->
+      <!-- Avatar 1 -->
+      <circle cx="30" cy="192" r="8" fill="#4F46E5" opacity="0.15"/>
+      <text x="30" y="195" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">A</text>
+      <rect x="40" y="187" width="42" height="4" rx="2" fill="#2D2D2D" opacity="0.12"/>
+      <circle class="relay-presence-1" cx="38" cy="196" r="3" fill="#22C55E"/>
+
+      <!-- Avatar 2 -->
+      <circle cx="30" cy="214" r="8" fill="#4F46E5" opacity="0.15"/>
+      <text x="30" y="217" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">M</text>
+      <rect x="40" y="209" width="36" height="4" rx="2" fill="#2D2D2D" opacity="0.12"/>
+      <circle cx="38" cy="218" r="3" fill="#22C55E"/>
+
+      <!-- Avatar 3 -->
+      <circle cx="30" cy="236" r="8" fill="#4F46E5" opacity="0.15"/>
+      <text x="30" y="239" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">J</text>
+      <rect x="40" y="231" width="30" height="4" rx="2" fill="#2D2D2D" opacity="0.12"/>
+      <circle cx="38" cy="240" r="3" fill="#F59E0B"/>
+    </g>
+
+    <!-- Divider line -->
+    <line x1="110" y1="0" x2="110" y2="320" stroke="#EEEEED" stroke-width="1"/>
+
+    <!-- Layer 3: Message pane -->
+    <g id="relay-messages">
+
+      <!-- Channel header in message pane -->
+      <text x="126" y="30" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#2D2D2D"># general</text>
+      <line x1="110" y1="44" x2="480" y2="44" stroke="#EEEEED" stroke-width="1"/>
+
+      <!-- Message bubble 1 (received, left-aligned) -->
+      <g class="relay-msg1">
+        <!-- Avatar -->
+        <circle cx="132" cy="76" r="11" fill="#4F46E5" opacity="0.2"/>
+        <text x="132" y="79.5" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#4F46E5" text-anchor="middle">S</text>
+        <!-- Bubble -->
+        <rect x="148" y="62" width="170" height="36" rx="10" fill="#F0F0EF"/>
+        <!-- Sender name -->
+        <text x="158" y="76" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#2D2D2D">Sarah Chen</text>
+        <!-- Text placeholder bars -->
+        <rect x="158" y="82" width="130" height="4" rx="2" fill="#A3A3A3" opacity="0.4"/>
+        <rect x="158" y="89" width="80" height="4" rx="2" fill="#A3A3A3" opacity="0.3"/>
+      </g>
+
+      <!-- Message bubble 2 (sent, right-aligned) -->
+      <g class="relay-msg2">
+        <rect x="260" y="116" width="188" height="36" rx="10" fill="#4F46E5"/>
+        <!-- Sender -->
+        <text x="270" y="130" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#FFFFFF" opacity="0.85">You</text>
+        <!-- Text placeholder bars -->
+        <rect x="270" y="136" width="148" height="4" rx="2" fill="#FFFFFF" opacity="0.45"/>
+        <rect x="270" y="143" width="90" height="4" rx="2" fill="#FFFFFF" opacity="0.3"/>
+      </g>
+
+      <!-- Message bubble 3 (received, left-aligned) -->
+      <g class="relay-msg3">
+        <!-- Avatar -->
+        <circle cx="132" cy="182" r="11" fill="#22C55E" opacity="0.2"/>
+        <text x="132" y="185.5" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#16A34A" text-anchor="middle">M</text>
+        <!-- Bubble -->
+        <rect x="148" y="168" width="200" height="36" rx="10" fill="#F0F0EF"/>
+        <!-- Sender name -->
+        <text x="158" y="182" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="600" fill="#2D2D2D">Mike Ross</text>
+        <!-- Text placeholder bars -->
+        <rect x="158" y="188" width="160" height="4" rx="2" fill="#A3A3A3" opacity="0.4"/>
+        <rect x="158" y="195" width="110" height="4" rx="2" fill="#A3A3A3" opacity="0.3"/>
+      </g>
+
+      <!-- Typing indicator -->
+      <g class="relay-typing-pill">
+        <!-- Small avatar -->
+        <circle cx="132" cy="232" r="8" fill="#4F46E5" opacity="0.15"/>
+        <text x="132" y="235" font-family="system-ui,-apple-system,sans-serif" font-size="7" font-weight="600" fill="#4F46E5" text-anchor="middle">J</text>
+        <!-- Pill -->
+        <rect x="148" y="222" width="52" height="22" rx="11" fill="#F0F0EF"/>
+        <!-- Bouncing dots -->
+        <circle class="relay-dot relay-dot-1" cx="163" cy="233" r="3.5" fill="#A3A3A3"/>
+        <circle class="relay-dot relay-dot-2" cx="174" cy="233" r="3.5" fill="#A3A3A3"/>
+        <circle class="relay-dot relay-dot-3" cx="185" cy="233" r="3.5" fill="#A3A3A3"/>
+      </g>
+
+      <!-- New message badge -->
+      <g class="relay-badge">
+        <circle cx="440" cy="55" r="9" fill="#4F46E5"/>
+        <text x="440" y="58.5" font-family="system-ui,-apple-system,sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+      </g>
+
+    </g>
+
+  </g>
+</svg>

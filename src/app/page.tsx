@@ -72,6 +72,18 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* ── Hero illustration ── */}
+      <div className="mx-auto mt-12 mb-4 max-w-lg px-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/relay-animation.svg"
+          alt="Relay chat interface animation"
+          width={480}
+          height={320}
+          className="w-full rounded-xl border border-[var(--border)] shadow-sm"
+        />
+      </div>
+
       {/* ── Feature cards ── */}
       <section className="border-t border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-20">
         <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
