@@ -20,6 +20,9 @@ const connectedUsers = new Map<string, Set<string>>();
 // socketId → userId (reverse lookup)
 const socketToUser = new Map<string, string>();
 
+// userId → userName (cache to avoid DB queries on typing/reactions)
+const userNameCache = new Map<string, string>();
+
 // ─── Helpers ─────────────────────────────────────────────────────────
 
 function parseCookies(cookieHeader: string): Record<string, string> {
@@ -64,7 +67,7 @@ nextApp.prepare().then(async () => {
   // Dynamic imports so dotenv is loaded first
   const { db } = await import("./src/db");
   const { eq, and } = await import("drizzle-orm");
-  const { users, channelMembers, workspaceMembers } = await import(
+  const { users, channelMembers, workspaceMembers, workspaces } = await import(
     "./src/db/schema"
   );
   const { createMessage, forwardMessage } = await import("./src/lib/messages");
@@ -125,6 +128,15 @@ nextApp.prepare().then(async () => {
     connectedUsers.get(userId)!.add(socket.id);
     socketToUser.set(socket.id, userId);
 
+    // Cache user name for typing/reaction events
+    const currentUser = await db.query.users.findFirst({
+      where: eq(users.id, userId),
+      columns: { name: true },
+    });
+    if (currentUser) {
+      userNameCache.set(userId, currentUser.name || "Someone");
+    }
+
     // Update user status to online
     await db
       .update(users)
@@ -157,6 +169,20 @@ nextApp.prepare().then(async () => {
         return;
       }
       socket.join(channelId);
+
+      // Ensure workspace room is joined for presence (handles new workspace additions)
+      const channel = await db.query.channels.findFirst({
+        where: eq(channelsTable.id, channelId),
+        columns: { workspaceId: true },
+      });
+      if (channel && !workspaceIds.includes(channel.workspaceId)) {
+        workspaceIds.push(channel.workspaceId);
+        socket.join(`workspace:${channel.workspaceId}`);
+        io.to(`workspace:${channel.workspaceId}`).emit("presence_update", {
+          userId,
+          status: "online",
+        });
+      }
     });
 
     // ─── leave_channel ───────────────────────────────────────────
@@ -241,12 +267,20 @@ nextApp.prepare().then(async () => {
 
               // Email if offline
               if (!connectedUsers.has(mentioned.userId)) {
+                // Look up workspace slug for the email link
+                const workspace = channel
+                  ? await db.query.workspaces.findFirst({
+                      where: eq(workspaces.id, channel.workspaceId),
+                      columns: { slug: true },
+                    })
+                  : null;
+
                 sendMentionNotification(
                   mentioned.user.email,
                   senderUser?.name || "Someone",
                   channel?.name || "a channel",
                   data.content.slice(0, 200),
-                  channel?.workspaceId || "",
+                  workspace?.slug || "",
                   data.channelId
                 ).catch(() => {});
               }
@@ -277,16 +311,13 @@ nextApp.prepare().then(async () => {
           return;
         }
 
-        const user = await db.query.users.findFirst({
-          where: eq(users.id, userId),
-          columns: { name: true },
-        });
+        const userName = userNameCache.get(userId) || "Someone";
 
         io.to(data.channelId).emit("reaction_update", {
           messageId: data.messageId,
           emoji: data.emoji,
           userId,
-          userName: user?.name || "Someone",
+          userName,
           action: result.data!.action,
         });
       }
@@ -361,15 +392,12 @@ nextApp.prepare().then(async () => {
 
     // ─── typing_start ────────────────────────────────────────────
 
-    socket.on("typing_start", async (channelId: string) => {
-      const user = await db.query.users.findFirst({
-        where: eq(users.id, userId),
-        columns: { name: true },
-      });
+    socket.on("typing_start", (channelId: string) => {
+      const userName = userNameCache.get(userId) || "Someone";
       socket.to(channelId).emit("user_typing", {
         channelId,
         userId,
-        userName: user?.name || "Someone",
+        userName,
       });
     });
 
@@ -410,6 +438,11 @@ nextApp.prepare().then(async () => {
         }
       }
       socketToUser.delete(socket.id);
+
+      // Clean up name cache when user fully disconnects
+      if (!connectedUsers.has(userId)) {
+        userNameCache.delete(userId);
+      }
 
       console.log(
         `[Socket.io] User ${userId} disconnected (socket: ${socket.id})`

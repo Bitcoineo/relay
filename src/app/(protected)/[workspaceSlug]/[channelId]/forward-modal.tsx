@@ -19,6 +19,7 @@ export default function ForwardModal({
   const [filter, setFilter] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [forwarding, setForwarding] = useState(false);
+  const [forwarded, setForwarded] = useState(false);
 
   const filtered = channels
     .filter((c) => c.id !== message.channelId)
@@ -34,7 +35,8 @@ export default function ForwardModal({
       toChannelId: selectedId,
     });
 
-    onClose();
+    setForwarded(true);
+    setTimeout(() => onClose(), 1200);
   }
 
   return (
@@ -59,6 +61,7 @@ export default function ForwardModal({
           placeholder="Search channels..."
           className="mt-3 w-full rounded-md border border-[#EEEEED] px-3 py-2 text-sm text-[#2D2D2D] focus:border-[#4F46E5] focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
           autoFocus
+          disabled={forwarded}
         />
 
         {/* Channel list */}
@@ -68,6 +71,7 @@ export default function ForwardModal({
               key={c.id}
               type="button"
               onClick={() => setSelectedId(c.id)}
+              disabled={forwarded}
               className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors ${
                 selectedId === c.id
                   ? "bg-[#4F46E5] text-white"
@@ -103,10 +107,18 @@ export default function ForwardModal({
           <button
             type="button"
             onClick={handleForward}
-            disabled={!selectedId || forwarding}
-            className="rounded-md bg-[#4F46E5] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#4338CA] disabled:opacity-50"
+            disabled={!selectedId || forwarding || forwarded}
+            className={`rounded-md px-3 py-1.5 text-sm font-medium text-white ${
+              forwarded
+                ? "bg-[#22C55E]"
+                : "bg-[#4F46E5] hover:bg-[#4338CA] disabled:opacity-50"
+            }`}
           >
-            Forward
+            {forwarded
+              ? "Forwarded!"
+              : forwarding
+                ? "Forwarding..."
+                : "Forward"}
           </button>
         </div>
       </div>

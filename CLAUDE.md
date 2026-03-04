@@ -48,6 +48,7 @@ email_verification_token:
 - Email verification: token-based, 24hr expiry, blocks app access until verified
 - Mentions: parse @username from message content, create mention rows, check if user is offline, queue email
 - Infinite scroll: cursor-based pagination (createdAt < cursor, LIMIT 50, ORDER BY createdAt DESC)
+- Profile images: stored as base64 data URLs in DB (<500KB). For production, migrate to cloud storage (S3/Cloudflare R2) and store URLs instead
 
 ## Roles & Permissions
 Owner: everything + delete workspace

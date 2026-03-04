@@ -173,7 +173,7 @@ export default async function Home() {
           <span>Built by Bitcoineo</span>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/Bitcoineo"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-[#2D2D2D]"
@@ -181,7 +181,7 @@ export default async function Home() {
               GitHub
             </a>
             <a
-              href="https://x.com"
+              href="https://x.com/Bitcoineo"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors hover:text-[#2D2D2D]"

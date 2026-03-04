@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 import { useSocket } from "./socket-provider";
 
 interface OnlineMember {
@@ -102,11 +103,8 @@ export default function Sidebar({
     router.refresh();
   }
 
-  async function handleSignOut() {
-    const res = await fetch("/api/auth/signout", { method: "POST" });
-    if (res.ok) {
-      window.location.href = "/auth/signin";
-    }
+  function handleSignOut() {
+    signOut({ callbackUrl: "/auth/signin" });
   }
 
   return (
