@@ -1,99 +1,61 @@
 # Relay
 
-Real-time team chat built with Next.js, Socket.io, and Drizzle ORM.
+Real-time team chat. Workspaces, channels, @mentions, presence indicators, typing indicators, and email notifications for offline users.
+
+**Stack:** `Next.js 14 · TypeScript · Socket.io · Auth.js v5 · Drizzle ORM · Turso (SQLite) · Resend · React Email · Tailwind CSS`
+
+**Live:** https://relay-2s1r.onrender.com
+
+---
+
+## Why I built this
+
+I wanted to understand how real-time chat actually works at the infrastructure level: WebSockets with Socket.io, presence tracking across multiple connections per user, typing indicators without flooding the server, cursor-based pagination for message history, and @mention parsing that triggers transactional email for offline users. Relay is a full implementation of all of it.
 
 ## Features
 
-- **Real-time messaging** via Socket.io with instant delivery
-- **Workspaces & channels** for organized team communication
-- **@mentions** with autocomplete and email notifications for offline users
-- **Presence indicators** — online, idle, and offline status in real time
-- **Typing indicators** with animated feedback
-- **Infinite scroll** message history with cursor-based pagination
-- **Email verification** with token-based flow
-- **Role-based permissions** — Owner, Admin, Member
-- **Google OAuth** + email/password authentication via Auth.js v5
-- **Invite system** with shareable links and auto-join on accept
-- **Responsive** — collapsible sidebar on mobile
+- **Real-time messaging** Socket.io with instant delivery across all connected clients
+- **Workspaces and channels** Organized team communication with role-based permissions
+- **@mentions** Autocomplete while typing, email notification sent via Resend if the mentioned user is offline
+- **Presence indicators** Online, idle, and offline status tracked in real time across multiple tabs
+- **Typing indicators** Animated feedback with debounced server events
+- **Infinite scroll** Cursor-based pagination for message history
+- **Email verification** Token-based signup flow with transactional email
+- **Authentication** Google OAuth and email/password via Auth.js v5
+- **Invite system** Shareable links with auto-join on accept
+- **React Email templates** Transactional emails for verification, welcome, and mentions
 
-## Tech Stack
+## Setup
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript (strict mode) |
-| Database | Turso (libSQL) + Drizzle ORM |
-| Auth | Auth.js v5 (Google OAuth + credentials) |
-| Real-time | Socket.io (custom server wrapping Next.js) |
-| Email | Resend + React Email |
-| Styling | Tailwind CSS |
-| Package Manager | pnpm |
+    pnpm install
+    cp .env.example .env.local
 
-## Getting Started
+Fill in your .env.local:
 
-### Prerequisites
+    DATABASE_URL=           # libsql://your-db.turso.io
+    DATABASE_AUTH_TOKEN=    # Turso auth token
+    AUTH_SECRET=            # openssl rand -base64 32
+    GOOGLE_CLIENT_ID=       # Google OAuth client ID
+    GOOGLE_CLIENT_SECRET=   # Google OAuth client secret
+    RESEND_API_KEY=         # Resend API key
+    RESEND_FROM_EMAIL=      # Relay <noreply@yourdomain.com>
+    NEXT_PUBLIC_BASE_URL=   # http://localhost:3000 for dev
 
-- Node.js 18+
-- pnpm
-- A [Turso](https://turso.tech) database
-- [Google OAuth](https://console.cloud.google.com) credentials
-- [Resend](https://resend.com) API key
+Run migrations and start:
 
-### Setup
+    pnpm db:migrate
+    pnpm dev
 
-1. Clone the repository and install dependencies:
-
-   ```bash
-   git clone <repo-url>
-   cd relay
-   pnpm install
-   ```
-
-2. Create `.env.local` with the following variables:
-
-   ```
-   DATABASE_URL=libsql://your-db.turso.io
-   DATABASE_AUTH_TOKEN=your-turso-auth-token
-   AUTH_SECRET=your-auth-secret
-   GOOGLE_CLIENT_ID=your-google-client-id
-   GOOGLE_CLIENT_SECRET=your-google-client-secret
-   RESEND_API_KEY=your-resend-api-key
-   RESEND_FROM_EMAIL=Relay <noreply@yourdomain.com>
-   NEXT_PUBLIC_BASE_URL=http://localhost:3000
-   ```
-
-3. Run database migrations:
-
-   ```bash
-   pnpm db:migrate
-   ```
-
-4. Start the development server:
-
-   ```bash
-   pnpm dev
-   ```
-
-   The app runs at [http://localhost:3000](http://localhost:3000).
-
-## Scripts
-
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start dev server (Socket.io + Next.js) |
-| `pnpm build` | Production build |
-| `pnpm db:generate` | Generate Drizzle migration files |
-| `pnpm db:migrate` | Run database migrations |
-| `pnpm db:seed` | Seed test data |
+Open http://localhost:3000
 
 ## Architecture
 
-- **Custom server** (`server.ts`) wraps Next.js with Socket.io for WebSocket support
-- **Presence** tracked in-memory on the Socket.io server (`Map<userId, Set<socketId>>`)
-- **Messages** persisted to DB on send, then broadcast to channel subscribers
-- **Mentions** parsed from message content (`@username`), stored as rows, triggers email for offline users
-- **Idle detection** client-side (5 min timeout) with server broadcast
+- **Custom server** server.ts wraps Next.js with Socket.io for WebSocket support
+- **Presence** tracked in-memory on the Socket.io server using Map<userId, Set<socketId>>
+- **Messages** persisted to DB on send, then broadcast to all channel subscribers
+- **Mentions** parsed from message content, stored as rows, triggers Resend email for offline users
+- **Idle detection** client-side 5-minute timeout with server broadcast
 
-## Built by
+## GitHub Topics
 
-[Bitcoineo](https://github.com/bitcoineo)
+`nextjs` `typescript` `socket-io` `real-time` `chat` `websockets` `drizzle-orm` `turso` `authjs` `resend` `react-email` `tailwind` `presence`
