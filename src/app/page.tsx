@@ -52,17 +52,6 @@ export default async function Home() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 md:flex-row md:items-center md:gap-16">
           {/* Left — copy (55%) */}
           <div className="animate-fadeInUp text-center md:w-[55%] md:text-left">
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 28 28"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="mx-auto mb-4 md:mx-0"
-            >
-              <path d="M5 2h18a3 3 0 013 3v11a3 3 0 01-3 3h-9l-4 5v-5H5a3 3 0 01-3-3V5a3 3 0 013-3z" fill="var(--accent)" />
-              <path d="M15 5L11 11h2.5L12.5 16 17 10h-2.5L15 5z" fill="white" />
-            </svg>
             <h1 className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
               Your team&apos;s conversations. <span className="text-[var(--accent)]">All in one place</span>.
             </h1>
