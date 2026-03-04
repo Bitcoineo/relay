@@ -12,7 +12,11 @@ function SignInForm() {
   const [password, setPassword] = useState("");
   const urlError = searchParams.get("error");
   const [error, setError] = useState(
-    urlError === "invalid-token" ? "Invalid or expired verification link." : ""
+    urlError === "invalid-token"
+      ? "Invalid or expired verification link."
+      : urlError === "OAuthAccountNotLinked"
+        ? "This email is already registered. Sign in with your password, then link Google from settings."
+        : ""
   );
   const [loading, setLoading] = useState(false);
 
