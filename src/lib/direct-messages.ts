@@ -1,4 +1,4 @@
-import { eq, and } from "drizzle-orm";
+import { eq, and, inArray } from "drizzle-orm";
 import { db } from "@/db";
 import { channels, channelMembers } from "@/db/schema";
 
@@ -54,6 +54,7 @@ export async function getOrCreateDM(
 
 /**
  * Get all DM channels for a user in a workspace, with the other user's info.
+ * Uses a single batch query instead of N+1.
  */
 export async function getUserDMs(
   workspaceId: string,
@@ -76,46 +77,45 @@ export async function getUserDMs(
   // Get all channel memberships for this user
   const memberships = await db.query.channelMembers.findMany({
     where: eq(channelMembers.userId, userId),
-    with: {
-      channel: true,
-    },
+    with: { channel: true },
   });
 
   // Filter to DM channels in this workspace
-  const dmChannels = memberships
-    .filter((m) => m.channel.workspaceId === workspaceId && m.channel.isDm === 1);
+  const dmChannelIds = memberships
+    .filter((m) => m.channel.workspaceId === workspaceId && m.channel.isDm === 1)
+    .map((m) => m.channelId);
 
-  const result = await Promise.all(
-    dmChannels.map(async (dm) => {
-      // Find the other member
-      const otherMembership = await db.query.channelMembers.findMany({
-        where: eq(channelMembers.channelId, dm.channelId),
-        with: {
-          user: {
-            columns: {
-              id: true,
-              name: true,
-              email: true,
-              avatarColor: true,
-              profileImage: true,
-              status: true,
-            },
-          },
+  if (dmChannelIds.length === 0) {
+    return { data: [], error: null };
+  }
+
+  // Batch: fetch ALL members of ALL DM channels in one query
+  const allDmMembers = await db.query.channelMembers.findMany({
+    where: inArray(channelMembers.channelId, dmChannelIds),
+    with: {
+      user: {
+        columns: {
+          id: true,
+          name: true,
+          email: true,
+          avatarColor: true,
+          profileImage: true,
+          status: true,
         },
-      });
+      },
+    },
+  });
 
-      const other = otherMembership.find((m) => m.userId !== userId);
+  // Group by channelId and find the other user
+  const result = dmChannelIds
+    .map((channelId) => {
+      const other = allDmMembers.find(
+        (m) => m.channelId === channelId && m.userId !== userId
+      );
       if (!other) return null;
-
-      return {
-        channelId: dm.channelId,
-        otherUser: other.user,
-      };
+      return { channelId, otherUser: other.user };
     })
-  );
+    .filter((r): r is NonNullable<typeof r> => r !== null);
 
-  return {
-    data: result.filter((r): r is NonNullable<typeof r> => r !== null),
-    error: null,
-  };
+  return { data: result, error: null };
 }

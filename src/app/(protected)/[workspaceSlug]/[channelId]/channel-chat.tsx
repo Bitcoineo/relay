@@ -13,15 +13,6 @@ import PinnedMessagesPanel from "./pinned-messages-panel";
 import type { Message, MemberInfo, MessageUser } from "./chat-types";
 import { getUserColor, getUserName } from "./chat-types";
 
-interface DmOtherUser {
-  id: string;
-  name: string | null;
-  email: string;
-  avatarColor: string | null;
-  profileImage: string | null;
-  status: string;
-}
-
 interface ChannelChatProps {
   channelId: string;
   channelName: string;
@@ -35,7 +26,7 @@ interface ChannelChatProps {
   isDefault?: boolean;
   channels?: Array<{ id: string; name: string }>;
   isDm?: boolean;
-  dmOtherUser?: DmOtherUser;
+  dmOtherUser?: MemberInfo;
 }
 
 export default function ChannelChat({
@@ -373,7 +364,15 @@ export default function ChannelChat({
       {/* Channel header */}
       <header className="flex flex-shrink-0 items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] pl-14 pr-6 py-3 md:pl-6">
         <div className="flex items-center">
-          {isDm && dmOtherUser ? (
+          {isDm && dmOtherUser ? (() => {
+            const dmStatus = getMemberStatus(dmOtherUser.id);
+            const dmStatusDot =
+              dmStatus === "online"
+                ? "bg-[var(--success)]"
+                : dmStatus === "idle"
+                  ? "bg-[var(--warning)]"
+                  : "bg-[var(--border-strong)]";
+            return (
             <>
               <div className="relative mr-2 flex-shrink-0">
                 {dmOtherUser.profileImage ? (
@@ -394,23 +393,18 @@ export default function ChannelChat({
                   </div>
                 )}
                 <span
-                  className={`absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] ${
-                    getMemberStatus(dmOtherUser.id) === "online"
-                      ? "bg-[var(--success)]"
-                      : getMemberStatus(dmOtherUser.id) === "idle"
-                        ? "bg-[var(--warning)]"
-                        : "bg-[var(--border-strong)]"
-                  }`}
+                  className={`absolute -bottom-px -right-px h-1.5 w-1.5 rounded-full border border-[var(--status-dot-border)] ${dmStatusDot}`}
                 />
               </div>
               <h1 className="text-base font-semibold text-[var(--text-primary)]">
                 {dmOtherUser.name || dmOtherUser.email.split("@")[0]}
               </h1>
               <span className="ml-2 text-sm capitalize text-[var(--text-muted)]">
-                {getMemberStatus(dmOtherUser.id)}
+                {dmStatus}
               </span>
             </>
-          ) : (
+            );
+          })() : (
             <>
               <span className="mr-1.5 text-[var(--text-muted)]">#</span>
               <h1 className="text-base font-semibold text-[var(--text-primary)]">

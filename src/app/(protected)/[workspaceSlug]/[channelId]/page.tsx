@@ -4,6 +4,7 @@ import { getChannelById, getWorkspaceChannels, getChannelMembers } from "@/lib/c
 import { getWorkspaceBySlug } from "@/lib/workspaces";
 import { getWorkspaceMembers } from "@/lib/members";
 import { hasPermission } from "@/lib/permissions";
+import type { MemberInfo } from "./chat-types";
 import ChannelChat from "./channel-chat";
 
 export default async function ChannelPage({
@@ -22,27 +23,18 @@ export default async function ChannelPage({
 
   const isDm = channel.isDm === 1;
 
-  const [{ data: members }, adminPerm, ownerPerm, { data: allChannels }] =
+  const [{ data: members }, adminPerm, ownerPerm, { data: allChannels }, dmChannelMembers] =
     await Promise.all([
       getWorkspaceMembers(workspace.id),
       hasPermission(session.user.id, workspace.id, "admin"),
       hasPermission(session.user.id, workspace.id, "owner"),
       getWorkspaceChannels(workspace.id, session.user.id, true),
+      isDm ? getChannelMembers(channel.id) : Promise.resolve(null),
     ]);
 
-  // For DMs, resolve the other user
-  let dmOtherUser: {
-    id: string;
-    name: string | null;
-    email: string;
-    avatarColor: string | null;
-    profileImage: string | null;
-    status: string;
-  } | undefined;
-
-  if (isDm) {
-    const channelMembersList = await getChannelMembers(channel.id);
-    const other = channelMembersList.find((m) => m.userId !== session.user.id);
+  let dmOtherUser: MemberInfo | undefined;
+  if (isDm && dmChannelMembers) {
+    const other = dmChannelMembers.find((m) => m.userId !== session.user.id);
     if (other) {
       dmOtherUser = other.user;
     }
